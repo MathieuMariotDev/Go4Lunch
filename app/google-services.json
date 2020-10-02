@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "693760610986",
+    "firebase_url": "https://go4lunch-48344.firebaseio.com",
+    "project_id": "go4lunch-48344",
+    "storage_bucket": "go4lunch-48344.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693760610986:android:da39e7da90a2476bbc76d3",
+        "android_client_info": {
+          "package_name": "com.example.go4lunch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "693760610986-d7r74vjp2fnndn17tgphtgiphmil8vbv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4GDPOieXXcMdnNkLu9Ve9f9wUHQir2jI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "693760610986-d7r74vjp2fnndn17tgphtgiphmil8vbv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
