@@ -1,8 +1,9 @@
 package com.example.go4lunch;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -11,14 +12,13 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.go4lunch.auth.ProfileActivity;
 import com.example.go4lunch.databinding.ActivityMainBinding;
 import com.example.go4lunch.databinding.ActivityMainNavHeaderBinding;
+import com.example.go4lunch.ui.Map.MapsFragment;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.maps.model.PointOfInterest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
@@ -26,17 +26,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private ProfileActivity mProfileActivity;
     public ActivityMainBinding mBinding;
@@ -45,7 +45,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     // Access a Cloud Firestore instance from your Activity
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    public boolean mLocationPermission = false;
+    private boolean permissionDenied = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +68,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
-
+        locationPermission();
     }
 
 
@@ -116,8 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.activity_main_drawer_your_lunch:
-                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(intent);
                 break;
             case R.id.activity_main_drawer_settings:
                 break;
@@ -164,4 +163,73 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(loginIntent);
     }
 
+    ///For permission///
+
+    public boolean locationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            return mLocationPermission = true;
+        } else {
+            LocationPermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
+                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+        }
+        return mLocationPermission;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            return;
+        }
+
+        if (LocationPermissionUtils.isPermissionGranted(permissions, grantResults, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // Enable the my location layer if the permission has been granted.
+            locationPermission();
+            FragmentManager fm = getSupportFragmentManager();
+
+            MapsFragment fragment = (MapsFragment) fm.findFragmentById(R.id.navigation_home);
+            fragment.enableMyLocation();
+
+
+        } else {
+            // Permission was denied. Display an error message
+            // Display the missing permission error dialog when the fragments resume.
+            permissionDenied = true;
+        }
+
+    }
+
+   /* @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        if (permissionDenied) {
+            // Permission was not granted, display error dialog.
+            showMissingPermissionError();
+            permissionDenied = false;
+        }
+    }*/
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (permissionDenied) {
+            // Permission was not granted, display error dialog.
+            showMissingPermissionError();
+            permissionDenied = false;
+        }
+    }
+
+    public void showMissingPermissionError() {
+        LocationPermissionUtils.PermissionDeniedDialog
+                .newInstance(false).show(getSupportFragmentManager(), "dialog");
+
+    }
+
+
+    public void startDetailActivity(String placeId) {
+        Intent detailItent = new Intent(MainActivity.this, DetailActivity.class);
+        detailItent.putExtra("PlaceId", placeId);
+        startActivity(detailItent);
+    }
 }

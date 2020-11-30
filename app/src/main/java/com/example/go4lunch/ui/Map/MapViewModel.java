@@ -1,10 +1,9 @@
-package com.example.go4lunch.ui.notifications;
+package com.example.go4lunch.ui.Map;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class WorkmatesViewModel extends ViewModel {
-
+public class MapViewModel extends ViewModel {
 
 }

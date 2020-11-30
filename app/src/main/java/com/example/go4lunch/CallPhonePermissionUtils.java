@@ -70,7 +70,7 @@ public abstract class CallPhonePermissionUtils {
      */
     public static class PermissionDeniedDialog extends DialogFragment {
 
-        //private static final String ARGUMENT_FINISH_ACTIVITY = "finish";
+        private static final String ARGUMENT_FINISH_ACTIVITY = "finish";
 
         private boolean mFinishActivity = false;
 
@@ -80,7 +80,7 @@ public abstract class CallPhonePermissionUtils {
          */
         public static PermissionDeniedDialog newInstance(boolean finishActivity) {
             Bundle arguments = new Bundle();
-            //arguments.putBoolean(ARGUMENT_FINISH_ACTIVITY, finishActivity);
+            arguments.putBoolean(ARGUMENT_FINISH_ACTIVITY, finishActivity);
 
             PermissionDeniedDialog dialog = new PermissionDeniedDialog();
             dialog.setArguments(arguments);
@@ -100,11 +100,11 @@ public abstract class CallPhonePermissionUtils {
         @Override
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
-            //if (mFinishActivity) {
-            Toast.makeText(getActivity(), R.string.permission_required_callphone_toast,
-                    Toast.LENGTH_SHORT).show();
-            //getActivity().finish();
-            //}
+            if (mFinishActivity) {
+                Toast.makeText(getActivity(), R.string.permission_required_callphone_toast,
+                        Toast.LENGTH_SHORT).show();
+                getActivity().finish();
+            }
         }
     }
 
@@ -172,13 +172,13 @@ public abstract class CallPhonePermissionUtils {
         @Override
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
-            //if (mFinishActivity) {
-            Toast.makeText(getActivity(),
-                    R.string.permission_required_callphone_toast,
-                    Toast.LENGTH_SHORT)
-                    .show();
-            //getActivity().finish();
-            //}
+            if (mFinishActivity) {
+                Toast.makeText(getActivity(),
+                        R.string.permission_required_callphone_toast,
+                        Toast.LENGTH_SHORT)
+                        .show();
+                getActivity().finish();
+            }
         }
     }
 }

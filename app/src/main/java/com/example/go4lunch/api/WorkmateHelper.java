@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import javax.annotation.Nullable;
 
@@ -22,7 +23,7 @@ public class WorkmateHelper {
 
     // --- CREATE ---
 
-    public static Task<Void> createUser(String uid, String username, @Nullable PointOfInterest idSelectedRestaurant, @Nullable PointOfInterest idLikeRestaurant, String urlPicture) {
+    public static Task<Void> createUser(String uid, String username, @Nullable String idSelectedRestaurant, @Nullable String idLikeRestaurant, String urlPicture) {
         Workmate userToCreate = new Workmate(uid, username, idSelectedRestaurant, idLikeRestaurant, urlPicture);
         return WorkmateHelper.getUsersCollection().document(uid).set(userToCreate);
     }
@@ -33,13 +34,14 @@ public class WorkmateHelper {
         return WorkmateHelper.getUsersCollection().document(uid).get();
     }
 
+
     // --- UPDATE ---
 
-    public static Task<Void> updateIdSelectedRestaurant(PointOfInterest idSelectedRestaurant, String uid) {
+    public static Task<Void> updateIdSelectedRestaurant(String uid, String idSelectedRestaurant) {
         return WorkmateHelper.getUsersCollection().document(uid).update("idSelectedRestaurant", idSelectedRestaurant);
     }
 
-    public static Task<Void> updateIdLikeRestaurant(String uid, PointOfInterest idLikeRestaurant) {
+    public static Task<Void> updateIdLikeRestaurant(String uid, String idLikeRestaurant) {
         return WorkmateHelper.getUsersCollection().document(uid).update("idLikeRestaurant", idLikeRestaurant); //Need modif for add
     }
 
@@ -48,4 +50,10 @@ public class WorkmateHelper {
     public static Task<Void> deleteUser(String uid) {
         return WorkmateHelper.getUsersCollection().document(uid).delete();
     }
+
+    public static Query getAllWorkmates() {
+        return WorkmateHelper.getUsersCollection().orderBy("uid", Query.Direction.DESCENDING);
+    }
+
+
 }

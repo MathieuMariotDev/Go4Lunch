@@ -10,16 +10,16 @@ public class Workmate {
 
 
     private String uid;
-    private PointOfInterest idSelectedRestaurant;
+    private String idSelectedRestaurant;
 
-    private PointOfInterest idLikeRestaurant;
+    private String idLikeRestaurant;
 
     private String username;
 
     private String urlPicture;
 
 
-    public Workmate(String uid, String username, @Nullable PointOfInterest idSelectedRestaurant, @Nullable PointOfInterest idLikeRestaurant, String urlPicture) {
+    public Workmate(String uid, String username, @Nullable String idSelectedRestaurant, @Nullable String idLikeRestaurant, String urlPicture) {
         this.uid = uid;
         this.username = username;
         this.idSelectedRestaurant = idSelectedRestaurant;
@@ -27,11 +27,14 @@ public class Workmate {
         this.urlPicture = urlPicture;
     }
 
-    public PointOfInterest getIdSelectedRestaurant() {
+    public Workmate() {
+    }
+
+    public String getIdSelectedRestaurant() {
         return idSelectedRestaurant;
     }
 
-    public PointOfInterest getIdLikeRestaurant() {
+    public String getIdLikeRestaurant() {
         return idLikeRestaurant;
     }
 
@@ -44,11 +47,11 @@ public class Workmate {
     }
 
 
-    public void setIdSelectedRestaurant(PointOfInterest idSelectedRestaurant) {
+    public void setIdSelectedRestaurant(String idSelectedRestaurant) {
         this.idSelectedRestaurant = idSelectedRestaurant;
     }
 
-    public void setIdLikeRestaurant(PointOfInterest idLikeRestaurant) {
+    public void setIdLikeRestaurant(String idLikeRestaurant) {
         this.idLikeRestaurant = idLikeRestaurant;
     }
 

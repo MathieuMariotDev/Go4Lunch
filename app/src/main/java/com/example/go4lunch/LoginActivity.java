@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             String urlPicture = (this.getCurrentUser().getPhotoUrl() != null) ? this.getCurrentUser().getPhotoUrl().toString() : null;
             String username = this.getCurrentUser().getDisplayName();
             String uid = this.getCurrentUser().getUid();
-            WorkmateHelper.createUser(uid, username, null, null, urlPicture).addOnFailureListener(this.onFailureListener());
+            WorkmateHelper.createUser(uid, username, "No place selected", "No like place", urlPicture).addOnFailureListener(this.onFailureListener());
         }
     }
     // --------------------

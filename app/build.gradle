@@ -34,17 +34,17 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'androidx.navigation:navigation-fragment:2.3.0'
-    implementation 'androidx.navigation:navigation-ui:2.3.0'
+    implementation 'androidx.navigation:navigation-fragment:2.3.1'
+    implementation 'androidx.navigation:navigation-ui:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    implementation 'com.google.firebase:firebase-analytics:18.0.0'
     // Firebase SDK for google analytics
 
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
@@ -52,6 +52,9 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)' // Facebook SDK
 
     implementation 'com.google.android.libraries.places:places:2.4.0'// Google place
+
+    implementation 'com.google.maps:google-maps-services:0.11.0' // For NearbySearch
+
 
     implementation 'com.android.support:multidex:1.0.3'  // For unlock 64k reference limit
 
@@ -62,7 +65,15 @@ dependencies {
     // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
-    implementation 'com.google.firebase:firebase-firestore:21.6.0' // SDK Firebase admin for cloud firstore
+    implementation 'com.google.firebase:firebase-firestore:22.0.0'
+    // SDK Firebase admin for cloud firstore
+
+    implementation 'com.firebaseui:firebase-ui-firestore:4.3.1' // For recycler
+
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    // For avoid bug "Expected Android API level 21+ but was 30"
 
 
 }

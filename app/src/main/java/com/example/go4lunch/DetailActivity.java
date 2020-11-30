@@ -1,6 +1,7 @@
 package com.example.go4lunch;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -8,20 +9,27 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.ActivityDetailBinding;
+import com.example.go4lunch.model.Workmate;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPhotoRequest;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,6 +45,8 @@ public class DetailActivity extends AppCompatActivity {
     private Uri mUriUrl;
     private static final int CALLPHONE_PERMISSION_REQUEST_CODE = 2;
     private boolean permissionDenied = false;
+    @Nullable
+    private Workmate modelCurrentWorkmate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +57,10 @@ public class DetailActivity extends AppCompatActivity {
         placeIdSelected = getIntent().getStringExtra("PlaceId");
         Log.i("INFO", "PlaceId :" + placeIdSelected);
         setupPlace();
+        getCurrentWorkmateFromFirestore();
         onCickPhone();
         onCickWeb();
-
+        onClickSelectRestaurant();
     }
 
 
@@ -83,7 +94,7 @@ public class DetailActivity extends AppCompatActivity {
             mPlace = response.getPlace();
             setupTextView();
             Log.i("INFO", "Place found: " + mPlace.getName());
-
+            placeIdSelected = mPlace.getId(); // placeIdSelect with the good id
             // Get the photo metadata.
             final List<PhotoMetadata> metadata = mPlace.getPhotoMetadatas();
             if (metadata == null || metadata.isEmpty()) {
@@ -146,6 +157,46 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
+    public void onClickSelectRestaurant() {
+        mActivityDetailBinding.imageButtonChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (modelCurrentWorkmate != null) {
+                    if (modelCurrentWorkmate.getIdSelectedRestaurant().equals(placeIdSelected)) {
+                        mActivityDetailBinding.imageButtonChoose.setBackgroundColor(Color.WHITE);
+                        updateDbWithSelectRestaurant("No place selected");
+                        Toast.makeText(DetailActivity.this, "You have just indicated that you no longer wish to eat in this restaurant this noon", Toast.LENGTH_LONG).show();
+                    } else if (!placeIdSelected.equals(modelCurrentWorkmate.getIdSelectedRestaurant())) {
+                        updateDbWithSelectRestaurant(placeIdSelected);
+                        mActivityDetailBinding.imageButtonChoose.setBackgroundColor(Color.BLUE);
+                        Toast.makeText(DetailActivity.this, "You have just indicated that you wish to eat in this restaurant this lunchtime", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+    }
+
+    @Nullable
+    protected FirebaseUser getCurrentUser() {
+        return FirebaseAuth.getInstance().getCurrentUser();
+    }
+
+    public void updateDbWithSelectRestaurant(@Nullable String placeId) {
+        WorkmateHelper.updateIdSelectedRestaurant(getCurrentUser().getUid(), placeId);
+        modelCurrentWorkmate.setIdSelectedRestaurant(placeId);
+    }
+
+    public void getCurrentWorkmateFromFirestore() {
+
+        WorkmateHelper.getUser(getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                modelCurrentWorkmate = documentSnapshot.toObject(Workmate.class);
+                updateColorButton();
+            }
+        });
+
+    }
     /// Permission CALL PHONE
 
     public void enableCallPhone() {
@@ -157,7 +208,17 @@ public class DetailActivity extends AppCompatActivity {
         } else {
             // Permission to access the location is missing. Show rationale and request permission
             CallPhonePermissionUtils.requestPermission(this, CALLPHONE_PERMISSION_REQUEST_CODE,
-                    Manifest.permission.CALL_PHONE, false);
+                    Manifest.permission.CALL_PHONE, true);
+        }
+    }
+
+    public void updateColorButton() {
+        if (modelCurrentWorkmate != null) {
+            if (modelCurrentWorkmate.getIdSelectedRestaurant().equals(placeIdSelected)) {
+                mActivityDetailBinding.imageButtonChoose.setBackgroundColor(Color.BLUE);
+            } else if (!placeIdSelected.equals(modelCurrentWorkmate.getIdSelectedRestaurant())) {
+                mActivityDetailBinding.imageButtonChoose.setBackgroundColor(Color.WHITE);
+            }
         }
     }
 
@@ -195,7 +256,7 @@ public class DetailActivity extends AppCompatActivity {
      */
     private void showMissingPermissionError() {
         CallPhonePermissionUtils.PermissionDeniedDialog
-                .newInstance(true).show(getSupportFragmentManager(), "dialog");
+                .newInstance(false).show(getSupportFragmentManager(), "dialog");
 
     }
 }
