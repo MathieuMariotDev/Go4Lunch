@@ -6,4 +6,14 @@ import androidx.lifecycle.ViewModel;
 
 public class MapViewModel extends ViewModel {
 
+    private MutableLiveData<Boolean> mAuthorization = new MutableLiveData<Boolean>();
+
+    public void setAuthorization(boolean authorization) {
+        mAuthorization.setValue(authorization);
+    }
+
+    public LiveData<Boolean> getAuthorization() {
+        return mAuthorization;
+    }
+
 }

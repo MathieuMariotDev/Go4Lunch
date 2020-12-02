@@ -12,6 +12,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.go4lunch.auth.ProfileActivity;
 import com.example.go4lunch.databinding.ActivityMainBinding;
 import com.example.go4lunch.databinding.ActivityMainNavHeaderBinding;
+import com.example.go4lunch.ui.Map.MapViewModel;
 import com.example.go4lunch.ui.Map.MapsFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.maps.model.PointOfInterest;
@@ -31,6 +32,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     public boolean mLocationPermission = false;
     private boolean permissionDenied = false;
-
+    private MapViewModel mapViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());  // Creates an instance of the binding class
         View view = mBinding.getRoot(); // Get a reference to the root view
         setContentView(view);
+
         //BottomNavigationView navView = findViewById(R.id.nav_view);
         BottomNavigationView navView = mBinding.navView;
         configureToolbar();
@@ -67,11 +70,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+        mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-
         locationPermission();
+
     }
 
 
@@ -168,7 +172,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean locationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            return mLocationPermission = true;
+            mapViewModel.setAuthorization(true);
+            mLocationPermission = true;
         } else {
             LocationPermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
@@ -186,11 +191,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (LocationPermissionUtils.isPermissionGranted(permissions, grantResults, Manifest.permission.ACCESS_FINE_LOCATION)) {
             // Enable the my location layer if the permission has been granted.
             locationPermission();
-            FragmentManager fm = getSupportFragmentManager();
-
-            MapsFragment fragment = (MapsFragment) fm.findFragmentById(R.id.navigation_home);
-            fragment.enableMyLocation();
-
+            //FragmentManager fm = getSupportFragmentManager();
+            //MapsFragment fragment = (MapsFragment) fm.findFragmentById(R.id.navigation_home); ////*****/////
+            //fragment.enableMyLocation();
+            mapViewModel.setAuthorization(true);
 
         } else {
             // Permission was denied. Display an error message
@@ -200,15 +204,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-   /* @Override
-    protected void onResumeFragments() {
-        super.onResumeFragments();
-        if (permissionDenied) {
-            // Permission was not granted, display error dialog.
-            showMissingPermissionError();
-            permissionDenied = false;
-        }
-    }*/
 
     @Override
     protected void onResume() {
@@ -216,7 +211,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (permissionDenied) {
             // Permission was not granted, display error dialog.
             showMissingPermissionError();
-            permissionDenied = false;
         }
     }
 
