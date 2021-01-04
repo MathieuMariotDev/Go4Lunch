@@ -3,10 +3,7 @@ package com.example.go4lunch.ui.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,10 +21,7 @@ import com.example.go4lunch.MainActivity;
 import com.example.go4lunch.R;
 
 import com.example.go4lunch.api.WorkmateHelper;
-import com.example.go4lunch.ui.dashboard.DashboardViewModel;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -61,8 +55,6 @@ import java.util.concurrent.Executors;
 
 import com.google.maps.errors.ApiException;
 
-import static com.android.volley.VolleyLog.setTag;
-
 public class MapsFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnPoiClickListener, LocationListener,
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnCameraIdleListener {
@@ -82,12 +74,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     private boolean permission = false;
     private PlacesClient mPlacesClient;
     private String mPlaceId;
-    private String apiKey = "AIzaSyBTPcwwTbo4DNE3r1QZtx9r4s0o-WjA4nI";
+    private String apiKey = "AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw";
     private Place mPlace;
     private LocationManager locationManager;
     private PlacesSearchResult[] placesSearchResults;
     private MapViewModel mMapViewModel;
-    List<Place> mPlacesSelected = new ArrayList<>();
+    private List<Place> mPlacesSelected = new ArrayList<>();
 
     /**
      * Manipulates the map once available.
@@ -129,7 +121,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                         FetchPlaceRequest request = FetchPlaceRequest.builder(idMarkerSelected, placeFields)
                                 .build();
                         mPlacesClient.fetchPlace(request).addOnSuccessListener((response) -> {
-                            mPlacesSelected.isEmpty();
+                            mPlacesSelected.clear();
                             mPlace = response.getPlace();
                             mPlacesSelected.add(response.getPlace());
                             //mMap.addMarker(new MarkerOptions().position(mPlace.getLatLng()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
@@ -248,11 +240,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     public void onLocationChanged(@NonNull Location location) {
         Log.d("onLocationChanged////", "Latitude :" + location.getLatitude() + "Longitude" + location.getLongitude());
         this.location = new LatLng(location.getLatitude(), location.getLongitude());
+        //mMapViewModel.setLocation(new LatLng(location.getLatitude(), location.getLongitude()));
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
         updateMapWhitCustomMarker();
+        mMapViewModel.setLocation(location);
         return false;
     }
 

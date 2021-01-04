@@ -37,7 +37,7 @@ public class WorkmatesFragment extends Fragment /*implements WorkmatesAdapter.Li
     private WorkmatesAdapter mAdapter;
     private FragmentWorkmatesBinding mFragmentWorkmatesBinding;
     private CollectionReference workmatesRef = WorkmateHelper.getUsersCollection();
-    private String apiKey = "AIzaSyBTPcwwTbo4DNE3r1QZtx9r4s0o-WjA4nI";
+    private String apiKey = "AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw";
     private PlacesClient mPlacesClient;
 
     @Nullable

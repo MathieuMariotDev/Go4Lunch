@@ -38,7 +38,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private ActivityDetailBinding mActivityDetailBinding;
     private String placeIdSelected;
-    private String apiKey = "AIzaSyBTPcwwTbo4DNE3r1QZtx9r4s0o-WjA4nI";
+    private String apiKey = "AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw";
     private Place mPlace;
     private Bitmap mPicture;
     private String mPhone;
@@ -103,8 +103,8 @@ public class DetailActivity extends AppCompatActivity {
             }
             final PhotoMetadata photoMetadata = metadata.get(0);
 
-            // Get the attribution text.
-            final String attributions = photoMetadata.getAttributions();
+            /*// Get the attribution text.
+            final String attributions = photoMetadata.getAttributions();*/
 
             // Create a FetchPhotoRequest.
             final FetchPhotoRequest photoRequest = FetchPhotoRequest.builder(photoMetadata)
