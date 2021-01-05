@@ -1,11 +1,10 @@
 package com.example.go4lunch.ui.dashboard;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,9 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
-import com.example.go4lunch.WorkmatesAdapter;
 import com.example.go4lunch.databinding.ItemListBinding;
-import com.example.go4lunch.databinding.ItemWorkmateBinding;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.model.Place;
@@ -26,23 +23,23 @@ import com.google.maps.model.PlacesSearchResult;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Objects;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
     private PlacesSearchResult[] mPlacesSearchResults;
     private PlacesClient mPlacesClient;
     private final RequestManager glide;
+    private Location mLocation;
+    private List<String> mListSelectedRestaurant;
 
-    public ListAdapter(@Nullable PlacesSearchResult[] placesSearchResults, PlacesClient placesClient, RequestManager glide) {
+    public ListAdapter(@Nullable PlacesSearchResult[] placesSearchResults, PlacesClient placesClient, RequestManager glide, Location location, List<String> listSelectedRestaurant) {
         mPlacesSearchResults = placesSearchResults;
         mPlacesClient = placesClient;
         this.glide = glide;
+        mLocation = location;
+        mListSelectedRestaurant = listSelectedRestaurant;
     }
 
     public void updatePlaceSearchResult(@NonNull final PlacesSearchResult[] placesSearchResults) {
@@ -79,6 +76,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         private Bitmap mPicture;
         Calendar mCalendar = Calendar.getInstance();
         int day = mCalendar.get(Calendar.DAY_OF_WEEK);
+        private Location locationRestaurant = new Location("NerbySearch");
+        private float mDistance;
+        private int nbWorkamte = 0;
         int rating;
 
         public ListViewHolder(@NonNull @NotNull ItemListBinding itemListBinding) {
@@ -90,13 +90,24 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
         @SuppressLint("SetTextI18n")
         void bind(PlacesSearchResult[] placesSearchResults, RequestManager glide, PlacesClient mPlacesClients, int position) {
-            List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.OPENING_HOURS, Place.Field.ADDRESS, Place.Field.PHOTO_METADATAS, Place.Field.RATING);
+            List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.OPENING_HOURS, Place.Field.ADDRESS, Place.Field.PHOTO_METADATAS, Place.Field.RATING, Place.Field.LAT_LNG);
             FetchPlaceRequest request = FetchPlaceRequest.builder(placesSearchResults[position].placeId, placeFields)
                     .build();
             mPlacesClients.fetchPlace(request).addOnSuccessListener((response) -> {
+
                 mPlace = response.getPlace();
+                for (String id : mListSelectedRestaurant) {
+                    if (id.equals(mPlace.getId())) {
+                        nbWorkamte = nbWorkamte + 1;
+                    }
+                }
+                mItemListBinding.restaurantWorkmate.setText(String.valueOf(nbWorkamte));
                 mItemListBinding.restaurantName.setText(mPlace.getName());
                 mItemListBinding.restaurantAddresse.setText(mPlace.getAddress());
+                locationRestaurant.setLatitude(mPlace.getLatLng().latitude);
+                locationRestaurant.setLongitude(mPlace.getLatLng().longitude);
+                mDistance = mLocation.distanceTo(locationRestaurant);
+                mItemListBinding.restaurantDistance.setText(String.valueOf((int) mDistance) + "m");
                 if (mPlace.getOpeningHours() != null) {
                     switch (day) {
                         case Calendar.MONDAY:
@@ -143,8 +154,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
                 // Create a FetchPhotoRequest.
                 final FetchPhotoRequest photoRequest = FetchPhotoRequest.builder(photoMetadata)
-                        .setMaxWidth(150) // Optional.
-                        .setMaxHeight(150) // Optional.
+                        .setMaxWidth(250) // Optional.
+                        .setMaxHeight(250) // Optional.
                         .build();
                 mPlacesClient.fetchPhoto(photoRequest).addOnSuccessListener((fetchPhotoResponse) -> {
                     mPicture = fetchPhotoResponse.getBitmap();

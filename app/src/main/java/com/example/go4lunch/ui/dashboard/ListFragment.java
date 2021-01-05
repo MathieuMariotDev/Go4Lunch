@@ -1,5 +1,6 @@
 package com.example.go4lunch.ui.dashboard;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,15 +16,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.go4lunch.R;
+import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentListBinding;
 import com.example.go4lunch.databinding.FragmentWorkmatesBinding;
 import com.example.go4lunch.ui.Map.MapViewModel;
+import com.facebook.places.model.PlaceFields;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPhotoRequest;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.maps.GeoApiContext;
 import com.google.maps.PlacesApi;
 import com.google.maps.errors.ApiException;
@@ -34,6 +41,8 @@ import com.google.maps.model.PlacesSearchResult;
 import com.google.maps.model.RankBy;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -48,7 +57,8 @@ public class ListFragment extends Fragment {
     private LatLng location;
     private PlacesClient mPlacesClient;
     private ListAdapter mListAdapter;
-    private LatLng mLocation;
+    private Location currentLocation = new Location("FineLocation");
+    private List<String> listPlaceId = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +67,7 @@ public class ListFragment extends Fragment {
         mMapViewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
         setupPlaceApi();
         getLocation();
+        getRestaurantSelected();
         configureRecyclerView();
         requestPlace();
         return view;
@@ -71,7 +82,7 @@ public class ListFragment extends Fragment {
 
     public void configureRecyclerView() {
         lRecyclerView = mFragmentListBinding.listRestaurant;
-        mListAdapter = new ListAdapter(placesSearchResults, mPlacesClient, Glide.with(this));
+        mListAdapter = new ListAdapter(placesSearchResults, mPlacesClient, Glide.with(this), currentLocation, listPlaceId);
         lRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         lRecyclerView.setAdapter(mListAdapter);
     }
@@ -83,8 +94,8 @@ public class ListFragment extends Fragment {
                 .build();
         try {
             request = PlacesApi.nearbySearchQuery(context, location)
-                    .radius(5000)
                     .type(PlaceType.RESTAURANT)
+                    .rankby(RankBy.DISTANCE)
                     .await();
             placesSearchResults = request.results;
         } catch (ApiException | IOException | InterruptedException e) {
@@ -111,6 +122,8 @@ public class ListFragment extends Fragment {
     public void updateLocation(LatLng location) {
         //if(this.location == null || !(this.location.equals(location)) ){
         this.location = location;
+        currentLocation.setLatitude(location.lat);
+        currentLocation.setLongitude(location.lng);
         requestPlace();
         updateRecyclerView();
         //}
@@ -125,7 +138,19 @@ public class ListFragment extends Fragment {
         super.onResume();
     }
 
-
+    public void getRestaurantSelected() {
+        WorkmateHelper.getUsersCollection().get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String idMarkerSelected = document.getString("idSelectedRestaurant");
+                        listPlaceId.add(idMarkerSelected);
+                    }
+                }
+            }
+        });
+    }
      /*
     public void requestPlace(){
         for(PlacesSearchResult placesSearchResult : placesSearchResults){

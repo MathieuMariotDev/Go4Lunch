@@ -15,12 +15,13 @@
         android:layout_height="wrap_content"
         android:text="Restaurant name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/restaurant_addresse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
         android:text="Addresse restaurant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/restaurant_name" />
@@ -29,10 +30,31 @@
     <TextView
         android:id="@+id/restaurant_opening_hours"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:text="Opening hours error"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restaurant_addresse" />
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_addresse"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/restaurant_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="999m"
+        app:layout_constraintEnd_toStartOf="@+id/restaurant_picture"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/restaurant_workmate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="0"
+        app:layout_constraintEnd_toStartOf="@+id/restaurant_picture"
+        app:layout_constraintHorizontal_bias="0.985"
+        app:layout_constraintStart_toEndOf="@+id/restaurant_addresse"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_distance" />
 
     <TextView
         android:id="@+id/restaurant_rating"
@@ -40,8 +62,9 @@
         android:layout_height="wrap_content"
         android:text="9"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/restaurant_picture"
-        app:layout_constraintStart_toEndOf="@+id/restaurant_opening_hours" />
+        app:layout_constraintEnd_toEndOf="@+id/restaurant_workmate"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_workmate"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/restaurant_picture"
