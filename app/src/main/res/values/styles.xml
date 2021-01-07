@@ -30,4 +30,9 @@
         <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="colorControlNormal">@android:color/black</item>
     </style>
+
+    <style name="ToolBarStyleTop" parent="AppTheme">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
 </resources>

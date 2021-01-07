@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Intent;
@@ -16,9 +18,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.ActivityDetailBinding;
 import com.example.go4lunch.model.Workmate;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
@@ -29,7 +33,9 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,6 +51,10 @@ public class DetailActivity extends AppCompatActivity {
     private Uri mUriUrl;
     private static final int CALLPHONE_PERMISSION_REQUEST_CODE = 2;
     private boolean permissionDenied = false;
+    private CollectionReference workmatesRef = WorkmateHelper.getUsersCollection();
+    private RecyclerView recyclerView;
+    private WorkmatesAdapter mAdapter;
+    private PlacesClient placesClient;
     @Nullable
     private Workmate modelCurrentWorkmate;
 
@@ -57,10 +67,12 @@ public class DetailActivity extends AppCompatActivity {
         placeIdSelected = getIntent().getStringExtra("PlaceId");
         Log.i("INFO", "PlaceId :" + placeIdSelected);
         setupPlace();
+        placeRequest();
         getCurrentWorkmateFromFirestore();
         onCickPhone();
         onCickWeb();
         onClickSelectRestaurant();
+        configureRecyclerView();
     }
 
 
@@ -82,7 +94,11 @@ public class DetailActivity extends AppCompatActivity {
         Places.initialize(getApplicationContext(), apiKey);
 
         // Create a new PlacesClient instance
-        PlacesClient placesClient = Places.createClient(this);
+        placesClient = Places.createClient(this);
+    }
+
+    private void placeRequest() {
+
 
         // Specify the fields to return.
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.TYPES, Place.Field.ADDRESS, Place.Field.PHOTO_METADATAS, Place.Field.PHONE_NUMBER, Place.Field.WEBSITE_URI, Place.Field.RATING);
@@ -258,5 +274,32 @@ public class DetailActivity extends AppCompatActivity {
         CallPhonePermissionUtils.PermissionDeniedDialog
                 .newInstance(false).show(getSupportFragmentManager(), "dialog");
 
+    }
+
+    private void configureRecyclerView() {
+        recyclerView = (RecyclerView) mActivityDetailBinding.listWorkmatesDetail;
+        mAdapter = new WorkmatesAdapter(getWorkmates(), Glide.with(this), placesClient);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    private FirestoreRecyclerOptions<Workmate> getWorkmates() {
+        CollectionReference workmate = WorkmateHelper.getUsersCollection();
+        //Query query = workmate.whereEqualTo("idSelectedRestaurant",placeIdSelected);
+
+        /*query.addSnapshotListener(new EventListener<QuerySnapshot>(){
+          @Override
+                  public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e){
+              if(e !=null){
+                  Log.w("ERREUR", "Listen failed", e);
+              }
+              for (QueryDocumentSnapshot doc : value){
+                  WorkmateHelper.getUser(doc.get("uid")).addOnCompleteListener()
+              }
+            }
+        });*/
+        Query query = workmatesRef.whereEqualTo("idSelectedRestaurant", placeIdSelected);
+        return new FirestoreRecyclerOptions.Builder<Workmate>()
+                .setQuery(query, Workmate.class).setLifecycleOwner(this).build();
     }
 }

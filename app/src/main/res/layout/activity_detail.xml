@@ -70,4 +70,15 @@
         android:src="@android:drawable/ic_menu_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_info_restaurant" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_workmates_detail"
+        android:layout_width="320dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton_"
+        tools:listitem="@layout/item_workmate"></androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

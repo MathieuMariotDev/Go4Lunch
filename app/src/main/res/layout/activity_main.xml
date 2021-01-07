@@ -22,9 +22,17 @@
             android:id="@+id/activity_main_toolbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:theme="@style/ToolBarStyle"
+            android:theme="@style/ToolBarStyleTop"
 
             />
+
+
+        <fragment
+            android:id="@+id/autocomplete_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_gravity="end" />
 
 
         <FrameLayout

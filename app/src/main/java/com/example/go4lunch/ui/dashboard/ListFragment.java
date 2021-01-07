@@ -1,5 +1,6 @@
 package com.example.go4lunch.ui.dashboard;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.example.go4lunch.databinding.FragmentListBinding;
 import com.example.go4lunch.databinding.FragmentWorkmatesBinding;
 import com.example.go4lunch.ui.Map.MapViewModel;
 import com.facebook.places.model.PlaceFields;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
@@ -29,6 +31,8 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPhotoRequest;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.maps.GeoApiContext;
@@ -40,6 +44,8 @@ import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.model.PlacesSearchResult;
 import com.google.maps.model.RankBy;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -47,6 +53,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static android.content.ContentValues.TAG;
 
 public class ListFragment extends Fragment {
     private RecyclerView lRecyclerView;
@@ -168,4 +176,6 @@ public class ListFragment extends Fragment {
         });
         }
     }*/
+
+
 }

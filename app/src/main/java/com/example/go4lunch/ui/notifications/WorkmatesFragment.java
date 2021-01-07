@@ -3,6 +3,7 @@ package com.example.go4lunch.ui.notifications;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +17,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.go4lunch.DetailActivity;
 import com.example.go4lunch.MainActivity;
+import com.example.go4lunch.R;
 import com.example.go4lunch.WorkmatesAdapter;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentWorkmatesBinding;
 import com.example.go4lunch.model.Workmate;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.Query;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class WorkmatesFragment extends Fragment /*implements WorkmatesAdapter.Listener*/ {
