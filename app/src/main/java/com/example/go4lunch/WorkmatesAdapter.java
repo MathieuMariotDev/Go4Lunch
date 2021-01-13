@@ -47,7 +47,7 @@ public class WorkmatesAdapter extends FirestoreRecyclerAdapter<Workmate, Workmat
 
 
     private PlacesClient mPlacesClient;
-
+    private int idView;
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -56,10 +56,11 @@ public class WorkmatesAdapter extends FirestoreRecyclerAdapter<Workmate, Workmat
      * @param options
      * @param placesClient
      */
-    public WorkmatesAdapter(@NonNull FirestoreRecyclerOptions<Workmate> options, RequestManager glide, PlacesClient placesClient) {
+    public WorkmatesAdapter(@NonNull FirestoreRecyclerOptions<Workmate> options, RequestManager glide, PlacesClient placesClient, int idView) {
         super(options);
         this.glide = glide;
         this.mPlacesClient = placesClient;
+        this.idView = idView;
     }
 
 
@@ -75,7 +76,7 @@ public class WorkmatesAdapter extends FirestoreRecyclerAdapter<Workmate, Workmat
 
     @Override
     public void onBindViewHolder(@NonNull WorkmatesViewHolder holder, int position, @NonNull Workmate model) {
-        holder.bind(model, this.glide, this.mPlacesClient);
+        holder.bind(model, this.glide, this.mPlacesClient, this.idView);
     }
 
     static class WorkmatesViewHolder extends RecyclerView.ViewHolder {
@@ -91,33 +92,38 @@ public class WorkmatesAdapter extends FirestoreRecyclerAdapter<Workmate, Workmat
         }
 
 
-        void bind(Workmate workmate, RequestManager glide, PlacesClient mPlacesClients) {
+        void bind(Workmate workmate, RequestManager glide, PlacesClient mPlacesClients, int idView) {
             // Specify the fields to return.
             //lblName = workmate.getUsername();
-            List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
-            if (!workmate.getIdSelectedRestaurant().equals("No place selected")) {
-                FetchPlaceRequest request = FetchPlaceRequest.builder(workmate.getIdSelectedRestaurant(), placeFields)
-                        .build();
-                mPlacesClients.fetchPlace(request).addOnSuccessListener((response) -> {
-                    mPlace = response.getPlace();
-                    lblName = workmate.getUsername() + " (" + mPlace.getName() + ")";
-                    mItemWorkmateBinding.lblName.setText(lblName);
-                    Log.i("INFO", "Place found: " + mPlace.getName());
+            if (idView == 3) {
+                List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
+                if (!workmate.getIdSelectedRestaurant().equals("No place selected")) {
+                    FetchPlaceRequest request = FetchPlaceRequest.builder(workmate.getIdSelectedRestaurant(), placeFields)
+                            .build();
+                    mPlacesClients.fetchPlace(request).addOnSuccessListener((response) -> {
+                        mPlace = response.getPlace();
+                        lblName = workmate.getUsername() + " (" + mPlace.getName() + ")";
+                        mItemWorkmateBinding.lblName.setText(lblName);
+                        Log.i("INFO", "Place found: " + mPlace.getName());
 
-                });
-                mItemWorkmateBinding.lblName.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent detailItent = new Intent(mContext, DetailActivity.class);
-                        detailItent.putExtra("PlaceId", mPlace.getId());
-                        mContext.startActivity(detailItent);
-                    }
-                });
+                    });
 
+                    mItemWorkmateBinding.lblName.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent detailItent = new Intent(mContext, DetailActivity.class);
+                            detailItent.putExtra("PlaceId", mPlace.getId());
+                            mContext.startActivity(detailItent);
+                        }
+                    });
+                }
+                if (workmate.getIdSelectedRestaurant().equals("No place selected")) {
+                    lblName = workmate.getUsername();
+                    mItemWorkmateBinding.lblName.setText(lblName + " hasn't decided yet");
+                }
             } else {
                 lblName = workmate.getUsername();
-                mItemWorkmateBinding.lblName.setText(lblName + "hasn't decided yet");
-
+                mItemWorkmateBinding.lblName.setText(lblName + " is joining!");
             }
             if (workmate.getUrlPicture() != null) {
                 glide.load(workmate.getUrlPicture())
@@ -125,9 +131,9 @@ public class WorkmatesAdapter extends FirestoreRecyclerAdapter<Workmate, Workmat
                         .into(mItemWorkmateBinding.imageWorkmate);
             }
 
-
         }
     }
 }
+
 
 

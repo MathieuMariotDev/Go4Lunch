@@ -1,6 +1,5 @@
 package com.example.go4lunch.ui.dashboard;
 
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,25 +15,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.go4lunch.R;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentListBinding;
-import com.example.go4lunch.databinding.FragmentWorkmatesBinding;
-import com.example.go4lunch.ui.Map.MapViewModel;
-import com.facebook.places.model.PlaceFields;
-import com.google.android.gms.common.api.Status;
+import com.example.go4lunch.MainActivityViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.PhotoMetadata;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.net.FetchPhotoRequest;
-import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.JsonArray;
 import com.google.maps.GeoApiContext;
 import com.google.maps.PlacesApi;
 import com.google.maps.errors.ApiException;
@@ -44,24 +34,16 @@ import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.model.PlacesSearchResult;
 import com.google.maps.model.RankBy;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import static android.content.ContentValues.TAG;
 
 public class ListFragment extends Fragment {
     private RecyclerView lRecyclerView;
     private FragmentListBinding mFragmentListBinding;
     private String apiKey = "AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw";
     private PlacesSearchResult[] placesSearchResults;
-    private MapViewModel mMapViewModel;
+    private MainActivityViewModel mMainActivityViewModel;
     private LatLng location;
     private PlacesClient mPlacesClient;
     private ListAdapter mListAdapter;
@@ -72,8 +54,8 @@ public class ListFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         mFragmentListBinding = FragmentListBinding.inflate(inflater, container, false);  // Creates an instance of the binding class
         View view = mFragmentListBinding.getRoot();
-        mMapViewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
-        setupPlaceApi();
+        mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
+        getPlaces();
         getLocation();
         getRestaurantSelected();
         configureRecyclerView();
@@ -81,11 +63,8 @@ public class ListFragment extends Fragment {
         return view;
     }
 
-    public void setupPlaceApi() {
-        // Initialize the SDK
-        Places.initialize(getActivity(), apiKey);
-        // Create a new PlacesClient instance
-        mPlacesClient = Places.createClient(getActivity());
+    private void getPlaces() {
+        mPlacesClient = mMainActivityViewModel.getPlacesClient();
     }
 
     public void configureRecyclerView() {
@@ -105,10 +84,12 @@ public class ListFragment extends Fragment {
                     .type(PlaceType.RESTAURANT)
                     .rankby(RankBy.DISTANCE)
                     .await();
+            Log.i("INFO", "Request NearbySearchQuery" + request);
             placesSearchResults = request.results;
         } catch (ApiException | IOException | InterruptedException e) {
             e.printStackTrace();
         }
+
 
     }
 
@@ -117,7 +98,7 @@ public class ListFragment extends Fragment {
     }
 
     public void getLocation() {
-        mMapViewModel.getLocation().observe(getViewLifecycleOwner(), this::updateLocation);
+        mMainActivityViewModel.getLocation().observe(getViewLifecycleOwner(), this::updateLocation);
     }
 
     /*public void updateLocation(LatLng location){
@@ -128,13 +109,13 @@ public class ListFragment extends Fragment {
     }*/
     @Nullable
     public void updateLocation(LatLng location) {
-        //if(this.location == null || !(this.location.equals(location)) ){
-        this.location = location;
-        currentLocation.setLatitude(location.lat);
-        currentLocation.setLongitude(location.lng);
-        requestPlace();
-        updateRecyclerView();
-        //}
+        if (this.location == null || !(this.location.equals(location))) {
+            this.location = location;
+            currentLocation.setLatitude(location.lat);
+            currentLocation.setLongitude(location.lng);
+            requestPlace();
+            updateRecyclerView();
+        }
     }
 
     public void updateRecyclerView() {

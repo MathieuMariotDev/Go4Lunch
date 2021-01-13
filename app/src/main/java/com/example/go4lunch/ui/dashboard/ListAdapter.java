@@ -19,6 +19,8 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPhotoRequest;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.maps.model.PlacesSearchResult;
 
 import org.jetbrains.annotations.NotNull;
@@ -94,7 +96,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             FetchPlaceRequest request = FetchPlaceRequest.builder(placesSearchResults[position].placeId, placeFields)
                     .build();
             mPlacesClients.fetchPlace(request).addOnSuccessListener((response) -> {
-
                 mPlace = response.getPlace();
                 for (String id : mListSelectedRestaurant) {
                     if (id.equals(mPlace.getId())) {

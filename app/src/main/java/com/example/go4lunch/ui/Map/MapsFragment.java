@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.go4lunch.MainActivity;
+import com.example.go4lunch.MainActivityViewModel;
 import com.example.go4lunch.R;
 
 import com.example.go4lunch.api.WorkmateHelper;
@@ -78,7 +79,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     private Place mPlace;
     private LocationManager locationManager;
     private PlacesSearchResult[] placesSearchResults;
-    private MapViewModel mMapViewModel;
+    private MainActivityViewModel mMainActivityViewModel;
     private List<Place> mPlacesSelected = new ArrayList<>();
 
     /**
@@ -97,10 +98,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
         mMap.setOnPoiClickListener(this);
-        //mMap.setOnCameraMoveListener(this);
         mMap.setOnCameraIdleListener(this);
         mMap.setOnMarkerClickListener(this);
-        setupPlaceApi();
+        getPlaces();
         updateMapWhitSelectedMarker();
         enableMyLocation();
         updateMapWhitCustomMarker();
@@ -183,11 +183,15 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
     }
 
-    public void setupPlaceApi() {
+    /*public void setupPlaceApi() {
         // Initialize the SDK
         Places.initialize(getActivity(), apiKey);
         // Create a new PlacesClient instance
         mPlacesClient = Places.createClient(getActivity());
+    }*/
+
+    public void getPlaces() {
+        mPlacesClient = mMainActivityViewModel.getPlacesClient();
     }
 
     @Nullable
@@ -195,7 +199,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mMapViewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
+        mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
@@ -214,7 +218,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     public void getAuthorization() {
-        mMapViewModel.getAuthorization().observe(getViewLifecycleOwner(), mAuthorization -> {
+        mMainActivityViewModel.getAuthorization().observe(getViewLifecycleOwner(), mAuthorization -> {
             permission = mAuthorization.booleanValue();
             enableMyLocation();
         });
@@ -240,13 +244,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     public void onLocationChanged(@NonNull Location location) {
         Log.d("onLocationChanged////", "Latitude :" + location.getLatitude() + "Longitude" + location.getLongitude());
         this.location = new LatLng(location.getLatitude(), location.getLongitude());
-        //mMapViewModel.setLocation(new LatLng(location.getLatitude(), location.getLongitude()));
+        mMainActivityViewModel.setLocation(this.location);
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
         updateMapWhitCustomMarker();
-        mMapViewModel.setLocation(location);
+        //mMapViewModel.setLocation(location);
         return false;
     }
 

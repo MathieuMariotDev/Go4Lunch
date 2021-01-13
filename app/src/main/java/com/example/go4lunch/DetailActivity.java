@@ -57,6 +57,7 @@ public class DetailActivity extends AppCompatActivity {
     private PlacesClient placesClient;
     @Nullable
     private Workmate modelCurrentWorkmate;
+    private final int idViewDetail = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -278,26 +279,12 @@ public class DetailActivity extends AppCompatActivity {
 
     private void configureRecyclerView() {
         recyclerView = (RecyclerView) mActivityDetailBinding.listWorkmatesDetail;
-        mAdapter = new WorkmatesAdapter(getWorkmates(), Glide.with(this), placesClient);
+        mAdapter = new WorkmatesAdapter(getWorkmates(), Glide.with(this), placesClient, idViewDetail);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(mAdapter);
     }
 
     private FirestoreRecyclerOptions<Workmate> getWorkmates() {
-        CollectionReference workmate = WorkmateHelper.getUsersCollection();
-        //Query query = workmate.whereEqualTo("idSelectedRestaurant",placeIdSelected);
-
-        /*query.addSnapshotListener(new EventListener<QuerySnapshot>(){
-          @Override
-                  public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e){
-              if(e !=null){
-                  Log.w("ERREUR", "Listen failed", e);
-              }
-              for (QueryDocumentSnapshot doc : value){
-                  WorkmateHelper.getUser(doc.get("uid")).addOnCompleteListener()
-              }
-            }
-        });*/
         Query query = workmatesRef.whereEqualTo("idSelectedRestaurant", placeIdSelected);
         return new FirestoreRecyclerOptions.Builder<Workmate>()
                 .setQuery(query, Workmate.class).setLifecycleOwner(this).build();

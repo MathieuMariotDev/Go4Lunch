@@ -11,12 +11,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.go4lunch.DetailActivity;
 import com.example.go4lunch.MainActivity;
+import com.example.go4lunch.MainActivityViewModel;
 import com.example.go4lunch.R;
 import com.example.go4lunch.WorkmatesAdapter;
 import com.example.go4lunch.api.WorkmateHelper;
@@ -47,13 +49,16 @@ public class WorkmatesFragment extends Fragment /*implements WorkmatesAdapter.Li
     private CollectionReference workmatesRef = WorkmateHelper.getUsersCollection();
     private String apiKey = "AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw";
     private PlacesClient mPlacesClient;
+    private final int idViewWorkmate = 3;
+    private MainActivityViewModel mMainActivityViewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mFragmentWorkmatesBinding = FragmentWorkmatesBinding.inflate(inflater, container, false);  // Creates an instance of the binding class
         View view = mFragmentWorkmatesBinding.getRoot();
-        setupPlaceApi();
+        mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
+        getPlaces();
         configureRecyclerView();
         return view;
     }
@@ -64,7 +69,7 @@ public class WorkmatesFragment extends Fragment /*implements WorkmatesAdapter.Li
         FirestoreRecyclerOptions<Workmate> options = new FirestoreRecyclerOptions.Builder<Workmate>()
                 .setQuery(query, Workmate.class).setLifecycleOwner(this).build();
         recyclerView = (RecyclerView) mFragmentWorkmatesBinding.listWorkmates;
-        mAdapter = new WorkmatesAdapter(generateOptionsForAdapter(WorkmateHelper.getAllWorkmates()), Glide.with(this), mPlacesClient/*,this*/);
+        mAdapter = new WorkmatesAdapter(generateOptionsForAdapter(WorkmateHelper.getAllWorkmates()), Glide.with(this), mPlacesClient, idViewWorkmate);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
 
@@ -111,13 +116,10 @@ public class WorkmatesFragment extends Fragment /*implements WorkmatesAdapter.Li
         mFragmentWorkmatesBinding = null;
     }
 
-
-    public void setupPlaceApi() {
-        // Initialize the SDK
-        Places.initialize(getActivity(), apiKey);
-        // Create a new PlacesClient instance
-        mPlacesClient = Places.createClient(getActivity());
+    private void getPlaces() {
+        mPlacesClient = mMainActivityViewModel.getPlacesClient();
     }
+
 
     public void startDetailFromFragment(String placeId) {
         Intent detailItent = new Intent(getContext(), DetailActivity.class);

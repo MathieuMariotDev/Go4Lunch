@@ -1,8 +1,10 @@
 package com.example.go4lunch;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,20 +15,27 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.go4lunch.auth.ProfileActivity;
 import com.example.go4lunch.databinding.ActivityMainBinding;
 import com.example.go4lunch.databinding.ActivityMainNavHeaderBinding;
-import com.example.go4lunch.ui.Map.MapViewModel;
-import com.example.go4lunch.ui.Map.MapsFragment;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.model.PointOfInterest;
 import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.api.client.json.Json;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.JsonArray;
+import com.google.maps.NearbySearchRequest;
+import com.google.maps.model.LatLng;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,7 +46,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -46,6 +54,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import static android.content.ContentValues.TAG;
@@ -62,7 +71,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     public boolean mLocationPermission = false;
     private boolean permissionDenied = false;
-    private MapViewModel mapViewModel;
+    private MainActivityViewModel mMainActivityViewModel;
+    public PlacesClient mPlacesClient;
+    private String apiKey = "AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,14 +94,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-        mapViewModel = new ViewModelProvider(this).get(MapViewModel.class);
+        mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         locationPermission();
-        setupAutocompleteFragment();
+        setupPlaceApi();
     }
 
+    private void setupPlaceApi() {
+        // Initialize the SDK
+        Places.initialize(getApplicationContext(), apiKey);
+        // Create a new PlacesClient instance
+        mPlacesClient = Places.createClient(getApplicationContext());
+        setPlacesClient();
+    }
+
+    private void setPlacesClient() {
+        mMainActivityViewModel.setPlacesClient(mPlacesClient);
+    }
 
     // 1 - Configure Toolbar
     private void configureToolbar() {
@@ -184,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean locationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            mapViewModel.setAuthorization(true);
+            mMainActivityViewModel.setAuthorization(true);
             mLocationPermission = true;
         } else {
             LocationPermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
@@ -206,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //FragmentManager fm = getSupportFragmentManager();
             //MapsFragment fragment = (MapsFragment) fm.findFragmentById(R.id.navigation_home); ////*****/////
             //fragment.enableMyLocation();
-            mapViewModel.setAuthorization(true);
+            mMainActivityViewModel.setAuthorization(true);
 
         } else {
             // Permission was denied. Display an error message
@@ -238,36 +261,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         detailItent.putExtra("PlaceId", placeId);
         startActivity(detailItent);
     }
-
+/*
     public void setupAutocompleteFragment() {
-        // Initialize the AutocompleteSupportFragment.
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+        // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
+        // and once again when the user makes a selection (for example when calling fetchPlace()).
+        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
 
-        // Specify the types of place data to return.
-
-
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-        autocompleteFragment.setHint("Search restaurant");
-        // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(@NotNull Place place) {
-                // TODO: Get info about the selected place.
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+        FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
+                // Call either setLocationBias() OR setLocationRestriction().
+                .setLocationBias(bounds)
+                .setLocationRestriction(bounds)
+                .setOrigin(new LatLng(47.42879333333334,-0.5276966666666667))
+                .setCountries("FR")
+                .setTypeFilter(TypeFilter.ESTABLISHMENT)
+                .setSessionToken(token)
+                .setQuery(query)
+                .build();
+        mPlacesClient.findAutocompletePredictions(request).addOnSuccessListener((response) -> {
+            for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
+                Log.i(TAG, prediction.getPlaceId());
+                Log.i(TAG, prediction.getPrimaryText(null).toString());
             }
-
-
-            @Override
-            public void onError(@NotNull Status status) {
-                // TODO: Handle the error.
-                Log.i(TAG, "An error occurred: " + status);
+        }).addOnFailureListener((exception) -> {
+            if (exception instanceof ApiException) {
+                ApiException apiException = (ApiException) exception;
+                Log.e(TAG, "Place not found: " + apiException.getStatusCode());
             }
         });
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
+*/
+
+
 }
