@@ -1,0 +1,988 @@
+{
+   "results": [
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.429379,
+               "lng": -0.527609
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4307937302915,
+                  "lng": -0.526413919708498
+               },
+               "southwest": {
+                  "lat": 47.4280957697085,
+                  "lng": -0.5291118802915021
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Pizzeria Bistro Le San Marco",
+         "opening_hours": {
+            "open_now": false
+         },
+         "photos": [
+            {
+               "height": 1152,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/118291445114443423977\"\u003ePizzeria Bistro Le San Marco\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwL6BFdySCFH9_5Kg0qirQZ99kX6vmTwj-E3OSd6abPx7IHh9R-_eLxK72W18Zv9px2rC0pSw2mBeKkveBQoDuIXsNGW9d2xHurcnwctLrRie8b3OYvM5TVoWwDgbfAyxITAAJt-HanT46Ec53h-mHSToIkIpwpWYXOFvuenzEs08V5R",
+               "width": 2048
+            }
+         ],
+         "place_id": "ChIJO_zIQcrXB0gRx_pgoRMKBr8",
+         "plus_code": {
+            "compound_code": "CFHC+QX Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFHC+QX"
+         },
+         "price_level": 2,
+         "rating": 4.3,
+         "reference": "ChIJO_zIQcrXB0gRx_pgoRMKBr8",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 234,
+         "vicinity": "6 Passage Saint-Aubin, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.43198779999999,
+               "lng": -0.5286917
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4333292802915,
+                  "lng": -0.5273731697084979
+               },
+               "southwest": {
+                  "lat": 47.4306313197085,
+                  "lng": -0.530071130291502
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "La Cantine de Cé",
+         "opening_hours": {
+            "open_now": true
+         },
+         "photos": [
+            {
+               "height": 3024,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/107070782227287500240\"\u003eLa Cantine de Cé\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwKcDMdcZKPyWoo4zjgarj5dxgooh4riTNeU33vvPfrcFgMtYKOBhHFOgzFVb7YHw94CQ7Xu0UdQgMI8PRvGMVyqPjhrXnJ2i45Ze-zeT-RtJS89d4Lc5yCxAuZgjs-xhASH0pn0dKWM2keq-aZEZRD7BbltCOipXTTZCmPaOWqeB22z",
+               "width": 4032
+            }
+         ],
+         "place_id": "ChIJ_WoOn8vXB0gREqMhcA4BVsQ",
+         "plus_code": {
+            "compound_code": "CFJC+QG Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFJC+QG"
+         },
+         "price_level": 1,
+         "rating": 4.6,
+         "reference": "ChIJ_WoOn8vXB0gREqMhcA4BVsQ",
+         "scope": "GOOGLE",
+         "types": [
+            "bar",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 198,
+         "vicinity": "18 Rue David d'Angers, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "CLOSED_TEMPORARILY",
+         "geometry": {
+            "location": {
+               "lat": 47.4244426,
+               "lng": -0.5288781999999999
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4257841302915,
+                  "lng": -0.5276236197084979
+               },
+               "southwest": {
+                  "lat": 47.4230861697085,
+                  "lng": -0.530321580291502
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Guinguette La Gabare",
+         "permanently_closed": true,
+         "photos": [
+            {
+               "height": 763,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/116356973208710070747\"\u003eGuinguette La Gabare\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwI8vUcb73DToKCIywqwMXDI_mSZvLxuf09Om8KKEE-nhR4TAPL33CSfsXx9mqrQUwVMeqg6i51U2sl65oLLBn5Lmg03xOzd8eQGd6OAXKQIJIamr2k29lYD8LVknFidocFkycTGM4cxHANJ0tSQV02OFfN2xC_PU01sw3NQ31-fc0kI",
+               "width": 1024
+            }
+         ],
+         "place_id": "ChIJcWh7HdnXB0gRVmQjMEXAJQE",
+         "plus_code": {
+            "compound_code": "CFFC+QC Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFFC+QC"
+         },
+         "rating": 4.4,
+         "reference": "ChIJcWh7HdnXB0gRVmQjMEXAJQE",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 16,
+         "vicinity": "Avenue de la Boire Salée, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.43328820000001,
+               "lng": -0.5290178
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.43466358029151,
+                  "lng": -0.527794269708498
+               },
+               "southwest": {
+                  "lat": 47.43196561970851,
+                  "lng": -0.5304922302915021
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Villa d'Or",
+         "opening_hours": {
+            "open_now": false
+         },
+         "photos": [
+            {
+               "height": 3024,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/111758629704886602143\"\u003eLucien Lebat\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwIuNhW0srSw9SvMRKFX9tNQc23qeR_O5JQ5ouTevXay85_R5nSn-Imw8fCCAoG7-bqPcri7H53WSat0VolReTPc7jJ1nv27HkzN5RVKKKWbDv9FhVLGFthmLeMTamMRc_FSj1GnpBycNfys4N6cSzbOvx5CSVLyplxeViTyoY5iACPS",
+               "width": 4032
+            }
+         ],
+         "place_id": "ChIJZwyKhczXB0gRyHXpAbS-2xY",
+         "plus_code": {
+            "compound_code": "CFMC+89 Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFMC+89"
+         },
+         "price_level": 1,
+         "rating": 4,
+         "reference": "ChIJZwyKhczXB0gRyHXpAbS-2xY",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 947,
+         "vicinity": "2 Avenue Gallieni, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.42445120000001,
+               "lng": -0.5250513999999999
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4258249302915,
+                  "lng": -0.523638719708498
+               },
+               "southwest": {
+                  "lat": 47.4231269697085,
+                  "lng": -0.526336680291502
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Pizza Tempo",
+         "opening_hours": {
+            "open_now": false
+         },
+         "photos": [
+            {
+               "height": 618,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/102503857251469644740\"\u003ePizza Tempo\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwJDuLPg8kgIn1w56zEBnfbDhP3Y_rN9gyiRKNz06LDvAjyvi8UOqJPshkmB7PzqpuBjNNWAweE_qEUDSiVMAhnCZHpF7OrAJk3OCi9YLoGjojD2UVchoF7_MONWTTbR6IZQd4lqlQKE_Q65-cEtV0zdJtPUsQ0ulypsbjUNB72V7-BK",
+               "width": 973
+            }
+         ],
+         "place_id": "ChIJc6sZlbbXB0gRpvq_3792hMY",
+         "plus_code": {
+            "compound_code": "CFFF+QX Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFFF+QX"
+         },
+         "price_level": 2,
+         "rating": 4,
+         "reference": "ChIJc6sZlbbXB0gRpvq_3792hMY",
+         "scope": "GOOGLE",
+         "types": [
+            "meal_delivery",
+            "meal_takeaway",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 229,
+         "vicinity": "8 Rue Charles de Gaulle, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.4233634,
+               "lng": -0.5273701999999999
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.42467303029149,
+                  "lng": -0.5256537697084979
+               },
+               "southwest": {
+                  "lat": 47.42197506970849,
+                  "lng": -0.528351730291502
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Restaurant Les 3 Lieux - La Table",
+         "opening_hours": {
+            "open_now": false
+         },
+         "photos": [
+            {
+               "height": 2848,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/105313838248948716568\"\u003eRestaurant Les 3 Lieux - La Table\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwKUNiL026REA945-tptIPaPdCYODuTOp5L7TI8wL9OQJFd9YVZr8fmanpuXSMWswTJa9F1AO8xqi3gKJ97jwZhoLOn23qSg-DZhncrT-xWwX7j8ySbbSezNdHSYMiMWzMcHTeyrsPz9UUK0n9uLQn3wpMvxPsxTilj73w6mM89WvyFi",
+               "width": 4288
+            }
+         ],
+         "place_id": "ChIJVQVodbTXB0gRlXzP7OB4amY",
+         "plus_code": {
+            "compound_code": "CFFF+83 Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFFF+83"
+         },
+         "rating": 5,
+         "reference": "ChIJVQVodbTXB0gRlXzP7OB4amY",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 8,
+         "vicinity": "10 Port des Noues, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.4233634,
+               "lng": -0.5273701999999999
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.42467303029149,
+                  "lng": -0.5256537697084979
+               },
+               "southwest": {
+                  "lat": 47.42197506970849,
+                  "lng": -0.528351730291502
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Bistrot Les3Lieux - Le Bistrot",
+         "opening_hours": {
+            "open_now": false
+         },
+         "photos": [
+            {
+               "height": 1512,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/113860479964010959592\"\u003eBistrot Les3Lieux - Le Bistrot\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwL4qQpW65-O8WF9It_vzO_jzXBqciQPMBlQcLbs5P5NjA94wwXHysbXoftwHNRYAatxnxaeORFsurLzbnfs9lDBoFl_dzGl-U149gQlCNDNpTpgRLEwkO7ZmW3G0UZNm980d3VxraB9_Ynjn8v4IlVPWHbv-HpmiLkJ5Q0Gxow_GHsb",
+               "width": 2016
+            }
+         ],
+         "place_id": "ChIJT8GUbujXB0gR1iytrWEhabQ",
+         "plus_code": {
+            "compound_code": "CFFF+83 Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFFF+83"
+         },
+         "rating": 4.5,
+         "reference": "ChIJT8GUbujXB0gR1iytrWEhabQ",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 2,
+         "vicinity": "10 Port des Noues, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.42327229999999,
+               "lng": -0.5267107999999999
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4245864802915,
+                  "lng": -0.5253362197084979
+               },
+               "southwest": {
+                  "lat": 47.4218885197085,
+                  "lng": -0.528034180291502
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+         "name": "Hôtel Les 3 Lieux - La Nuit",
+         "opening_hours": {
+            "open_now": true
+         },
+         "photos": [
+            {
+               "height": 2848,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/105542802983841654795\"\u003eHôtel Les 3 Lieux - La Nuit\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwKcICFj_FDvFeACNddrx8KilAdxIo8RbJcAh9MyA0RlAM3w135yucCJ2IoVyj_3zSMZq6YVBmprY_eUZUglyH6tl_r0_ST4KxD6lokDnB85S58RKJxRhtCjFRmEq-hiBiHOXjN71oJDzr0kSlfx4-Ex24O9IOqpAb6zkFhX9hoHdyxg",
+               "width": 4288
+            }
+         ],
+         "place_id": "ChIJO_qR9bPXB0gRChxnAvR5upg",
+         "plus_code": {
+            "compound_code": "CFFF+88 Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFFF+88"
+         },
+         "price_level": 2,
+         "rating": 4.2,
+         "reference": "ChIJO_qR9bPXB0gRChxnAvR5upg",
+         "scope": "GOOGLE",
+         "types": [
+            "spa",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 76,
+         "vicinity": "10 Port des Noues, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "CLOSED_TEMPORARILY",
+         "geometry": {
+            "location": {
+               "lat": 47.4339545,
+               "lng": -0.5317590000000001
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4352649302915,
+                  "lng": -0.530383969708498
+               },
+               "southwest": {
+                  "lat": 47.4325669697085,
+                  "lng": -0.5330819302915021
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "ArtisaPasta (food truck pâtes fraîches)",
+         "permanently_closed": true,
+         "photos": [
+            {
+               "height": 3298,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/106647033932544079204\"\u003eArtisaPasta (food truck pâtes fraîches)\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwInpd0tviR7oXHr-k6ZIkyBivFOq4834qGzqtCto2mGCxyPbGOTgTkg5SQXrEKz4s8sA2Y7c0o-oUJHlpBLUvufZeGmHAidwfSNfsoXx_H8U52u3_JsqmWx1YeOVU5HaSbewXU4NGBxVwtZFCq40rtpCOWcOD3O96u6GSNUf92FkFmR",
+               "width": 2836
+            }
+         ],
+         "place_id": "ChIJ0YmcabXXB0gRCWSQKJxLkbA",
+         "plus_code": {
+            "compound_code": "CFM9+H7 Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFM9+H7"
+         },
+         "rating": 5,
+         "reference": "ChIJ0YmcabXXB0gRCWSQKJxLkbA",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 14,
+         "vicinity": "5 Square Des Renoncules, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.4233554,
+               "lng": -0.5244167000000001
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.42474758029149,
+                  "lng": -0.522940819708498
+               },
+               "southwest": {
+                  "lat": 47.4220496197085,
+                  "lng": -0.5256387802915021
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "PIZZA FRESCA",
+         "opening_hours": {
+            "open_now": false
+         },
+         "photos": [
+            {
+               "height": 4032,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/104642031510982079751\"\u003eMax Joubin\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwJFYBLQ_f17yLbVA5YHiKRhErl0dNW44sdwWO4GjJ99eJvc2pB6Zmj3d2qehQlYrWdIq-kg8yNORD8bhcIHLQuHUbuIobopt5ouoQFGbPS5Z8tK04tZ3SIkOUBdrL2iYqCK2H5ZM2ff2GVm2OVGeao5K8DOhzMTe9dNlG_H9yRI_YzF",
+               "width": 3024
+            }
+         ],
+         "place_id": "ChIJ56uuzLbXB0gR5vPc9As21kA",
+         "plus_code": {
+            "compound_code": "CFFG+86 Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFFG+86"
+         },
+         "rating": 4.5,
+         "reference": "ChIJ56uuzLbXB0gR5vPc9As21kA",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "bar",
+            "liquor_store",
+            "food",
+            "point_of_interest",
+            "store",
+            "establishment"
+         ],
+         "user_ratings_total": 142,
+         "vicinity": "36 Rue Charles de Gaulle, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.43721799999999,
+               "lng": -0.5267768
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4385472302915,
+                  "lng": -0.525311519708498
+               },
+               "southwest": {
+                  "lat": 47.4358492697085,
+                  "lng": -0.5280094802915021
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Pizza Milano",
+         "opening_hours": {
+            "open_now": false
+         },
+         "photos": [
+            {
+               "height": 4608,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/100808016280275605126\"\u003ePhilippe\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwJF7YerJ9l9-huLwV9mLZA3WVB43RDGhstQbuqxI1O5FL31ixbKDwmva5ub052zRDjC-gHCsKEdjDVbu0A2Cz7s3-ZTN6HzrU-4yV9odqZPXv6OoC1QqZbt8FZbgNV4GtD9zMG_R1IS0-uE6EzGrakQH4AtkC0aR0DviqEZrJfyH0Un",
+               "width": 3456
+            }
+         ],
+         "place_id": "ChIJMYqR5M3XB0gR7NGoUPar9Dw",
+         "plus_code": {
+            "compound_code": "CFPF+V7 Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFPF+V7"
+         },
+         "rating": 3.5,
+         "reference": "ChIJMYqR5M3XB0gR7NGoUPar9Dw",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 29,
+         "vicinity": "32 Avenue de la Chesnaie, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.4305573,
+               "lng": -0.5435342
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.43176763029149,
+                  "lng": -0.5420931197084979
+               },
+               "southwest": {
+                  "lat": 47.4290696697085,
+                  "lng": -0.544791080291502
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "RESTAURANT L'ARROSOIR",
+         "opening_hours": {
+            "open_now": false
+         },
+         "photos": [
+            {
+               "height": 720,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/109358453357654817105\"\u003eAnthony Neslo\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwJm6fQOxQVV9S3bgLyg4vwZkPFpUrBDbqV0VSz4YV4Kadb3isIUaALYD8wAKmz88lz1uVGVV-OgRJY5gjDt-qj_L8LJLW7Sfqw6E17DYIBxzBDun_OOPZOrC5Vh6qrT_Q-zk546hQyp1OkTW8y-VotiP6nKJwxJ7MQJi9WH5b626MI",
+               "width": 1280
+            }
+         ],
+         "place_id": "ChIJVZTs-TbWB0gRFoWN13m_FBI",
+         "plus_code": {
+            "compound_code": "CFJ4+6H Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFJ4+6H"
+         },
+         "price_level": 1,
+         "rating": 4.2,
+         "reference": "ChIJVZTs-TbWB0gRFoWN13m_FBI",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "bar",
+            "liquor_store",
+            "food",
+            "point_of_interest",
+            "store",
+            "establishment"
+         ],
+         "user_ratings_total": 161,
+         "vicinity": "6 Esplanade Jean Sauvage, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.43648520000001,
+               "lng": -0.5104861000000001
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4375798302915,
+                  "lng": -0.508995319708498
+               },
+               "southwest": {
+                  "lat": 47.4348818697085,
+                  "lng": -0.5116932802915021
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+         "name": "Hôtel Kyriad Les Ponts De Cé",
+         "photos": [
+            {
+               "height": 540,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/107495638345651240690\"\u003eHôtel Kyriad Les Ponts De Cé\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwKxh81MnlUlUwH0K6NhztE3m9FxM6RGBxEVh0R0D16y1dNlWm_Ymbeirl91YFjRw4hrB-eOXN96SDDaMcGy2yXDh8P_r-cmkTLlvW_AL9uodd2vYdJDqXko_UomRTDghMZD_mVZn5DTk4Au6pflbO5HlI7ywn7vHBtjcfn15Ukmwzmt",
+               "width": 1200
+            }
+         ],
+         "place_id": "ChIJW_38qMLXB0gRzso8mmww35A",
+         "plus_code": {
+            "compound_code": "CFPQ+HR Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFPQ+HR"
+         },
+         "rating": 3.5,
+         "reference": "ChIJW_38qMLXB0gRzso8mmww35A",
+         "scope": "GOOGLE",
+         "types": [
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 354,
+         "vicinity": "Allée de la Bergerie, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.4391998,
+               "lng": -0.509265
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4405989802915,
+                  "lng": -0.507878019708498
+               },
+               "southwest": {
+                  "lat": 47.4379010197085,
+                  "lng": -0.5105759802915021
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Esm",
+         "place_id": "ChIJyassx-fXB0gRzJFIgKhiY60",
+         "plus_code": {
+            "compound_code": "CFQR+M7 Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFQR+M7"
+         },
+         "reference": "ChIJyassx-fXB0gRzJFIgKhiY60",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity": "7 Chemin de la Petite Perrière, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.4439866,
+               "lng": -0.5386384
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4455406302915,
+                  "lng": -0.537414319708498
+               },
+               "southwest": {
+                  "lat": 47.4428426697085,
+                  "lng": -0.540112280291502
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Restaurant le 8",
+         "opening_hours": {
+            "open_now": true
+         },
+         "photos": [
+            {
+               "height": 2592,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/112989290231341382759\"\u003eRestaurant le 8\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwIOJdu9__R9NscujvlQifCvl_620-pHCb9f0NHdN8D4BrKoQlVAA0BrjnU-8k6Ow_nIuclycQeREJDrmlyTIrsB9NvqsMdlJSz078EN1emIqzo1q3o6BYnqlCmOB_Z3yukCqcpJwnf5GEDsMIvTxlto-arezTHBX-KIpvssigWTO9cZ",
+               "width": 3872
+            }
+         ],
+         "place_id": "ChIJ0_lCGCnWB0gRNJSiB5cXB5c",
+         "plus_code": {
+            "compound_code": "CFV6+HG Angers, France",
+            "global_code": "8CVXCFV6+HG"
+         },
+         "price_level": 2,
+         "rating": 4,
+         "reference": "ChIJ0_lCGCnWB0gRNJSiB5cXB5c",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 32,
+         "vicinity": "8 Rue de l'Hirondelle, Angers"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.4458282,
+               "lng": -0.5362260000000001
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4471609302915,
+                  "lng": -0.534926019708498
+               },
+               "southwest": {
+                  "lat": 47.4444629697085,
+                  "lng": -0.537623980291502
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Le Vestiaire 49",
+         "opening_hours": {
+            "open_now": true
+         },
+         "photos": [
+            {
+               "height": 4032,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/100834432565794632015\"\u003eLe Vestiaire 49\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwLwMrveuGO4rl16_P7u2zIS_vZ-m5WO_AkBHg2xji60bEaJxrZUil7xMiYW0981HzhfpYYnlEPbNWCSv9MogEfOSQPp2a8XxWFiyrBTqwKYyicVSpHhrbMZSXPJcUFTokw3GSAv4ORsvX0SykCjBVeUVzjMIT2gTMf5SUa7ksIESTrT",
+               "width": 3024
+            }
+         ],
+         "place_id": "ChIJbxVcLyrWB0gRD_TK5lHS2E4",
+         "plus_code": {
+            "compound_code": "CFW7+8G Angers, France",
+            "global_code": "8CVXCFW7+8G"
+         },
+         "price_level": 1,
+         "rating": 4.1,
+         "reference": "ChIJbxVcLyrWB0gRD_TK5lHS2E4",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "bar",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 86,
+         "vicinity": "151 Rue des Ponts de Ce, Angers"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.4099744,
+               "lng": -0.5249133
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4112949802915,
+                  "lng": -0.5234030697084979
+               },
+               "southwest": {
+                  "lat": 47.4085970197085,
+                  "lng": -0.526101030291502
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Hôtel Restaurant le Bosquet",
+         "opening_hours": {
+            "open_now": false
+         },
+         "photos": [
+            {
+               "height": 720,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/113477212106863279330\"\u003eHôtel Restaurant le Bosquet\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwLCMAey3mmPHO9lKS7Yae-8LDISQp18_h7GzIdcMLor_8yhF6m2VOeu5eB8NtMdXGH8Sw3_FbTlx71Q1osxNORWJ3xw5oJFB8mmWaLgRcqHyItGo_0xIqaV6ot1aX8F-108LOfmO5Dw9TGFVkvL8jQiTwdcuDjQ8fx-NAomp4OzOAkD",
+               "width": 1280
+            }
+         ],
+         "place_id": "ChIJS4N3vanXB0gRTZuuhX_i1ZM",
+         "plus_code": {
+            "compound_code": "CF5G+X2 Les Ponts-de-Cé, France",
+            "global_code": "8CVXCF5G+X2"
+         },
+         "price_level": 2,
+         "rating": 4.4,
+         "reference": "ChIJS4N3vanXB0gRTZuuhX_i1ZM",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 512,
+         "vicinity": "2 Rue Maurice Berne, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.4342395,
+               "lng": -0.5006998
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.43552098029149,
+                  "lng": -0.499216719708498
+               },
+               "southwest": {
+                  "lat": 47.4328230197085,
+                  "lng": -0.5019146802915021
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Restaurant de climb up",
+         "place_id": "ChIJZcIfRGfXB0gRdgHduH7f8iE",
+         "plus_code": {
+            "compound_code": "CFMX+MP Les Ponts-de-Cé, France",
+            "global_code": "8CVXCFMX+MP"
+         },
+         "reference": "ChIJZcIfRGfXB0gRdgHduH7f8iE",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity": "2 Boulevard Léo Lagrange, Les Ponts-de-Cé"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.4435295,
+               "lng": -0.5459551000000001
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4448339802915,
+                  "lng": -0.5449176197084979
+               },
+               "southwest": {
+                  "lat": 47.44213601970851,
+                  "lng": -0.547615580291502
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Wake Up Lounge Angers",
+         "photos": [
+            {
+               "height": 1184,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/101113684798345420519\"\u003eWake Up Lounge Angers\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwINtohXcUrhTk8MT1O_nHYELOLjs-rBIUmnVnukOhnICFLP77n3kkAhF7JlrJUHwqJqQnVvx_DSIauO2QeGiRELbs9tBVrXLG8nTp6bSqgOZg1tGEwgP1e6oMqbs04Tz3R1CTkKDybS5953awCAL0olOgeByAlyS5m-zBsLXUa70Bzo",
+               "width": 2536
+            }
+         ],
+         "place_id": "ChIJp5ZB4-_XB0gRG3HbwO8jtGk",
+         "plus_code": {
+            "compound_code": "CFV3+CJ Angers, France",
+            "global_code": "8CVXCFV3+CJ"
+         },
+         "rating": 5,
+         "reference": "ChIJp5ZB4-_XB0gRG3HbwO8jtGk",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "bar",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 9,
+         "vicinity": "Carré d'Orgemont, Rue du Petit Damiette, Angers"
+      },
+      {
+         "business_status": "OPERATIONAL",
+         "geometry": {
+            "location": {
+               "lat": 47.4317727,
+               "lng": -0.4995365999999999
+            },
+            "viewport": {
+               "northeast": {
+                  "lat": 47.4331637302915,
+                  "lng": -0.4982945697084978
+               },
+               "southwest": {
+                  "lat": 47.4304657697085,
+                  "lng": -0.5009925302915019
+               }
+            }
+         },
+         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+         "name": "Buffalo Grill Les Ponts De Ce",
+         "opening_hours": {
+            "open_now": false
+         },
+         "photos": [
+            {
+               "height": 1960,
+               "html_attributions": [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/100342610858999559179\"\u003edragon\u003c/a\u003e"
+               ],
+               "photo_reference": "ATtYBwKV2LnpXzM-mMER18icouRv3UmG7PFoJgByBApOOava5JsTRkxTHSgO4ihiYeRdx1alKKyNBqXclasOvmyS73fJN7COYfU8TCTZTf7QuJUcP2LUL7FdB20_w3XT2TCMT5jIKqeMLzF2xGQHkB1jZDNzzixxPDaQokjuoLcVl1tV1Fit",
+               "width": 4032
+            }
+         ],
+         "place_id": "ChIJxWaJFPLXB0gRagXXaYwmHzs",
+         "plus_code": {
+            "compound_code": "CGJ2+P5 Les Ponts-de-Cé, France",
+            "global_code": "8CVXCGJ2+P5"
+         },
+         "price_level": 2,
+         "rating": 3.2,
+         "reference": "ChIJxWaJFPLXB0gRagXXaYwmHzs",
+         "scope": "GOOGLE",
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total": 1042,
+         "vicinity": "Boulevard Léo Lagrange, 1 ZAC de Marcille, Les Ponts-de-Cé"
+      }
+   ]
+}

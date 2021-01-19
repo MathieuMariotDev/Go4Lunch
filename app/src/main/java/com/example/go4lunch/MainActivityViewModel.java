@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.go4lunch.POJO.Restaurant;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.maps.model.LatLng;
 
@@ -37,5 +38,16 @@ public class MainActivityViewModel extends ViewModel {
 
     public PlacesClient getPlacesClient() {
         return mPlacesClient;
+    }
+
+    /// FOR TEST
+    Restaurant mRestaurantList;
+
+    public void setRestaurant(Restaurant restaurantList) {
+        this.mRestaurantList = restaurantList;
+    }
+
+    public Restaurant getRestaurantList() {
+        return mRestaurantList;
     }
 }

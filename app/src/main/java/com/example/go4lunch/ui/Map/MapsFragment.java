@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -81,6 +84,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     private PlacesSearchResult[] placesSearchResults;
     private MainActivityViewModel mMainActivityViewModel;
     private List<Place> mPlacesSelected = new ArrayList<>();
+    private Bitmap bitmapPinRed;
+    private Bitmap bitmapPinGreen;
 
     /**
      * Manipulates the map once available.
@@ -149,15 +154,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                         mMap.addMarker(new MarkerOptions().position(new com.google.android.gms.maps.model.LatLng(lat, lng))
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))).setTag(placesSearchResult.placeId);
                     }*/
-
-                Marker m = mMap.addMarker(new MarkerOptions().position(new com.google.android.gms.maps.model.LatLng(lat, lng)));
-                m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                Marker m = mMap.addMarker(new MarkerOptions().position(new com.google.android.gms.maps.model.LatLng(lat, lng))
+                        .icon(BitmapDescriptorFactory.fromBitmap(bitmapPinRed)));
                 m.setTag(placesSearchResult.placeId);
                 //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))).setTag(placesSearchResult.placeId);
                 for (int i = 0; i < mPlacesSelected.size() && !mPlacesSelected.isEmpty(); i++) {
                     if (!mPlacesSelected.isEmpty() && Objects.equals(mPlacesSelected.get(i).getLatLng(), new com.google.android.gms.maps.model.LatLng(lat, lng))) {
                         //mMap.addMarker(new MarkerOptions().position(new com.google.android.gms.maps.model.LatLng(lat, lng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(placesSearchResult.placeId);
-                        m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        m.setIcon(BitmapDescriptorFactory.fromBitmap(bitmapPinGreen));
                     }
 
                 }
@@ -200,6 +204,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
+        bitmapPinRed = getBitmap(R.drawable.ic_restaurant_map_pin);
+        bitmapPinGreen = getBitmap(R.drawable.ic_restaurant_map_pin_green);
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
@@ -294,5 +300,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         this.location = new LatLng(mMap.getCameraPosition().target.latitude, mMap.getCameraPosition().target.longitude);
         Log.d("CameraMove////", "Latitude :" + location.lat + "Longitude" + location.lng);
         updateMapWhitCustomMarker();
+    }
+
+    private Bitmap getBitmap(int drawableRes) {
+        Drawable drawable = getResources().getDrawable(drawableRes);
+        Canvas canvas = new Canvas();
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        canvas.setBitmap(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 }

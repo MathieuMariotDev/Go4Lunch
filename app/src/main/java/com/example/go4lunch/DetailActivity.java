@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -78,15 +79,15 @@ public class DetailActivity extends AppCompatActivity {
 
 
     private void setupTextView() {
-        String mAboutRestaurant = mPlace.getName() + "  " + mPlace.getRating() + "\n"/* + mPlace.getTypes().get(0) + " - " */ + mPlace.getAddress();
+        String mNameRestaurant = mPlace.getName() + " " + mPlace.getRating();
+        mActivityDetailBinding.textViewNameRestaurant.setText(mNameRestaurant);
+        String mAboutRestaurant = " " + mPlace.getAddress();
         mActivityDetailBinding.textViewInfoRestaurant.setText(mAboutRestaurant);
         mPhone = "tel:" + mPlace.getPhoneNumber();
         mUriUrl = mPlace.getWebsiteUri();
-
     }
 
     private void setupImageView() {
-
         mActivityDetailBinding.imageViewPictureRestaurant.setImageBitmap(mPicture);
     }
 
@@ -201,6 +202,7 @@ public class DetailActivity extends AppCompatActivity {
     public void updateDbWithSelectRestaurant(@Nullable String placeId) {
         WorkmateHelper.updateIdSelectedRestaurant(getCurrentUser().getUid(), placeId);
         modelCurrentWorkmate.setIdSelectedRestaurant(placeId);
+        updateColorButton(); // TEST
     }
 
     public void getCurrentWorkmateFromFirestore() {
@@ -232,9 +234,10 @@ public class DetailActivity extends AppCompatActivity {
     public void updateColorButton() {
         if (modelCurrentWorkmate != null) {
             if (modelCurrentWorkmate.getIdSelectedRestaurant().equals(placeIdSelected)) {
-                mActivityDetailBinding.imageButtonChoose.setBackgroundColor(Color.BLUE);
+                mActivityDetailBinding.imageButtonChoose.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F14337")));
+                mActivityDetailBinding.imageButtonChoose.setRippleColor(Color.parseColor("#F14337"));
             } else if (!placeIdSelected.equals(modelCurrentWorkmate.getIdSelectedRestaurant())) {
-                mActivityDetailBinding.imageButtonChoose.setBackgroundColor(Color.WHITE);
+                mActivityDetailBinding.imageButtonChoose.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
             }
         }
     }

@@ -12,11 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Go4Lunch"
-        android:layout_marginTop="16dp"
+        android:paddingTop="50dp"
+        android:textStyle="bold"
         android:textSize="32sp"
         android:textColor="#FFFFFF" />
 
     <LinearLayout
+        android:paddingTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -33,6 +35,7 @@
 
         <TextView
             android:id="@+id/textView_User"
+            android:layout_marginTop="28dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Hello world"

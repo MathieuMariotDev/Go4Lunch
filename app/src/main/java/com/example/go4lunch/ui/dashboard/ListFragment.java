@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.go4lunch.MainActivity;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentListBinding;
 import com.example.go4lunch.MainActivityViewModel;
@@ -25,6 +26,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.maps.GeoApiContext;
 import com.google.maps.PlacesApi;
 import com.google.maps.errors.ApiException;
@@ -34,7 +36,10 @@ import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.model.PlacesSearchResult;
 import com.google.maps.model.RankBy;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +91,7 @@ public class ListFragment extends Fragment {
                     .await();
             Log.i("INFO", "Request NearbySearchQuery" + request);
             placesSearchResults = request.results;
+            //placesSearchResults = mMainActivityViewModel.getRestaurantList().getResults();
         } catch (ApiException | IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -157,6 +163,5 @@ public class ListFragment extends Fragment {
         });
         }
     }*/
-
 
 }

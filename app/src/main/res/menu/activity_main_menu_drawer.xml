@@ -6,7 +6,6 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/activity_main_drawer_your_lunch"
-
             android:title="YOUR LUNCH" />
 
         <item

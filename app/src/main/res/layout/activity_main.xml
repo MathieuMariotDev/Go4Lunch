@@ -77,9 +77,15 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/activity_main_nav_header"
         app:menu="@menu/activity_main_menu_drawer"
-        android:layout_gravity="start" />
+        android:layout_gravity="start"
+        android:background="@color/colorPrimary">
 
-
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom|center"
+            android:src="@drawable/ic_logo_go4lunch"></ImageView>
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
 
 

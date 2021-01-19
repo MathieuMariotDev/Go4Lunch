@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.go4lunch.databinding.ItemListBinding;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
@@ -32,14 +34,14 @@ import java.util.List;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
     private PlacesSearchResult[] mPlacesSearchResults;
     private PlacesClient mPlacesClient;
-    private final RequestManager glide;
+    private final RequestManager Glide;
     private Location mLocation;
     private List<String> mListSelectedRestaurant;
 
     public ListAdapter(@Nullable PlacesSearchResult[] placesSearchResults, PlacesClient placesClient, RequestManager glide, Location location, List<String> listSelectedRestaurant) {
         mPlacesSearchResults = placesSearchResults;
         mPlacesClient = placesClient;
-        this.glide = glide;
+        this.Glide = glide;
         mLocation = location;
         mListSelectedRestaurant = listSelectedRestaurant;
     }
@@ -57,7 +59,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        holder.bind(mPlacesSearchResults, glide, mPlacesClient, position);
+        holder.bind(mPlacesSearchResults, Glide, mPlacesClient, position);
     }
 
 
@@ -91,12 +93,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
 
         @SuppressLint("SetTextI18n")
-        void bind(PlacesSearchResult[] placesSearchResults, RequestManager glide, PlacesClient mPlacesClients, int position) {
+        void bind(PlacesSearchResult[] placesSearchResults, RequestManager Glide, PlacesClient mPlacesClients, int position) {
             List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.OPENING_HOURS, Place.Field.ADDRESS, Place.Field.PHOTO_METADATAS, Place.Field.RATING, Place.Field.LAT_LNG);
             FetchPlaceRequest request = FetchPlaceRequest.builder(placesSearchResults[position].placeId, placeFields)
                     .build();
             mPlacesClients.fetchPlace(request).addOnSuccessListener((response) -> {
                 mPlace = response.getPlace();
+                Log.i("Place JSON", "item >" + position + " : " + response.getPlace().toString());
                 for (String id : mListSelectedRestaurant) {
                     if (id.equals(mPlace.getId())) {
                         nbWorkamte = nbWorkamte + 1;
@@ -150,8 +153,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                 }
                 final PhotoMetadata photoMetadata = metadata.get(0);
 
-                /*// Get the attribution text.
-                final String attributions = photoMetadata.getAttributions();*/
+                // Get the attribution text.
+                final String attributions = photoMetadata.getAttributions();
 
                 // Create a FetchPhotoRequest.
                 final FetchPhotoRequest photoRequest = FetchPhotoRequest.builder(photoMetadata)

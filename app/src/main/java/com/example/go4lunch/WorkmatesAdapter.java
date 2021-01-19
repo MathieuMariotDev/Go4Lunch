@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.go4lunch.databinding.ItemWorkmateBinding;
+
 import com.example.go4lunch.model.Workmate;
 import com.example.go4lunch.ui.notifications.WorkmatesFragment;
 import com.firebase.ui.auth.AuthUI;

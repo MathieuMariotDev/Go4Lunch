@@ -1,10 +1,8 @@
 package com.example.go4lunch;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -12,30 +10,27 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.go4lunch.POJO.Restaurant;
+import com.example.go4lunch.POJO.Result;
+import com.example.go4lunch.Utils.UtilJson;
 import com.example.go4lunch.auth.ProfileActivity;
 import com.example.go4lunch.databinding.ActivityMainBinding;
 import com.example.go4lunch.databinding.ActivityMainNavHeaderBinding;
+
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.AutocompletePrediction;
-import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.TypeFilter;
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.api.client.json.Json;
+import com.google.common.reflect.TypeToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.gson.JsonArray;
-import com.google.maps.NearbySearchRequest;
-import com.google.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,12 +47,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Arrays;
-
-import static android.content.ContentValues.TAG;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -95,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-
+        parsejSON();
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         locationPermission();
@@ -292,5 +285,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 */
 
+    public void parsejSON() {
+        String jsonString;
+        jsonString = UtilJson.getJsonFromAssets(getApplicationContext(), "NearbySearchResult.json");
+        Log.i("dataJsonNearby", jsonString);
+        Gson gson = new Gson();
 
+        Type listResultType = new TypeToken<List<Result>>() {
+        }.getType();
+
+        Restaurant resultList = gson.fromJson(jsonString, Restaurant.class);
+
+        for (int i = 0; i < resultList.getResults().size(); i++) {
+            Log.i("DATA", " > Item" + i + "\n" + resultList.getResults().get(i).getPlaceId());
+        }
+
+        mMainActivityViewModel.setRestaurant(resultList);
+    }
 }
