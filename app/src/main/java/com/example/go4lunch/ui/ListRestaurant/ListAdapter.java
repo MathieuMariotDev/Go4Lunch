@@ -1,4 +1,4 @@
-package com.example.go4lunch.ui.dashboard;
+package com.example.go4lunch.ui.ListRestaurant;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -11,9 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.go4lunch.databinding.ItemListBinding;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
@@ -21,8 +19,6 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPhotoRequest;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.maps.model.PlacesSearchResult;
 
 import org.jetbrains.annotations.NotNull;

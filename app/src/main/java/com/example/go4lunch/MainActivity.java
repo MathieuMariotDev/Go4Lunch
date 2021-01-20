@@ -12,16 +12,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.go4lunch.POJO.Restaurant;
 import com.example.go4lunch.POJO.Result;
+import com.example.go4lunch.Utils.LocationPermissionUtils;
 import com.example.go4lunch.Utils.UtilJson;
-import com.example.go4lunch.auth.ProfileActivity;
 import com.example.go4lunch.databinding.ActivityMainBinding;
 import com.example.go4lunch.databinding.ActivityMainNavHeaderBinding;
 
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -30,7 +29,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,14 +45,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
-    private ProfileActivity mProfileActivity;
     public ActivityMainBinding mBinding;
     private Toolbar mToolbar;
     private DrawerLayout drawerLayout;
@@ -66,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private boolean permissionDenied = false;
     private MainActivityViewModel mMainActivityViewModel;
     public PlacesClient mPlacesClient;
-    private String apiKey = "AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw";
+    private String apiKey = BuildConfig.API_KEY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -282,8 +277,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-    }
-*/
+    }*/
+
 
     public void parsejSON() {
         String jsonString;

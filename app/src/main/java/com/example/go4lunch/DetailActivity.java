@@ -20,9 +20,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.go4lunch.Utils.CallPhonePermissionUtils;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.ActivityDetailBinding;
 import com.example.go4lunch.model.Workmate;
+import com.example.go4lunch.ui.Workmates.WorkmatesAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnSuccessListener;

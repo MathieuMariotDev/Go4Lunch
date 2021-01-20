@@ -13,7 +13,7 @@
 // limitations under the License.
 
 
-package com.example.go4lunch;
+package com.example.go4lunch.Utils;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -21,15 +21,18 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.appcompat.app.AppCompatActivity;
-import android.widget.Toast;
+
+import com.example.go4lunch.R;
 
 /**
  * Utility class for access to runtime permissions.
  */
-public abstract class LocationPermissionUtils {
+public abstract class CallPhonePermissionUtils {
 
     /**
      * Requests the fine location permission. If a rationale with an additional explanation should
@@ -39,7 +42,7 @@ public abstract class LocationPermissionUtils {
                                          String permission, boolean finishActivity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
             // Display a dialog with rationale.
-            LocationPermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
+            CallPhonePermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
                     .show(activity.getSupportFragmentManager(), "dialog");
         } else {
             // Location permission has not been granted yet, request it.
@@ -88,10 +91,10 @@ public abstract class LocationPermissionUtils {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            mFinishActivity = getArguments().getBoolean(ARGUMENT_FINISH_ACTIVITY);
+            // mFinishActivity = getArguments().getBoolean(ARGUMENT_FINISH_ACTIVITY);
 
             return new AlertDialog.Builder(getActivity())
-                    .setMessage(R.string.location_permission_denied)
+                    .setMessage(R.string.permission_callphone_denied)
                     .setPositiveButton(android.R.string.ok, null)
                     .create();
         }
@@ -100,7 +103,7 @@ public abstract class LocationPermissionUtils {
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
             if (mFinishActivity) {
-                Toast.makeText(getActivity(), R.string.permission_required_toast,
+                Toast.makeText(getActivity(), R.string.permission_required_callphone_toast,
                         Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
@@ -149,8 +152,9 @@ public abstract class LocationPermissionUtils {
             Bundle arguments = getArguments();
             final int requestCode = arguments.getInt(ARGUMENT_PERMISSION_REQUEST_CODE);
             mFinishActivity = arguments.getBoolean(ARGUMENT_FINISH_ACTIVITY);
+
             return new AlertDialog.Builder(getActivity())
-                    .setMessage(R.string.permission_rationale_location)
+                    .setMessage(R.string.permission_rationale_callphone)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -165,7 +169,6 @@ public abstract class LocationPermissionUtils {
                     .setNegativeButton(android.R.string.cancel, null)
                     .create();
 
-
         }
 
         @Override
@@ -173,7 +176,7 @@ public abstract class LocationPermissionUtils {
             super.onDismiss(dialog);
             if (mFinishActivity) {
                 Toast.makeText(getActivity(),
-                        R.string.permission_required_toast,
+                        R.string.permission_required_callphone_toast,
                         Toast.LENGTH_SHORT)
                         .show();
                 getActivity().finish();

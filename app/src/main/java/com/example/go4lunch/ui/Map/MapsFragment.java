@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.MainActivity;
 import com.example.go4lunch.MainActivityViewModel;
 import com.example.go4lunch.R;
@@ -78,7 +79,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     private boolean permission = false;
     private PlacesClient mPlacesClient;
     private String mPlaceId;
-    private String apiKey = "AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw";
+    private String apiKey = BuildConfig.API_KEY;
     private Place mPlace;
     private LocationManager locationManager;
     private PlacesSearchResult[] placesSearchResults;

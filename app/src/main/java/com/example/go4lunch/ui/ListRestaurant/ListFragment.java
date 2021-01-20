@@ -1,4 +1,4 @@
-package com.example.go4lunch.ui.dashboard;
+package com.example.go4lunch.ui.ListRestaurant;
 
 import android.location.Location;
 import android.os.Bundle;
@@ -15,18 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.go4lunch.MainActivity;
+import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentListBinding;
 import com.example.go4lunch.MainActivityViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.maps.GeoApiContext;
 import com.google.maps.PlacesApi;
 import com.google.maps.errors.ApiException;
@@ -36,17 +33,14 @@ import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.model.PlacesSearchResult;
 import com.google.maps.model.RankBy;
 
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListFragment extends Fragment {
     private RecyclerView lRecyclerView;
     private FragmentListBinding mFragmentListBinding;
-    private String apiKey = "AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw";
+    private String apiKey = BuildConfig.API_KEY;
     private PlacesSearchResult[] placesSearchResults;
     private MainActivityViewModel mMainActivityViewModel;
     private LatLng location;
