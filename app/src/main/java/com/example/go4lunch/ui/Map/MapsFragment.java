@@ -3,6 +3,7 @@ package com.example.go4lunch.ui.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
@@ -13,7 +14,9 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,23 +29,28 @@ import com.example.go4lunch.MainActivityViewModel;
 import com.example.go4lunch.R;
 
 import com.example.go4lunch.api.WorkmateHelper;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.libraries.maps.CameraUpdateFactory;
+import com.google.android.libraries.maps.GoogleMap;
+import com.google.android.libraries.maps.GoogleMapOptions;
+import com.google.android.libraries.maps.OnMapReadyCallback;
+import com.google.android.libraries.maps.model.BitmapDescriptorFactory;
 
 
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PointOfInterest;
+import com.google.android.libraries.maps.model.MapStyleOptions;
+import com.google.android.libraries.maps.model.Marker;
+import com.google.android.libraries.maps.model.MarkerOptions;
+import com.google.android.libraries.maps.model.PointOfInterest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.maps.SupportMapFragment;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.api.client.util.Sleeper;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.longrunning.WaitOperationRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.PlacesApi;
 import com.google.maps.model.LatLng;
@@ -55,8 +63,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import com.google.maps.errors.ApiException;
 
@@ -87,6 +97,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     private List<Place> mPlacesSelected = new ArrayList<>();
     private Bitmap bitmapPinRed;
     private Bitmap bitmapPinGreen;
+    private boolean updateCamera = true;
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     /**
      * Manipulates the map once available.
@@ -100,21 +112,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
         mMap.setOnPoiClickListener(this);
-        mMap.setOnCameraIdleListener(this);
+        //mMap.setOnCameraIdleListener(this);
         mMap.setOnMarkerClickListener(this);
         getPlaces();
-        updateMapWhitSelectedMarker();
+        //updateMapWhitSelectedMarker();
         enableMyLocation();
-        updateMapWhitCustomMarker();
-            /*LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
+        //updateMapWhitCustomMarker();
+
     }
-    // };
+
 
     public void updateMapWhitSelectedMarker() {
         WorkmateHelper.getUsersCollection().get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -140,8 +149,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     public void updateMapWhitCustomMarker() {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() -> run());
         if (placesSearchResults != null && placesSearchResults.length > 0) {
             for (PlacesSearchResult placesSearchResult : placesSearchResults) {
                 double lat = placesSearchResult.geometry.location.lat;
@@ -149,19 +156,19 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
 
 /*
-                    if (!mPlacesSelected.isEmpty() && Objects.equals(mPlacesSelected.get(i).getLatLng(), new com.google.android.gms.maps.model.LatLng(lat, lng))) {
-                        mMap.addMarker(new MarkerOptions().position(new com.google.android.gms.maps.model.LatLng(lat, lng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(placesSearchResult.placeId);
+                    if (!mPlacesSelected.isEmpty() && Objects.equals(mPlacesSelected.get(i).getLatLng(), new .model.LatLng(lat, lng))) {
+                        mMap.addMarker(new MarkerOptions().position(new .model.LatLng(lat, lng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(placesSearchResult.placeId);
                     } else {
-                        mMap.addMarker(new MarkerOptions().position(new com.google.android.gms.maps.model.LatLng(lat, lng))
+                        mMap.addMarker(new MarkerOptions().position(new .model.LatLng(lat, lng))
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))).setTag(placesSearchResult.placeId);
                     }*/
-                Marker m = mMap.addMarker(new MarkerOptions().position(new com.google.android.gms.maps.model.LatLng(lat, lng))
+                Marker m = mMap.addMarker(new MarkerOptions().position(new com.google.android.libraries.maps.model.LatLng(lat, lng))
                         .icon(BitmapDescriptorFactory.fromBitmap(bitmapPinRed)));
                 m.setTag(placesSearchResult.placeId);
                 //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))).setTag(placesSearchResult.placeId);
                 for (int i = 0; i < mPlacesSelected.size() && !mPlacesSelected.isEmpty(); i++) {
-                    if (!mPlacesSelected.isEmpty() && Objects.equals(mPlacesSelected.get(i).getLatLng(), new com.google.android.gms.maps.model.LatLng(lat, lng))) {
-                        //mMap.addMarker(new MarkerOptions().position(new com.google.android.gms.maps.model.LatLng(lat, lng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(placesSearchResult.placeId);
+                    if (!mPlacesSelected.isEmpty() && Objects.equals(mPlacesSelected.get(i).getLatLng(), new com.google.android.libraries.maps.model.LatLng(lat, lng))) {
+                        //mMap.addMarker(new MarkerOptions().position(new .model.LatLng(lat, lng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(placesSearchResult.placeId);
                         m.setIcon(BitmapDescriptorFactory.fromBitmap(bitmapPinGreen));
                     }
 
@@ -171,11 +178,22 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         }
     }
 
+    public void runAsyncNearbySearchRequest() {
+        executorService.execute(() -> run());
+        try {
+            executorService.awaitTermination(1000, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        updateMapWhitCustomMarker();
+    }
+
     public void run() {
         PlacesSearchResponse request;
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey(apiKey)
                 .build();
+        Log.d("onTHISLocationChang////", "Latitude :" + this.location.lat + "Longitude" + this.location.lng);
         try {
             request = PlacesApi.nearbySearchQuery(context, location)
                     .radius(1500)
@@ -207,15 +225,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
         bitmapPinRed = getBitmap(R.drawable.ic_restaurant_map_pin);
         bitmapPinGreen = getBitmap(R.drawable.ic_restaurant_map_pin_green);
+
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-
+        //SupportMapFragment.newInstance(new GoogleMapOptions().mapType(R.string.map_id));
         mapFragment.getMapAsync(this);
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         getAuthorization();
@@ -252,11 +272,26 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         Log.d("onLocationChanged////", "Latitude :" + location.getLatitude() + "Longitude" + location.getLongitude());
         this.location = new LatLng(location.getLatitude(), location.getLongitude());
         mMainActivityViewModel.setLocation(this.location);
+        updateCamera(location);
+
+    }
+
+    public void updateCamera(Location location) {
+
+        if (updateCamera) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new com.google.android.libraries.maps.model.LatLng(location.getLatitude(), location.getLongitude()), 15));
+            ///updateMapWhitCustomMarker();
+            mMap.setOnCameraIdleListener(this);
+
+            updateCamera = false;
+        }
+
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
-        updateMapWhitCustomMarker();
+
+        runAsyncNearbySearchRequest();
         //mMapViewModel.setLocation(location);
         return false;
     }
@@ -300,7 +335,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     public void onCameraIdle() {
         this.location = new LatLng(mMap.getCameraPosition().target.latitude, mMap.getCameraPosition().target.longitude);
         Log.d("CameraMove////", "Latitude :" + location.lat + "Longitude" + location.lng);
-        updateMapWhitCustomMarker();
+        //if(this.location != null){
+        runAsyncNearbySearchRequest();
+        //}
+
     }
 
     private Bitmap getBitmap(int drawableRes) {
@@ -313,4 +351,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
         return bitmap;
     }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+    }
+
+
 }

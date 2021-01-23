@@ -4,7 +4,7 @@ import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
-import com.google.android.gms.maps.model.PointOfInterest;
+import com.google.android.libraries.maps.model.PointOfInterest;
 
 public class Workmate {
 

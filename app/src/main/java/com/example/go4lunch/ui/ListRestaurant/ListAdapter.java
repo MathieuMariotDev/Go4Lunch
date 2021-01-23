@@ -6,12 +6,15 @@ import android.location.Location;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
+import com.example.go4lunch.POJO.Prediction;
+import com.example.go4lunch.POJO.QueryAutocomplete;
 import com.example.go4lunch.databinding.ItemListBinding;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
@@ -33,17 +36,28 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     private final RequestManager Glide;
     private Location mLocation;
     private List<String> mListSelectedRestaurant;
+    private List<String> mListPredictionMock;
+    private int idView;
 
-    public ListAdapter(@Nullable PlacesSearchResult[] placesSearchResults, PlacesClient placesClient, RequestManager glide, Location location, List<String> listSelectedRestaurant) {
+    public ListAdapter(@Nullable PlacesSearchResult[] placesSearchResults, PlacesClient placesClient, RequestManager glide, Location location, List<String> listSelectedRestaurant, @Nullable List<String> listMockAutocomplet, int idView) {
         mPlacesSearchResults = placesSearchResults;
         mPlacesClient = placesClient;
         this.Glide = glide;
         mLocation = location;
         mListSelectedRestaurant = listSelectedRestaurant;
+        mListPredictionMock = listMockAutocomplet;
+        this.idView = idView;
     }
 
-    public void updatePlaceSearchResult(@NonNull final PlacesSearchResult[] placesSearchResults) {
+    public void updatePlaceSearchResult(@NonNull final PlacesSearchResult[] placesSearchResults, int idView) {
         mPlacesSearchResults = placesSearchResults;
+        this.idView = idView;
+        notifyDataSetChanged();
+    }
+
+    public void updatePredictionMock(List<String> listMockAutocomplet, int idView) {
+        mListPredictionMock = listMockAutocomplet;
+        this.idView = idView;
         notifyDataSetChanged();
     }
 
@@ -55,17 +69,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        holder.bind(mPlacesSearchResults, Glide, mPlacesClient, position);
+        holder.bind(mPlacesSearchResults, Glide, mPlacesClient, position, mListPredictionMock, idView);
     }
 
 
     @Override
     public int getItemCount() {
-        if (mPlacesSearchResults != null) {
+        if (idView == 1) {
             return mPlacesSearchResults.length;
-        } else {
-            return 0;
+        } else if (idView == 3) {
+            return mListPredictionMock.size();
         }
+        return 0;
     }
 
 
@@ -89,10 +104,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
 
         @SuppressLint("SetTextI18n")
-        void bind(PlacesSearchResult[] placesSearchResults, RequestManager Glide, PlacesClient mPlacesClients, int position) {
+        void bind(PlacesSearchResult[] placesSearchResults, RequestManager Glide, PlacesClient mPlacesClients, int position, List<String> mListPredictionMock, int idView) {
             List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.OPENING_HOURS, Place.Field.ADDRESS, Place.Field.PHOTO_METADATAS, Place.Field.RATING, Place.Field.LAT_LNG);
-            FetchPlaceRequest request = FetchPlaceRequest.builder(placesSearchResults[position].placeId, placeFields)
-                    .build();
+            FetchPlaceRequest request = null;
+            if (idView == 3) {
+                request = FetchPlaceRequest.builder(mListPredictionMock.get(position), placeFields)
+                        .build();
+            } else if (idView == 1) {
+                request = FetchPlaceRequest.builder(placesSearchResults[position].placeId, placeFields)
+                        .build();
+            }
             mPlacesClients.fetchPlace(request).addOnSuccessListener((response) -> {
                 mPlace = response.getPlace();
                 Log.i("Place JSON", "item >" + position + " : " + response.getPlace().toString());

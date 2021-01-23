@@ -1,0 +1,205 @@
+{
+  "predictions": [
+    {
+      "description": "kebab",
+      "matched_substrings": [
+        {
+          "length": 3,
+          "offset": 0
+        }
+      ],
+      "structured_formatting": {
+        "main_text": "kebab",
+        "main_text_matched_substrings": [
+          {
+            "length": 3,
+            "offset": 0
+          }
+        ]
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "kebab"
+        }
+      ]
+    },
+    {
+      "description": "Kebab Chicken Panini Hamburgers, Rue Boisnet, Angers, France",
+      "matched_substrings": [
+        {
+          "length": 3,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJVXnbQsJ4CEgRR4PiH-DdsnM",
+      "reference": "ChIJVXnbQsJ4CEgRR4PiH-DdsnM",
+      "structured_formatting": {
+        "main_text": "Kebab Chicken Panini Hamburgers",
+        "main_text_matched_substrings": [
+          {
+            "length": 3,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "Rue Boisnet, Angers, France"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Kebab Chicken Panini Hamburgers"
+        },
+        {
+          "offset": 33,
+          "value": "Rue Boisnet"
+        },
+        {
+          "offset": 46,
+          "value": "Angers"
+        },
+        {
+          "offset": 54,
+          "value": "France"
+        }
+      ],
+      "types": [
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ]
+    },
+    {
+      "description": "Kebab Chez Husko, Place du Chapeau de Gendarme, Angers, France",
+      "matched_substrings": [
+        {
+          "length": 3,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJiaLLPqF4CEgRiW578PIJucM",
+      "reference": "ChIJiaLLPqF4CEgRiW578PIJucM",
+      "structured_formatting": {
+        "main_text": "Kebab Chez Husko",
+        "main_text_matched_substrings": [
+          {
+            "length": 3,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "Place du Chapeau de Gendarme, Angers, France"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Kebab Chez Husko"
+        },
+        {
+          "offset": 18,
+          "value": "Place du Chapeau de Gendarme"
+        },
+        {
+          "offset": 48,
+          "value": "Angers"
+        },
+        {
+          "offset": 56,
+          "value": "France"
+        }
+      ],
+      "types": [
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ]
+    },
+    {
+      "description": "Kebab L'oriental, Chalonnes-sur-Loire, France",
+      "matched_substrings": [
+        {
+          "length": 3,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJD4mV2TgvBkgRaYJ5HiIlFZQ",
+      "reference": "ChIJD4mV2TgvBkgRaYJ5HiIlFZQ",
+      "structured_formatting": {
+        "main_text": "Kebab L'oriental",
+        "main_text_matched_substrings": [
+          {
+            "length": 3,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "Chalonnes-sur-Loire, France"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Kebab L'oriental"
+        },
+        {
+          "offset": 18,
+          "value": "Chalonnes-sur-Loire"
+        },
+        {
+          "offset": 39,
+          "value": "France"
+        }
+      ],
+      "types": [
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ]
+    },
+    {
+      "description": "Kebab L’Oriental, Place du Pré de la Halle, Maulevrier, France",
+      "matched_substrings": [
+        {
+          "length": 3,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJlzN_dFBPBkgRtRPgKOO76Gw",
+      "reference": "ChIJlzN_dFBPBkgRtRPgKOO76Gw",
+      "structured_formatting": {
+        "main_text": "Kebab L’Oriental",
+        "main_text_matched_substrings": [
+          {
+            "length": 3,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "Place du Pré de la Halle, Maulevrier, France"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Kebab L’Oriental"
+        },
+        {
+          "offset": 18,
+          "value": "Place du Pré de la Halle"
+        },
+        {
+          "offset": 44,
+          "value": "Maulevrier"
+        },
+        {
+          "offset": 56,
+          "value": "France"
+        }
+      ],
+      "types": [
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ]
+    }
+  ],
+  "status": "OK"
+}

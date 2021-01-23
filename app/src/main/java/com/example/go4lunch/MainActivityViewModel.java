@@ -4,9 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.go4lunch.POJO.Restaurant;
+import com.example.go4lunch.POJO.Prediction;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.maps.model.LatLng;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivityViewModel extends ViewModel {
 
@@ -41,13 +44,13 @@ public class MainActivityViewModel extends ViewModel {
     }
 
     /// FOR TEST
-    Restaurant mRestaurantList;
+    List<Prediction> mPredictionList = new ArrayList<>();
 
-    public void setRestaurant(Restaurant restaurantList) {
-        this.mRestaurantList = restaurantList;
+    public void setPredictionList(List<Prediction> predictionList) {
+        this.mPredictionList = predictionList;
     }
 
-    public Restaurant getRestaurantList() {
-        return mRestaurantList;
+    public List<Prediction> getRestaurantList() {
+        return mPredictionList;
     }
 }

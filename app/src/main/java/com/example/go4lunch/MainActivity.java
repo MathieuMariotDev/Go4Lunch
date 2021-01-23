@@ -10,17 +10,18 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.go4lunch.POJO.Restaurant;
-import com.example.go4lunch.POJO.Result;
+import com.example.go4lunch.POJO.Prediction;
+import com.example.go4lunch.POJO.QueryAutocomplete;
 import com.example.go4lunch.Utils.LocationPermissionUtils;
 import com.example.go4lunch.Utils.UtilJson;
+import com.example.go4lunch.Utils.UtilPredictionMock;
 import com.example.go4lunch.databinding.ActivityMainBinding;
 import com.example.go4lunch.databinding.ActivityMainNavHeaderBinding;
 
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -46,6 +47,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ActivityCompat.OnRequestPermissionsResultCallback {
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        parsejSON();
+        //parsejSON();
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         locationPermission();
@@ -249,52 +251,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         detailItent.putExtra("PlaceId", placeId);
         startActivity(detailItent);
     }
-/*
-    public void setupAutocompleteFragment() {
-        // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
-        // and once again when the user makes a selection (for example when calling fetchPlace()).
-        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
-
-        FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
-                // Call either setLocationBias() OR setLocationRestriction().
-                .setLocationBias(bounds)
-                .setLocationRestriction(bounds)
-                .setOrigin(new LatLng(47.42879333333334,-0.5276966666666667))
-                .setCountries("FR")
-                .setTypeFilter(TypeFilter.ESTABLISHMENT)
-                .setSessionToken(token)
-                .setQuery(query)
-                .build();
-        mPlacesClient.findAutocompletePredictions(request).addOnSuccessListener((response) -> {
-            for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
-                Log.i(TAG, prediction.getPlaceId());
-                Log.i(TAG, prediction.getPrimaryText(null).toString());
-            }
-        }).addOnFailureListener((exception) -> {
-            if (exception instanceof ApiException) {
-                ApiException apiException = (ApiException) exception;
-                Log.e(TAG, "Place not found: " + apiException.getStatusCode());
-            }
-        });
-
-    }*/
 
 
-    public void parsejSON() {
+    //https://maps.googleapis.com/maps/api/place/queryautocomplete/json?key=AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw&language=fr&location=47.42879334559348,-0.5276967957615852&radius=50000&input=Keb
+    /*public void parsejSON() {
         String jsonString;
-        jsonString = UtilJson.getJsonFromAssets(getApplicationContext(), "NearbySearchResult.json");
+        jsonString = UtilJson.getJsonFromAssets(getApplicationContext(), "QueryAutocomplete.json");
         Log.i("dataJsonNearby", jsonString);
-        Gson gson = new Gson();
-
-        Type listResultType = new TypeToken<List<Result>>() {
+        Gson gson = new Gson();*/
+    List<Prediction> predictionList = new ArrayList<>();
+        /*Type listPrediction = new TypeToken<List<QueryAutocomplete>>() {
         }.getType();
 
-        Restaurant resultList = gson.fromJson(jsonString, Restaurant.class);
+        QueryAutocomplete resultList = gson.fromJson(jsonString, QueryAutocomplete.class);
 
-        for (int i = 0; i < resultList.getResults().size(); i++) {
-            Log.i("DATA", " > Item" + i + "\n" + resultList.getResults().get(i).getPlaceId());
+        for (int i = 1; i < resultList.getPredictions().size(); i++) {
+            Log.i("DATA", " > Item" + i + "\n" + resultList.getPredictions().get(i).getPlaceId());
+            predictionList.add(resultList.getPredictions().get(i));
         }
 
-        mMainActivityViewModel.setRestaurant(resultList);
-    }
+         predictionList = utilPredictionMock.parsejSON(getApplicationContext());
+        //mMainActivityViewModel.setRestaurant(resultList);
+    }*/
+
 }
