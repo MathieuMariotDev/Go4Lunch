@@ -8,8 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.go4lunch.BuildConfig;
-import com.example.go4lunch.POJO.Prediction;
 import com.example.go4lunch.R;
 import com.example.go4lunch.Utils.UtilPredictionMock;
 import com.example.go4lunch.api.WorkmateHelper;
@@ -146,8 +144,8 @@ public class ListFragment extends Fragment {
     }
 
     public void onClickAutoCompleteTextView() {
-        TextView textView;
-        textView = getActivity().findViewById(R.id.restaurantSearch);
+        EditText editText;
+        editText = getActivity().findViewById(R.id.restaurantSearch);
         /*getActivity().findViewById(R.id.autoCompleteTextView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +158,7 @@ public class ListFragment extends Fragment {
 
             }
         });*/
-        textView.addTextChangedListener(new TextWatcher() {
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -207,7 +205,7 @@ public class ListFragment extends Fragment {
     }
 
     public void updateAdapterForPredictionMock() {
-        mPredictionList = utilPredictionMock.parsejSON(getActivity());
+        mPredictionList = utilPredictionMock.parseJsonGetId(getActivity());
         mListAdapter.updatePredictionMock(mPredictionList, 3);
     }
 

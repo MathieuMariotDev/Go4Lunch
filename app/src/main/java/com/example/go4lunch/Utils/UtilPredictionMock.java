@@ -14,8 +14,8 @@ import java.util.List;
 
 public class UtilPredictionMock {
 
-    public List<String> parsejSON(Context context) {
-        List<String> predictionList = new ArrayList<>();
+    public List<String> parseJsonGetId(Context context) {
+        List<String> predictionListId = new ArrayList<>();
         String jsonString;
         jsonString = UtilJson.getJsonFromAssets(context, "QueryAutocomplete.json");
         Log.i("dataJsonNearby", jsonString);
@@ -28,7 +28,30 @@ public class UtilPredictionMock {
 
         for (int i = 1; i < resultList.getPredictions().size(); i++) {
             Log.i("DATA", " > Item" + i + "\n" + resultList.getPredictions().get(i).getPlaceId());
-            predictionList.add(resultList.getPredictions().get(i).getPlaceId());
+            predictionListId.add(resultList.getPredictions().get(i).getPlaceId());
+        }
+
+
+        return predictionListId;
+        //mMainActivityViewModel.setRestaurant(resultList);
+    }
+
+
+    public List<Prediction> parseJsonGetPrediction(Context context) {
+        List<Prediction> predictionList = new ArrayList<>();
+        String jsonString;
+        jsonString = UtilJson.getJsonFromAssets(context, "QueryAutocomplete.json");
+        Log.i("dataJsonNearby", jsonString);
+        Gson gson = new Gson();
+
+        Type listPrediction = new TypeToken<List<QueryAutocomplete>>() {
+        }.getType();
+
+        QueryAutocomplete resultList = gson.fromJson(jsonString, QueryAutocomplete.class);
+
+        for (int i = 1; i < resultList.getPredictions().size(); i++) {
+            Log.i("DATA", " > Item" + i + "\n" + resultList.getPredictions().get(i).getPlaceId());
+            predictionList.add(resultList.getPredictions().get(i));
         }
 
 

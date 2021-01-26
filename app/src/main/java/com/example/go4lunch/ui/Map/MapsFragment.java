@@ -3,8 +3,9 @@ package com.example.go4lunch.ui.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,43 +15,42 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.MainActivity;
 import com.example.go4lunch.MainActivityViewModel;
+import com.example.go4lunch.POJO.Prediction;
 import com.example.go4lunch.R;
 
+import com.example.go4lunch.Utils.UtilPredictionMock;
 import com.example.go4lunch.api.WorkmateHelper;
+import com.example.go4lunch.databinding.FragmentMapsBinding;
 import com.google.android.libraries.maps.CameraUpdateFactory;
 import com.google.android.libraries.maps.GoogleMap;
-import com.google.android.libraries.maps.GoogleMapOptions;
 import com.google.android.libraries.maps.OnMapReadyCallback;
 import com.google.android.libraries.maps.model.BitmapDescriptorFactory;
 
 
-import com.google.android.libraries.maps.model.MapStyleOptions;
 import com.google.android.libraries.maps.model.Marker;
 import com.google.android.libraries.maps.model.MarkerOptions;
 import com.google.android.libraries.maps.model.PointOfInterest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.maps.SupportMapFragment;
-import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.api.client.util.Sleeper;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.longrunning.WaitOperationRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.PlacesApi;
 import com.google.maps.model.LatLng;
@@ -63,7 +63,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -73,7 +72,7 @@ import com.google.maps.errors.ApiException;
 public class MapsFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnPoiClickListener, LocationListener,
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnCameraIdleListener {
-
+    private List<Place> mListPlacePOI = new ArrayList<>();
     private GoogleMap mMap;
     /**
      * Request code for location permission request.
@@ -99,6 +98,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     private Bitmap bitmapPinGreen;
     private boolean updateCamera = true;
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private RecyclerView mRecyclerView;
+    private FragmentMapsBinding mFragmentMapsBinding;
+    private MapAutoCompleteAdapter mMapAutoCompleteAdapter;
+    private List<Prediction> mPredictionListMock = new ArrayList<>();
+    private boolean mock = true;
+    private boolean inSearch = false;
+    private UtilPredictionMock utilPredictionMock = new UtilPredictionMock();
 
     /**
      * Manipulates the map once available.
@@ -174,7 +180,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
                 }
             }
-            updateMapWhitSelectedMarker();
+            updateMapWhitSelectedMarker(); // NEED TO DEBUG PROBABLY NEED AFTER
         }
     }
 
@@ -222,11 +228,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        mFragmentMapsBinding = FragmentMapsBinding.inflate(inflater, container, false);  // Creates an instance of the binding class
+        View view = mFragmentMapsBinding.getRoot();
         mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
         bitmapPinRed = getBitmap(R.drawable.ic_restaurant_map_pin);
         bitmapPinGreen = getBitmap(R.drawable.ic_restaurant_map_pin_green);
-
-        return inflater.inflate(R.layout.fragment_maps, container, false);
+        return view;
+        //return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
 
@@ -239,6 +247,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         mapFragment.getMapAsync(this);
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         getAuthorization();
+        onTextChange();
 
         /// ADD FOR TEST TO GET GOOD CONTEXT ///
 
@@ -336,7 +345,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         this.location = new LatLng(mMap.getCameraPosition().target.latitude, mMap.getCameraPosition().target.longitude);
         Log.d("CameraMove////", "Latitude :" + location.lat + "Longitude" + location.lng);
         //if(this.location != null){
-        runAsyncNearbySearchRequest();
+        if (!inSearch) {
+            runAsyncNearbySearchRequest();
+        }
+
         //}
 
     }
@@ -358,5 +370,100 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         super.onResume();
     }
 
+    void onTextChange() {
+        EditText editText;
+        editText = getActivity().findViewById(R.id.restaurantSearch);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length() > 3) {
+                    configureMapAutoCompleteRecyclerView();
+                    if (mock) {
+                        inSearch = true;
+                        mFragmentMapsBinding.recyclerViewForMap.setVisibility(View.VISIBLE);
+                        updateAdapterForPredictionMock();
+                    } else if (!mock) {
+                        inSearch = true;
+                        mFragmentMapsBinding.recyclerViewForMap.setVisibility(View.VISIBLE);
+                        //FindAutocompletePredictions(s.toString(), mPlacesClient);
+                    }
+                } else if (s.toString().length() == 0) {
+                    inSearch = false;
+                    mFragmentMapsBinding.recyclerViewForMap.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+
+    public void configureMapAutoCompleteRecyclerView() {
+        mRecyclerView = mFragmentMapsBinding.recyclerViewForMap;
+        mMapAutoCompleteAdapter = new MapAutoCompleteAdapter(mPredictionListMock, mock);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mMapAutoCompleteAdapter);
+    }
+
+    public void updateAdapterForPredictionMock() {
+
+        mPredictionListMock = utilPredictionMock.parseJsonGetPrediction(getContext());
+        mMapAutoCompleteAdapter.updatePredictionMock(mPredictionListMock, mock);
+        getPlaceFromPrediction();
+        //updateWithPoiPrediction();
+
+    }
+
+
+    public void getPlaceFromPrediction() {
+        mMap.clear(); /////****///
+        List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.LAT_LNG);
+        for (int i = 0; i < mPredictionListMock.size(); i++) {
+            FetchPlaceRequest request = FetchPlaceRequest.builder(mPredictionListMock.get(i).getPlaceId(), placeFields).build();
+            mPlacesClient.fetchPlace(request).addOnSuccessListener((response) -> {
+                mListPlacePOI.add(response.getPlace());
+                updateWithPoiPrediction(response.getPlace());
+                focusCameraOnFirstItemPrediction(); // Probably need better way
+            }).addOnFailureListener((exception) -> {
+                if (exception instanceof com.google.android.gms.common.api.ApiException) {
+                    com.google.android.gms.common.api.ApiException apiException = (com.google.android.gms.common.api.ApiException) exception;
+                    int statusCode = apiException.getStatusCode();
+                    // Handle error with given status code.
+                    Log.e("ERROR", "Place not found on map: " + exception.getMessage() + "///statusCode" + statusCode);
+                }
+            });
+        }
+    }
+
+
+    public void updateWithPoiPrediction(Place mPlace) {
+        double lat = mPlace.getLatLng().latitude;
+        double lng = mPlace.getLatLng().longitude;
+        Marker m = mMap.addMarker(new MarkerOptions().position(new com.google.android.libraries.maps.model.LatLng(lat, lng))
+                .icon(BitmapDescriptorFactory.fromBitmap(bitmapPinRed)));
+        m.setTag(mPlace.getId());
+        //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))).setTag(placesSearchResult.placeId);
+        for (int i = 0; i < mPlacesSelected.size() && !mPlacesSelected.isEmpty(); i++) {
+            if (!mPlacesSelected.isEmpty() && Objects.equals(mPlacesSelected.get(i).getLatLng(), new com.google.android.libraries.maps.model.LatLng(lat, lng))) {
+                //mMap.addMarker(new MarkerOptions().position(new .model.LatLng(lat, lng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(placesSearchResult.placeId);
+                m.setIcon(BitmapDescriptorFactory.fromBitmap(bitmapPinGreen));
+            }
+
+        }
+    }
+
+
+    public void focusCameraOnFirstItemPrediction() {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new com.google.android.libraries.maps.model.LatLng(mListPlacePOI.get(0).getLatLng().latitude, mListPlacePOI.get(0).getLatLng().longitude), 15));
+    }
 
 }
