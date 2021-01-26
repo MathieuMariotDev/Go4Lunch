@@ -169,16 +169,15 @@ public class ListFragment extends Fragment {
 
             }
 
-
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().length() > 3) {
+                if (s.toString().trim().length() > 3) {
                     if (mock) {
                         updateAdapterForPredictionMock();
                     } else if (!mock) {
                         FindAutocompletePredictions(s.toString(), mPlacesClient);
                     }
-                } else if (s.toString().length() == 0) {
+                } else if (s.toString().trim().length() == 0) {
                     updateRecyclerView();
                 }
             }

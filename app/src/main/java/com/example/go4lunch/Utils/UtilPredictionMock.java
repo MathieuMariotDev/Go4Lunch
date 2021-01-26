@@ -26,7 +26,7 @@ public class UtilPredictionMock {
 
         QueryAutocomplete resultList = gson.fromJson(jsonString, QueryAutocomplete.class);
 
-        for (int i = 1; i < resultList.getPredictions().size(); i++) {
+        for (int i = 0; i < resultList.getPredictions().size(); i++) {
             Log.i("DATA", " > Item" + i + "\n" + resultList.getPredictions().get(i).getPlaceId());
             predictionListId.add(resultList.getPredictions().get(i).getPlaceId());
         }

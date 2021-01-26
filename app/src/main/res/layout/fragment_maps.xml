@@ -19,6 +19,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_for_map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_restaurant_map" />
 </androidx.constraintlayout.widget.ConstraintLayout>

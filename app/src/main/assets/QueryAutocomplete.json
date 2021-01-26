@@ -1,44 +1,114 @@
 {
   "predictions": [
     {
-      "description": "kebab",
+      "description": "Pizza Hut, Avenue Marie Talet, Angers, France",
       "matched_substrings": [
         {
-          "length": 3,
+          "length": 5,
           "offset": 0
         }
       ],
+      "place_id": "ChIJVQNQwuh4CEgRWXjEftLVvz4",
+      "reference": "ChIJVQNQwuh4CEgRWXjEftLVvz4",
       "structured_formatting": {
-        "main_text": "kebab",
+        "main_text": "Pizza Hut",
         "main_text_matched_substrings": [
           {
-            "length": 3,
+            "length": 5,
             "offset": 0
           }
-        ]
+        ],
+        "secondary_text": "Avenue Marie Talet, Angers, France"
       },
       "terms": [
         {
           "offset": 0,
-          "value": "kebab"
+          "value": "Pizza Hut"
+        },
+        {
+          "offset": 11,
+          "value": "Avenue Marie Talet"
+        },
+        {
+          "offset": 31,
+          "value": "Angers"
+        },
+        {
+          "offset": 39,
+          "value": "France"
         }
+      ],
+      "types": [
+        "meal_delivery",
+        "meal_takeaway",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
       ]
     },
     {
-      "description": "Kebab Chicken Panini Hamburgers, Rue Boisnet, Angers, France",
+      "description": "Pizza Tempo, Rue Charles de Gaulle, Les Ponts-de-Cé, France",
       "matched_substrings": [
         {
-          "length": 3,
+          "length": 5,
           "offset": 0
         }
       ],
-      "place_id": "ChIJVXnbQsJ4CEgRR4PiH-DdsnM",
-      "reference": "ChIJVXnbQsJ4CEgRR4PiH-DdsnM",
+      "place_id": "ChIJc6sZlbbXB0gRpvq_3792hMY",
+      "reference": "ChIJc6sZlbbXB0gRpvq_3792hMY",
       "structured_formatting": {
-        "main_text": "Kebab Chicken Panini Hamburgers",
+        "main_text": "Pizza Tempo",
         "main_text_matched_substrings": [
           {
-            "length": 3,
+            "length": 5,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "Rue Charles de Gaulle, Les Ponts-de-Cé, France"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Pizza Tempo"
+        },
+        {
+          "offset": 13,
+          "value": "Rue Charles de Gaulle"
+        },
+        {
+          "offset": 36,
+          "value": "Les Ponts-de-Cé"
+        },
+        {
+          "offset": 53,
+          "value": "France"
+        }
+      ],
+      "types": [
+        "meal_delivery",
+        "meal_takeaway",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ]
+    },
+    {
+      "description": "Pizza Tempo, Rue Boisnet, Angers, France",
+      "matched_substrings": [
+        {
+          "length": 5,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJW3HGZcJ4CEgRRfRz-gmrhXA",
+      "reference": "ChIJW3HGZcJ4CEgRRfRz-gmrhXA",
+      "structured_formatting": {
+        "main_text": "Pizza Tempo",
+        "main_text_matched_substrings": [
+          {
+            "length": 5,
             "offset": 0
           }
         ],
@@ -47,22 +117,24 @@
       "terms": [
         {
           "offset": 0,
-          "value": "Kebab Chicken Panini Hamburgers"
+          "value": "Pizza Tempo"
         },
         {
-          "offset": 33,
+          "offset": 13,
           "value": "Rue Boisnet"
         },
         {
-          "offset": 46,
+          "offset": 26,
           "value": "Angers"
         },
         {
-          "offset": 54,
+          "offset": 34,
           "value": "France"
         }
       ],
       "types": [
+        "meal_delivery",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -70,78 +142,37 @@
       ]
     },
     {
-      "description": "Kebab Chez Husko, Place du Chapeau de Gendarme, Angers, France",
+      "description": "Pizza Tempo, Rue Jean Jaurès, Trélazé, France",
       "matched_substrings": [
         {
-          "length": 3,
+          "length": 5,
           "offset": 0
         }
       ],
-      "place_id": "ChIJiaLLPqF4CEgRiW578PIJucM",
-      "reference": "ChIJiaLLPqF4CEgRiW578PIJucM",
+      "place_id": "ChIJw3yAcPzXB0gRDcvC1jyN858",
+      "reference": "ChIJw3yAcPzXB0gRDcvC1jyN858",
       "structured_formatting": {
-        "main_text": "Kebab Chez Husko",
+        "main_text": "Pizza Tempo",
         "main_text_matched_substrings": [
           {
-            "length": 3,
+            "length": 5,
             "offset": 0
           }
         ],
-        "secondary_text": "Place du Chapeau de Gendarme, Angers, France"
+        "secondary_text": "Rue Jean Jaurès, Trélazé, France"
       },
       "terms": [
         {
           "offset": 0,
-          "value": "Kebab Chez Husko"
+          "value": "Pizza Tempo"
         },
         {
-          "offset": 18,
-          "value": "Place du Chapeau de Gendarme"
+          "offset": 13,
+          "value": "Rue Jean Jaurès"
         },
         {
-          "offset": 48,
-          "value": "Angers"
-        },
-        {
-          "offset": 56,
-          "value": "France"
-        }
-      ],
-      "types": [
-        "restaurant",
-        "food",
-        "point_of_interest",
-        "establishment"
-      ]
-    },
-    {
-      "description": "Kebab L'oriental, Chalonnes-sur-Loire, France",
-      "matched_substrings": [
-        {
-          "length": 3,
-          "offset": 0
-        }
-      ],
-      "place_id": "ChIJD4mV2TgvBkgRaYJ5HiIlFZQ",
-      "reference": "ChIJD4mV2TgvBkgRaYJ5HiIlFZQ",
-      "structured_formatting": {
-        "main_text": "Kebab L'oriental",
-        "main_text_matched_substrings": [
-          {
-            "length": 3,
-            "offset": 0
-          }
-        ],
-        "secondary_text": "Chalonnes-sur-Loire, France"
-      },
-      "terms": [
-        {
-          "offset": 0,
-          "value": "Kebab L'oriental"
-        },
-        {
-          "offset": 18,
-          "value": "Chalonnes-sur-Loire"
+          "offset": 30,
+          "value": "Trélazé"
         },
         {
           "offset": 39,
@@ -149,6 +180,8 @@
         }
       ],
       "types": [
+        "meal_delivery",
+        "meal_takeaway",
         "restaurant",
         "food",
         "point_of_interest",
@@ -156,40 +189,40 @@
       ]
     },
     {
-      "description": "Kebab L’Oriental, Place du Pré de la Halle, Maulevrier, France",
+      "description": "Pizza Roméo, Avenue Montaigne, Angers, France",
       "matched_substrings": [
         {
-          "length": 3,
+          "length": 5,
           "offset": 0
         }
       ],
-      "place_id": "ChIJlzN_dFBPBkgRtRPgKOO76Gw",
-      "reference": "ChIJlzN_dFBPBkgRtRPgKOO76Gw",
+      "place_id": "ChIJ9crv8_N4CEgRXXLDefnDNnI",
+      "reference": "ChIJ9crv8_N4CEgRXXLDefnDNnI",
       "structured_formatting": {
-        "main_text": "Kebab L’Oriental",
+        "main_text": "Pizza Roméo",
         "main_text_matched_substrings": [
           {
-            "length": 3,
+            "length": 5,
             "offset": 0
           }
         ],
-        "secondary_text": "Place du Pré de la Halle, Maulevrier, France"
+        "secondary_text": "Avenue Montaigne, Angers, France"
       },
       "terms": [
         {
           "offset": 0,
-          "value": "Kebab L’Oriental"
+          "value": "Pizza Roméo"
         },
         {
-          "offset": 18,
-          "value": "Place du Pré de la Halle"
+          "offset": 13,
+          "value": "Avenue Montaigne"
         },
         {
-          "offset": 44,
-          "value": "Maulevrier"
+          "offset": 31,
+          "value": "Angers"
         },
         {
-          "offset": 56,
+          "offset": 39,
           "value": "France"
         }
       ],

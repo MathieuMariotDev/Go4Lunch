@@ -137,7 +137,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        List<Place.Field> placeFields = Arrays.asList(Place.Field.LAT_LNG);
+                        List<Place.Field> placeFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.ID); // Add id // Reason ID of nearbySearch and Place is not the same
                         String idMarkerSelected = document.getString("idSelectedRestaurant");
                         FetchPlaceRequest request = FetchPlaceRequest.builder(idMarkerSelected, placeFields)
                                 .build();
@@ -387,7 +387,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().length() > 3) {
+                if (s.toString().trim().length() > 3) {
                     configureMapAutoCompleteRecyclerView();
                     if (mock) {
                         inSearch = true;
@@ -398,7 +398,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                         mFragmentMapsBinding.recyclerViewForMap.setVisibility(View.VISIBLE);
                         //FindAutocompletePredictions(s.toString(), mPlacesClient);
                     }
-                } else if (s.toString().length() == 0) {
+                } else if (s.toString().trim().length() == 0) {
                     inSearch = false;
                     mFragmentMapsBinding.recyclerViewForMap.setVisibility(View.GONE);
                 }
@@ -426,6 +426,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
     public void getPlaceFromPrediction() {
         mMap.clear(); /////****///
+        updateMapWhitSelectedMarker();
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.LAT_LNG);
         for (int i = 0; i < mPredictionListMock.size(); i++) {
             FetchPlaceRequest request = FetchPlaceRequest.builder(mPredictionListMock.get(i).getPlaceId(), placeFields).build();
@@ -451,9 +452,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         Marker m = mMap.addMarker(new MarkerOptions().position(new com.google.android.libraries.maps.model.LatLng(lat, lng))
                 .icon(BitmapDescriptorFactory.fromBitmap(bitmapPinRed)));
         m.setTag(mPlace.getId());
+        //m.setTag(mListPlacePOI.get(0)); // FOR TRY
         //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))).setTag(placesSearchResult.placeId);
         for (int i = 0; i < mPlacesSelected.size() && !mPlacesSelected.isEmpty(); i++) {
-            if (!mPlacesSelected.isEmpty() && Objects.equals(mPlacesSelected.get(i).getLatLng(), new com.google.android.libraries.maps.model.LatLng(lat, lng))) {
+            if (!mPlacesSelected.isEmpty() && mPlacesSelected.get(i).getId().equals(mPlace.getId())) {
                 //mMap.addMarker(new MarkerOptions().position(new .model.LatLng(lat, lng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(placesSearchResult.placeId);
                 m.setIcon(BitmapDescriptorFactory.fromBitmap(bitmapPinGreen));
             }

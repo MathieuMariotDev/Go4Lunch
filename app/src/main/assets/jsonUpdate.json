@@ -1,0 +1,238 @@
+{
+   "predictions": [
+      {
+         "description": "Pizza Hut, Avenue Marie Talet, Angers, France",
+         "matched_substrings": [
+            {
+               "length": 5,
+               "offset": 0
+            }
+         ],
+         "place_id": "ChIJVQNQwuh4CEgRWXjEftLVvz4",
+         "reference": "ChIJVQNQwuh4CEgRWXjEftLVvz4",
+         "structured_formatting": {
+            "main_text": "Pizza Hut",
+            "main_text_matched_substrings": [
+               {
+                  "length": 5,
+                  "offset": 0
+               }
+            ],
+            "secondary_text": "Avenue Marie Talet, Angers, France"
+         },
+         "terms": [
+            {
+               "offset": 0,
+               "value": "Pizza Hut"
+            },
+            {
+               "offset": 11,
+               "value": "Avenue Marie Talet"
+            },
+            {
+               "offset": 31,
+               "value": "Angers"
+            },
+            {
+               "offset": 39,
+               "value": "France"
+            }
+         ],
+         "types": [
+            "meal_delivery",
+            "meal_takeaway",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ]
+      },
+      {
+         "description": "Pizza Tempo, Rue Charles de Gaulle, Les Ponts-de-Cé, France",
+         "matched_substrings": [
+            {
+               "length": 5,
+               "offset": 0
+            }
+         ],
+         "place_id": "ChIJc6sZlbbXB0gRpvq_3792hMY",
+         "reference": "ChIJc6sZlbbXB0gRpvq_3792hMY",
+         "structured_formatting": {
+            "main_text": "Pizza Tempo",
+            "main_text_matched_substrings": [
+               {
+                  "length": 5,
+                  "offset": 0
+               }
+            ],
+            "secondary_text": "Rue Charles de Gaulle, Les Ponts-de-Cé, France"
+         },
+         "terms": [
+            {
+               "offset": 0,
+               "value": "Pizza Tempo"
+            },
+            {
+               "offset": 13,
+               "value": "Rue Charles de Gaulle"
+            },
+            {
+               "offset": 36,
+               "value": "Les Ponts-de-Cé"
+            },
+            {
+               "offset": 53,
+               "value": "France"
+            }
+         ],
+         "types": [
+            "meal_delivery",
+            "meal_takeaway",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ]
+      },
+      {
+         "description": "Pizza Tempo, Rue Boisnet, Angers, France",
+         "matched_substrings": [
+            {
+               "length": 5,
+               "offset": 0
+            }
+         ],
+         "place_id": "ChIJW3HGZcJ4CEgRRfRz-gmrhXA",
+         "reference": "ChIJW3HGZcJ4CEgRRfRz-gmrhXA",
+         "structured_formatting": {
+            "main_text": "Pizza Tempo",
+            "main_text_matched_substrings": [
+               {
+                  "length": 5,
+                  "offset": 0
+               }
+            ],
+            "secondary_text": "Rue Boisnet, Angers, France"
+         },
+         "terms": [
+            {
+               "offset": 0,
+               "value": "Pizza Tempo"
+            },
+            {
+               "offset": 13,
+               "value": "Rue Boisnet"
+            },
+            {
+               "offset": 26,
+               "value": "Angers"
+            },
+            {
+               "offset": 34,
+               "value": "France"
+            }
+         ],
+         "types": [
+            "meal_delivery",
+            "meal_takeaway",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ]
+      },
+      {
+         "description": "Pizza Tempo, Rue Jean Jaurès, Trélazé, France",
+         "matched_substrings": [
+            {
+               "length": 5,
+               "offset": 0
+            }
+         ],
+         "place_id": "ChIJw3yAcPzXB0gRDcvC1jyN858",
+         "reference": "ChIJw3yAcPzXB0gRDcvC1jyN858",
+         "structured_formatting": {
+            "main_text": "Pizza Tempo",
+            "main_text_matched_substrings": [
+               {
+                  "length": 5,
+                  "offset": 0
+               }
+            ],
+            "secondary_text": "Rue Jean Jaurès, Trélazé, France"
+         },
+         "terms": [
+            {
+               "offset": 0,
+               "value": "Pizza Tempo"
+            },
+            {
+               "offset": 13,
+               "value": "Rue Jean Jaurès"
+            },
+            {
+               "offset": 30,
+               "value": "Trélazé"
+            },
+            {
+               "offset": 39,
+               "value": "France"
+            }
+         ],
+         "types": [
+            "meal_delivery",
+            "meal_takeaway",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ]
+      },
+      {
+         "description": "Pizza Roméo, Avenue Montaigne, Angers, France",
+         "matched_substrings": [
+            {
+               "length": 5,
+               "offset": 0
+            }
+         ],
+         "place_id": "ChIJ9crv8_N4CEgRXXLDefnDNnI",
+         "reference": "ChIJ9crv8_N4CEgRXXLDefnDNnI",
+         "structured_formatting": {
+            "main_text": "Pizza Roméo",
+            "main_text_matched_substrings": [
+               {
+                  "length": 5,
+                  "offset": 0
+               }
+            ],
+            "secondary_text": "Avenue Montaigne, Angers, France"
+         },
+         "terms": [
+            {
+               "offset": 0,
+               "value": "Pizza Roméo"
+            },
+            {
+               "offset": 13,
+               "value": "Avenue Montaigne"
+            },
+            {
+               "offset": 31,
+               "value": "Angers"
+            },
+            {
+               "offset": 39,
+               "value": "France"
+            }
+         ],
+         "types": [
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ]
+      }
+   ],
+   "status": "OK"
+}
