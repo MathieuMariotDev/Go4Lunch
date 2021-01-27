@@ -175,7 +175,7 @@ public class ListFragment extends Fragment {
                     if (mock) {
                         updateAdapterForPredictionMock();
                     } else if (!mock) {
-                        FindAutocompletePredictions(s.toString(), mPlacesClient);
+                        FindAutocompletePredictions(s.toString().trim(), mPlacesClient);
                     }
                 } else if (s.toString().trim().length() == 0) {
                     updateRecyclerView();
