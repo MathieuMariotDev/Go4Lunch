@@ -1,10 +1,13 @@
 package com.example.go4lunch.ui.ListRestaurant;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
@@ -13,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
+import com.example.go4lunch.DetailActivity;
 import com.example.go4lunch.POJO.Prediction;
 import com.example.go4lunch.POJO.QueryAutocomplete;
 import com.example.go4lunch.databinding.ItemListBinding;
@@ -95,11 +99,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         private float mDistance;
         private int nbWorkamte = 0;
         int rating;
-
+        private final Context mContext;
         public ListViewHolder(@NonNull @NotNull ItemListBinding itemListBinding) {
             super(itemListBinding.getRoot());
             mItemListBinding = itemListBinding;
-            //mContext = itemView.getContext();
+            mContext = itemView.getContext();
         }
 
 
@@ -128,7 +132,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                 locationRestaurant.setLatitude(mPlace.getLatLng().latitude);
                 locationRestaurant.setLongitude(mPlace.getLatLng().longitude);
                 mDistance = mLocation.distanceTo(locationRestaurant);
-                mItemListBinding.restaurantDistance.setText(String.valueOf((int) mDistance) + "m");
+                mItemListBinding.restaurantDistance.setText((int) mDistance + "m");
                 if (mPlace.getOpeningHours() != null) {
                     switch (day) {
                         case Calendar.MONDAY:
@@ -190,7 +194,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                         Log.e("ERROR", "Place not found: " + exception.getMessage() + "///statusCode" + statusCode);
                     }
                 });
+                mItemListBinding.restaurantName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent detailItent = new Intent(mContext, DetailActivity.class);
+                        detailItent.putExtra("PlaceId", mPlace.getId());
+                        mContext.startActivity(detailItent);
+                    }
+                });
             });
+
 
         }
     }

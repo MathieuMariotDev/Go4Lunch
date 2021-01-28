@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.go4lunch.DetailActivity;
 import com.example.go4lunch.MainActivityViewModel;
+import com.example.go4lunch.R;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentWorkmatesBinding;
 import com.example.go4lunch.model.Workmate;
@@ -40,6 +41,8 @@ public class WorkmatesFragment extends Fragment /*implements WorkmatesAdapter.Li
         mFragmentWorkmatesBinding = FragmentWorkmatesBinding.inflate(inflater, container, false);  // Creates an instance of the binding class
         View view = mFragmentWorkmatesBinding.getRoot();
         mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
+        getActivity().findViewById(R.id.restaurantSearch).setVisibility(View.INVISIBLE);
+        getActivity().findViewById(R.id.open_search).setVisibility(View.INVISIBLE);
         getPlaces();
         configureRecyclerView();
         return view;

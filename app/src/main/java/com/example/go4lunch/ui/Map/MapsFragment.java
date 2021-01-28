@@ -242,7 +242,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
         bitmapPinRed = getBitmap(R.drawable.ic_restaurant_map_pin);
         bitmapPinGreen = getBitmap(R.drawable.ic_restaurant_map_pin_green);
-
+        getActivity().findViewById(R.id.restaurantSearch).setVisibility(View.INVISIBLE);
+        getActivity().findViewById(R.id.open_search).setVisibility(View.VISIBLE);
         return view;
         //return inflater.inflate(R.layout.fragment_maps, container, false);
     }
@@ -259,7 +260,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         getAuthorization();
         onTextChange();
         getPlaces();
-
+        onSearchClick();
         /// ADD FOR TEST TO GET GOOD CONTEXT ///
 
     }
@@ -378,6 +379,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    public void onSearchClick() {
+        getActivity().findViewById(R.id.open_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().findViewById(R.id.open_search).setVisibility(View.INVISIBLE);
+                getActivity().findViewById(R.id.restaurantSearch).setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     void onTextChange() {

@@ -7,6 +7,11 @@
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">642207916410707</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb642207916410707</string>
+    <!-- Twitter consumer key and secret -->
+    <string name="twitter_consumer_key" translatable="false">LQZdkuAcKggmUDVHjRs3mxbgC</string>
+    <string name="twitter_consumer_secret" translatable="false">vYLCbcB4nES4cwNE2NrbObcQgv3z16X1gJFA5qs3B2qyaLlcm0</string>
+
+
     <!-- Used in NavigationDrawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

@@ -16,31 +16,37 @@
         android:text="@string/restaurant_name_error"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="22dp"
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/restaurant_addresse"
         android:layout_width="300dp"
-        android:layout_height="20dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="5dp"
         android:text="@string/addresse_restaurant_error"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restaurant_name" />
-
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_name"
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/restaurant_opening_hours"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
         android:text="@string/opening_hours_error"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/restaurant_addresse"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/restaurant_distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_width="40dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
         android:text="@string/restaurant_distance_error"
         app:layout_constraintEnd_toStartOf="@+id/restaurant_picture"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,32 +56,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/nb_workmate_error"
-        app:layout_constraintEnd_toStartOf="@+id/restaurant_picture"
-        app:layout_constraintHorizontal_bias="0.985"
-        app:layout_constraintStart_toEndOf="@+id/restaurant_addresse"
-        app:layout_constraintTop_toBottomOf="@+id/restaurant_distance" />
+        app:layout_constraintBottom_toTopOf="@+id/restaurant_rating"
+        app:layout_constraintEnd_toStartOf="@+id/restaurant_picture" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_baseline_group_24"
+        app:layout_constraintBottom_toTopOf="@+id/restaurant_rating"
+        app:layout_constraintEnd_toStartOf="@+id/restaurant_workmate" />
 
     <TextView
         android:id="@+id/restaurant_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
         android:text="@string/rating_value_error"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/restaurant_workmate"
-        app:layout_constraintTop_toBottomOf="@+id/restaurant_workmate"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toStartOf="@+id/restaurant_picture" />
 
     <ImageView
         android:id="@+id/restaurant_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/ic_home_black_24dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="4dp"
+        android:src="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.864"
-        app:layout_constraintStart_toEndOf="@+id/restaurant_addresse"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.491" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

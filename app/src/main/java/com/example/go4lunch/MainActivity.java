@@ -20,6 +20,8 @@ import com.example.go4lunch.databinding.ActivityMainNavHeaderBinding;
 
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -151,7 +153,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.activity_main_drawer_logout:
                 signOutUserFromFirebase();
-                startLoginActivity();
                 break;
             default:
                 break;
@@ -168,23 +169,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void getPictureUser() {
-        View headerView = mBinding.activityMainNavView.getHeaderView(0);
-        ActivityMainNavHeaderBinding mainNavHeaderBinding = ActivityMainNavHeaderBinding.bind(headerView);
-        if (this.getCurrentUser() != null) {
-            if (this.getCurrentUser().getPhotoUrl() != null) {
-                Glide.with(this)
-                        .load(this.getCurrentUser().getPhotoUrl())
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(mainNavHeaderBinding.imageViewAvatar);
+        if (getCurrentUser() != null) {
+            View headerView = mBinding.activityMainNavView.getHeaderView(0);
+            ActivityMainNavHeaderBinding mainNavHeaderBinding = ActivityMainNavHeaderBinding.bind(headerView);
+            if (this.getCurrentUser() != null) {
+                if (this.getCurrentUser().getPhotoUrl() != null) {
+                    Glide.with(this)
+                            .load(this.getCurrentUser().getPhotoUrl())
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(mainNavHeaderBinding.imageViewAvatar);
+                }
             }
+            String mUserInformation = getCurrentUser().getDisplayName() + "\n" + getCurrentUser().getEmail();
+            mainNavHeaderBinding.textViewUser.setText(mUserInformation);
         }
-        String mUserInformation = getCurrentUser().getDisplayName() + "\n" + getCurrentUser().getEmail();
-        mainNavHeaderBinding.textViewUser.setText(mUserInformation);
     }
 
     public void signOutUserFromFirebase() {
         AuthUI.getInstance()
-                .signOut(this);
+                .signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                startLoginActivity();
+            }
+        });
     }
 
     public void startLoginActivity() {
@@ -253,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    //https://maps.googleapis.com/maps/api/place/queryautocomplete/json?key=AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw&language=fr&location=47.42879334559348,-0.5276967957615852&radius=50000&input=Keb
+
     /*public void parsejSON() {
         String jsonString;
         jsonString = UtilJson.getJsonFromAssets(getApplicationContext(), "QueryAutocomplete.json");
@@ -274,4 +282,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //mMainActivityViewModel.setRestaurant(resultList);
     }*/
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
 }

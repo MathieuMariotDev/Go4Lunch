@@ -73,6 +73,9 @@ public class ListFragment extends Fragment {
         mFragmentListBinding = FragmentListBinding.inflate(inflater, container, false);  // Creates an instance of the binding class
         View view = mFragmentListBinding.getRoot();
         mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
+        getActivity().findViewById(R.id.restaurantSearch).setVisibility(View.INVISIBLE);
+        getActivity().findViewById(R.id.open_search).setVisibility(View.VISIBLE);
+        onSearchClick();
         getPlaces();
         getLocation();
         getRestaurantSelected();
@@ -80,6 +83,16 @@ public class ListFragment extends Fragment {
         requestPlace();
         onClickAutoCompleteTextView();
         return view;
+    }
+
+    public void onSearchClick() {
+        getActivity().findViewById(R.id.open_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().findViewById(R.id.open_search).setVisibility(View.INVISIBLE);
+                getActivity().findViewById(R.id.restaurantSearch).setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void getPlaces() {

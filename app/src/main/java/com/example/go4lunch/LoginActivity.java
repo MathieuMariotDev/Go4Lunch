@@ -14,6 +14,7 @@ import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.ActivityLoginBinding;
 import com.example.go4lunch.databinding.ActivityMainBinding;
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.AuthUI.IdpConfig.Builder;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.libraries.maps.model.PointOfInterest;
@@ -21,6 +22,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.OAuthProvider;
 import com.google.longrunning.WaitOperationRequest;
 
 import java.sql.Timestamp;
@@ -32,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
 
     private ActivityLoginBinding mLoginBinding;
+    private OAuthProvider.Builder provider = OAuthProvider.newBuilder("twitter.com");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                         .createSignInIntentBuilder()
                         .setTheme(R.style.LoginTheme)
                         .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.GoogleBuilder().build(),
-                                new AuthUI.IdpConfig.FacebookBuilder().build()))
+                                new AuthUI.IdpConfig.FacebookBuilder().build(), new AuthUI.IdpConfig.TwitterBuilder().build()))
                         .setIsSmartLockEnabled(false, true)
                         .setLogo(R.drawable.ic_logo_go4lunch)
                         .build(),
