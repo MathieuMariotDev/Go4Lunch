@@ -3,6 +3,7 @@ package com.example.go4lunch;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -180,7 +181,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             .into(mainNavHeaderBinding.imageViewAvatar);
                 }
             }
-            String mUserInformation = getCurrentUser().getDisplayName() + "\n" + getCurrentUser().getEmail();
+            String mUserInformation;
+            if (getCurrentUser().getEmail() == null) {
+                mUserInformation = getCurrentUser().getDisplayName() + "\n";
+            } else {
+                mUserInformation = getCurrentUser().getDisplayName() + "\n" + getCurrentUser().getEmail();
+            }
             mainNavHeaderBinding.textViewUser.setText(mUserInformation);
         }
     }
@@ -281,9 +287,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          predictionList = utilPredictionMock.parsejSON(getApplicationContext());
         //mMainActivityViewModel.setRestaurant(resultList);
     }*/
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-    }
 }

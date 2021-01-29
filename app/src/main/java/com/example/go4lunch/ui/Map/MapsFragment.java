@@ -2,19 +2,24 @@ package com.example.go4lunch.ui.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -145,16 +150,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+                    mPlacesSelected.clear();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         List<Place.Field> placeFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.ID); // Add id // Reason ID of nearbySearch and Place is not the same
                         String idMarkerSelected = document.getString("idSelectedRestaurant");
                         FetchPlaceRequest request = FetchPlaceRequest.builder(idMarkerSelected, placeFields)
                                 .build();
                         mPlacesClient.fetchPlace(request).addOnSuccessListener((response) -> {
-                            mPlacesSelected.clear();
                             mPlace = response.getPlace();
                             mPlacesSelected.add(response.getPlace());
-                            //mMap.addMarker(new MarkerOptions().position(mPlace.getLatLng()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                            mMap.addMarker(new MarkerOptions().position(new com.google.android.libraries.maps.model.LatLng(mPlace.getLatLng().latitude, mPlace.getLatLng().longitude)).icon(BitmapDescriptorFactory.fromBitmap(bitmapPinGreen)));
                             Log.i("INFO", "Place found: " + mPlace.getLatLng());
                         });
                     }
@@ -164,6 +169,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     public void updateMapWhitCustomMarker() {
+        updateMapWhitSelectedMarker(); // *** Probably not good way
         if (placesSearchResults != null && placesSearchResults.length > 0) {
             for (PlacesSearchResult placesSearchResult : placesSearchResults) {
                 double lat = placesSearchResult.geometry.location.lat;
@@ -189,8 +195,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
                 }
             }
-            updateMapWhitSelectedMarker(); // NEED TO DEBUG PROBABLY NEED AFTER
         }
+
     }
 
     public void runAsyncNearbySearchRequest() {
@@ -303,7 +309,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new com.google.android.libraries.maps.model.LatLng(location.getLatitude(), location.getLongitude()), 15));
             ///updateMapWhitCustomMarker();
             mMap.setOnCameraIdleListener(this);
-
+            runAsyncNearbySearchRequest();
             updateCamera = false;
         }
 
@@ -572,5 +578,33 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         }
     }
 
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
 
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme);
+        builder.setMessage(R.string.gps_disabel)
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                        getActivity().finishAffinity();  // Close completly app
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
 }

@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Go4Lunch</string>
-    <string name="title_MapView">Map View</string>
-    <string name="title_ListView">List View</string>
-    <string name="title_Workmates">Workmates</string>
+    <string name="title_MapView">Vue de la carte</string>
+    <string name="title_ListView">Vue liste</string>
+    <string name="title_Workmates">Collègues</string>
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">642207916410707</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb642207916410707</string>
+    <!-- Twitter consumer key and secret -->
+    <string name="twitter_consumer_key" translatable="false">LQZdkuAcKggmUDVHjRs3mxbgC</string>
+    <string name="twitter_consumer_secret" translatable="false">vYLCbcB4nES4cwNE2NrbObcQgv3z16X1gJFA5qs3B2qyaLlcm0</string>
     <!-- Used in NavigationDrawer -->
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="navigation_drawer_open">Ouverture du menu latéral</string>
+    <string name="navigation_drawer_close">Fermeture du menu latéral</string>
+    <string name="title_activity_maps">Carte</string>
     <string name="map_id">72030e3beb4aa770</string>
 
+    <!--   GPS   -->
+    <string name="gps_disabel">Votre GPS est désactiver , vous devez l\'activer pour utiliser l\'application. En cas de refus l\'application ce fermera automatiquement</string>
     <!--    Permissions    -->
-    <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
-    <string name="location_permission_denied">This sample requires location permission to enable the \'my location\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Go4Lunch\'.</string>
-    <string name="permission_required_toast">Location permission is required for this demo.</string>
+    <string name="permission_rationale_location">L\' accès au service de localisation est nécessaire pour afficher \'my location\' fonctionnalité, qui montre votre position actuelle sur la carte.</string>
+    <string name="location_permission_denied">Cet application nécessite l\'autorisation de locatisation pour activer \'my location\' . Veuillez réessayer et accorder l\'accès pour utiliser la localisation.\nSi l\'autorisation a été définitivement refusée, elle peut être activée à partir des paramètres système Settings &gt; Apps &gt; \'Go4Lunch\'.</string>
+    <string name="permission_required_toast">La localisation est nécessaire pour l\'utilisation de cette application</string>
     <string name="permission_rationale_callphone">Access to the call phone service is required to demonstrate the \'call phone\' feature, which allows you to call the restaurant from the app.</string>
     <string name="permission_required_callphone_toast">Call phone permission is required for this demo.</string>
     <string name="permission_callphone_denied">This sample requires call phone permission to enable the \'call phone\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Go4Lunch\'.</string>
@@ -26,12 +31,12 @@
     <string name="error_no_internet">Aucune connexion internet !</string>
     <string name="error_unknown_error">Une erreur inconnue s\'est produite&#8230;</string>
     <!-- Other -->
-    <string name="txt_phone">CALL</string>
-    <string name="txt_like">LIKE</string>
-    <string name="txt_web">WEBSITE</string>
-    <string name="restaurant_name_error">Restaurant name error</string>
-    <string name="addresse_restaurant_error">Addresse restaurant error</string>
-    <string name="opening_hours_error">Opening hours error</string>
+    <string name="txt_phone">APPEL</string>
+    <string name="txt_like">J\'aime</string>
+    <string name="txt_web">Site internet</string>
+    <string name="restaurant_name_error">Erreur sur le nom du restaurant</string>
+    <string name="addresse_restaurant_error">Erreur sur l\'adresse du restaurant</string>
+    <string name="opening_hours_error">Erreur sur les horraires d\'ouverture</string>
     <string name="restaurant_distance_error">999m</string>
     <string name="nb_workmate_error">0</string>
     <string name="rating_value_error">9</string>
