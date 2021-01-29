@@ -59,6 +59,9 @@ import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.maps.GeoApiContext;
@@ -150,8 +153,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    mPlacesSelected.clear();
+                    //
                     for (QueryDocumentSnapshot document : task.getResult()) {
+                        mPlacesSelected.clear();
                         List<Place.Field> placeFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.ID); // Add id // Reason ID of nearbySearch and Place is not the same
                         String idMarkerSelected = document.getString("idSelectedRestaurant");
                         FetchPlaceRequest request = FetchPlaceRequest.builder(idMarkerSelected, placeFields)
@@ -160,21 +164,22 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                             mPlace = response.getPlace();
                             mPlacesSelected.add(response.getPlace());
                             mMap.addMarker(new MarkerOptions().position(new com.google.android.libraries.maps.model.LatLng(mPlace.getLatLng().latitude, mPlace.getLatLng().longitude)).icon(BitmapDescriptorFactory.fromBitmap(bitmapPinGreen)));
-                            Log.i("INFO", "Place found: " + mPlace.getLatLng());
+                            Log.i("INFO", "Place found:In Firebase " + mPlace.getLatLng());
                         });
                     }
                 }
+
             }
         });
     }
 
+
     public void updateMapWhitCustomMarker() {
-        updateMapWhitSelectedMarker(); // *** Probably not good way
+        mMap.clear();
         if (placesSearchResults != null && placesSearchResults.length > 0) {
             for (PlacesSearchResult placesSearchResult : placesSearchResults) {
                 double lat = placesSearchResult.geometry.location.lat;
                 double lng = placesSearchResult.geometry.location.lng;
-
 
 /*
                     if (!mPlacesSelected.isEmpty() && Objects.equals(mPlacesSelected.get(i).getLatLng(), new .model.LatLng(lat, lng))) {
@@ -188,15 +193,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                 m.setTag(placesSearchResult.placeId);
                 //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))).setTag(placesSearchResult.placeId);
                 for (int i = 0; i < mPlacesSelected.size() && !mPlacesSelected.isEmpty(); i++) {
-                    if (!mPlacesSelected.isEmpty() && Objects.equals(mPlacesSelected.get(i).getLatLng(), new com.google.android.libraries.maps.model.LatLng(lat, lng))) {
+                    if (!mPlacesSelected.isEmpty() && mPlacesSelected.get(i).getLatLng().latitude == lat && mPlacesSelected.get(i).getLatLng().longitude == lng) {
                         //mMap.addMarker(new MarkerOptions().position(new .model.LatLng(lat, lng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(placesSearchResult.placeId);
                         m.setIcon(BitmapDescriptorFactory.fromBitmap(bitmapPinGreen));
                     }
 
                 }
             }
-        }
 
+        }
+        updateMapWhitSelectedMarker();
     }
 
     public void runAsyncNearbySearchRequest() {
@@ -246,6 +252,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         mFragmentMapsBinding = FragmentMapsBinding.inflate(inflater, container, false);  // Creates an instance of the binding class
         View view = mFragmentMapsBinding.getRoot();
         mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
+        updateMapWhitSelectedMarker();
         bitmapPinRed = getBitmap(R.drawable.ic_restaurant_map_pin);
         bitmapPinGreen = getBitmap(R.drawable.ic_restaurant_map_pin_green);
         getActivity().findViewById(R.id.restaurantSearch).setVisibility(View.INVISIBLE);
