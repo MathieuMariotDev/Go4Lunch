@@ -163,7 +163,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                         mPlacesClient.fetchPlace(request).addOnSuccessListener((response) -> {
                             mPlace = response.getPlace();
                             mPlacesSelected.add(response.getPlace());
-                            mMap.addMarker(new MarkerOptions().position(new com.google.android.libraries.maps.model.LatLng(mPlace.getLatLng().latitude, mPlace.getLatLng().longitude)).icon(BitmapDescriptorFactory.fromBitmap(bitmapPinGreen)));
+                            mMap.addMarker(new MarkerOptions().position(new com.google.android.libraries.maps.model.LatLng(mPlace.getLatLng().latitude, mPlace.getLatLng().longitude)).icon(BitmapDescriptorFactory.fromBitmap(bitmapPinGreen))).setTag(mPlace.getId());
                             Log.i("INFO", "Place found:In Firebase " + mPlace.getLatLng());
                         });
                     }
