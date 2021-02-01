@@ -1,6 +1,7 @@
 package com.example.go4lunch;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -22,6 +24,7 @@ import com.example.go4lunch.Utils.LanguageUtils;
 import com.example.go4lunch.Utils.LocationPermissionUtils;
 import com.example.go4lunch.Utils.UtilJson;
 import com.example.go4lunch.Utils.UtilPredictionMock;
+import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.ActivityMainBinding;
 import com.example.go4lunch.databinding.ActivityMainNavHeaderBinding;
 
@@ -40,6 +43,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.common.reflect.TypeToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
@@ -64,6 +68,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -161,6 +166,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.activity_main_drawer_your_lunch:
+
+                WorkmateHelper.getUser(getCurrentUser().getUid()).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.getResult().getString("idSelectedRestaurant").equals("No place selected")) {
+                            startDetailActivity(task.getResult().getString("idSelectedRestaurant"));
+                        } else if (task.getResult().getString("idSelectedRestaurant").equals("No place selected")) {
+                            Toast.makeText(MainActivity.this, "Vous n'avez pas sélectionnez de restaurant", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
                 break;
             case R.id.activity_main_drawer_settings:
                 Intent intentSettingsFragmentActivity = new Intent(MainActivity.this, SettingsFragmentActivity.class);
