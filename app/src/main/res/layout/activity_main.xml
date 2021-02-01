@@ -31,6 +31,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <EditText
                 android:id="@+id/restaurantSearch"
                 android:layout_width="match_parent"
@@ -61,7 +62,6 @@
             android:layout_height="match_parent"
 
             >
-
 
             <fragment
                 android:id="@+id/nav_host_fragment"

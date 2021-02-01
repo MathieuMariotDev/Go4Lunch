@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
 
     private ActivityLoginBinding mLoginBinding;
-    private OAuthProvider.Builder provider = OAuthProvider.newBuilder("twitter.com");
 
 
     @Override

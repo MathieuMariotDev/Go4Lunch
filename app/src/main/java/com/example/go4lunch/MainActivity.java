@@ -1,8 +1,13 @@
 package com.example.go4lunch;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.go4lunch.POJO.Prediction;
 import com.example.go4lunch.POJO.QueryAutocomplete;
+import com.example.go4lunch.Utils.LanguageUtils;
 import com.example.go4lunch.Utils.LocationPermissionUtils;
 import com.example.go4lunch.Utils.UtilJson;
 import com.example.go4lunch.Utils.UtilPredictionMock;
@@ -20,6 +26,9 @@ import com.example.go4lunch.databinding.ActivityMainBinding;
 import com.example.go4lunch.databinding.ActivityMainNavHeaderBinding;
 
 
+import com.example.go4lunch.databinding.FragmentSettingsBinding;
+import com.example.go4lunch.ui.SettingsFragment;
+import com.example.go4lunch.ui.SettingsFragmentActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,12 +46,14 @@ import com.google.gson.Gson;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -52,6 +63,7 @@ import androidx.navigation.ui.NavigationUI;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -151,6 +163,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.activity_main_drawer_your_lunch:
                 break;
             case R.id.activity_main_drawer_settings:
+                Intent intentSettingsFragmentActivity = new Intent(MainActivity.this, SettingsFragmentActivity.class);
+                startActivity(intentSettingsFragmentActivity);
                 break;
             case R.id.activity_main_drawer_logout:
                 signOutUserFromFirebase();
@@ -266,25 +280,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(detailItent);
     }
 
-
-
-    /*public void parsejSON() {
-        String jsonString;
-        jsonString = UtilJson.getJsonFromAssets(getApplicationContext(), "QueryAutocomplete.json");
-        Log.i("dataJsonNearby", jsonString);
-        Gson gson = new Gson();*/
-    List<Prediction> predictionList = new ArrayList<>();
-        /*Type listPrediction = new TypeToken<List<QueryAutocomplete>>() {
-        }.getType();
-
-        QueryAutocomplete resultList = gson.fromJson(jsonString, QueryAutocomplete.class);
-
-        for (int i = 1; i < resultList.getPredictions().size(); i++) {
-            Log.i("DATA", " > Item" + i + "\n" + resultList.getPredictions().get(i).getPlaceId());
-            predictionList.add(resultList.getPredictions().get(i));
-        }
-
-         predictionList = utilPredictionMock.parsejSON(getApplicationContext());
-        //mMainActivityViewModel.setRestaurant(resultList);
-    }*/
 }
