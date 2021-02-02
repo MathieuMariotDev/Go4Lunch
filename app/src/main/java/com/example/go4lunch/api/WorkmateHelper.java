@@ -6,8 +6,11 @@ import com.google.android.libraries.maps.model.PointOfInterest;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
@@ -24,7 +27,7 @@ public class WorkmateHelper {
 
     // --- CREATE ---
 
-    public static Task<Void> createUser(String uid, String username, @Nullable String idSelectedRestaurant, @Nullable String idLikeRestaurant, String urlPicture) {
+    public static Task<Void> createUser(String uid, String username, @Nullable String idSelectedRestaurant, @Nullable ArrayList<String> idLikeRestaurant, String urlPicture) {
         Workmate userToCreate = new Workmate(uid, username, idSelectedRestaurant, idLikeRestaurant, urlPicture);
         return WorkmateHelper.getUsersCollection().document(uid).set(userToCreate);
     }
@@ -43,10 +46,14 @@ public class WorkmateHelper {
     }
 
     public static Task<Void> updateIdLikeRestaurant(String uid, String idLikeRestaurant) {
-        return WorkmateHelper.getUsersCollection().document(uid).update("idLikeRestaurant", idLikeRestaurant); //Need modif for add
+        return WorkmateHelper.getUsersCollection().document(uid).update("idLikeRestaurant", FieldValue.arrayUnion(idLikeRestaurant)); //Need modif for add
     }
 
+
     // --- DELETE ---
+    public static Task<Void> deleteIdLikeRestaurant(String uid, String idLikeRestaurant) {
+        return WorkmateHelper.getUsersCollection().document(uid).update("idLikeRestaurant", FieldValue.arrayRemove(idLikeRestaurant)); //Need modif for add
+    }
 
     public static Task<Void> deleteUser(String uid) {
         return WorkmateHelper.getUsersCollection().document(uid).delete();

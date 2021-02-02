@@ -45,6 +45,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_picture_restaurant" />
 
+    <ImageView
+        android:id="@+id/ic_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="264dp"
+        android:layout_marginBottom="64dp"
+        android:src="@drawable/ic_baseline_star_24"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_info_restaurant"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton_choose"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/textView_info_restaurant"
         android:layout_width="414dp"
@@ -75,11 +87,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_info_restaurant" />
 
     <Button
-        android:id="@+id/imageButton_"
+        android:id="@+id/imageButton_like"
         android:layout_marginTop="12dp"
         android:layout_width="132dp"
         android:layout_height="95dp"
-        android:drawableTop="@drawable/ic_baseline_star_24"
+        android:drawableTop="@drawable/ic_baseline_star_like_24"
         android:text="@string/txt_like"
         android:background="#FFFFFF"
         android:textColor="@color/colorPrimary"

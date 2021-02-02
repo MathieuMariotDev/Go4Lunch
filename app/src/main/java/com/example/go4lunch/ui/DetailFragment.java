@@ -35,27 +35,28 @@ import com.example.go4lunch.model.Workmate;
 import com.example.go4lunch.ui.Workmates.WorkmatesAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPhotoRequest;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.api.client.util.Value;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
+import java.lang.reflect.GenericArrayType;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class DetailFragment extends Fragment {
 
 
@@ -76,6 +77,7 @@ public class DetailFragment extends Fragment {
     @Nullable
     private Workmate modelCurrentWorkmate;
     private final int idViewDetail = 0;
+    private List<String> idLikeList = new ArrayList<>();
 
     //////////////////////////////////////////////////
 
@@ -123,6 +125,7 @@ public class DetailFragment extends Fragment {
     }
 
     private void setupTextView() {
+        mFragmentDetailBinding.icLike.setVisibility(View.INVISIBLE);
         String mNameRestaurant = mPlace.getName() + " " + mPlace.getRating();
         mFragmentDetailBinding.textViewNameRestaurant.setText(mNameRestaurant);
         String mAboutRestaurant = " " + mPlace.getAddress();
@@ -151,8 +154,11 @@ public class DetailFragment extends Fragment {
         placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
             mPlace = response.getPlace();
             setupTextView();
+
             Log.i("INFO", "Place found: " + mPlace.getName());
             placeIdSelected = mPlace.getId(); // placeIdSelect with the good id
+            getRestaurantLike();
+            onClickLikeRestaurant();
             // Get the photo metadata.
             final List<PhotoMetadata> metadata = mPlace.getPhotoMetadatas();
             if (metadata == null || metadata.isEmpty()) {
@@ -213,6 +219,37 @@ public class DetailFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public void onClickLikeRestaurant() {
+
+        mFragmentDetailBinding.imageButtonLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (idLikeList.contains(mPlace.getId())) {
+
+                    WorkmateHelper.deleteIdLikeRestaurant(getCurrentUser().getUid(), mPlace.getId()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            idLikeList.remove(mPlace.getId());
+                            mFragmentDetailBinding.icLike.setVisibility(View.INVISIBLE);
+                            mFragmentDetailBinding.imageButtonLike.setText("J'aime");
+                        }
+                    });
+                } else if (!idLikeList.contains(mPlace.getId())) {
+
+                    WorkmateHelper.updateIdLikeRestaurant(getCurrentUser().getUid(), mPlace.getId()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            idLikeList.add(mPlace.getId());
+                            mFragmentDetailBinding.icLike.setVisibility(View.VISIBLE);
+                            mFragmentDetailBinding.imageButtonLike.setText("Restaurant déjà liké");
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     public void onClickSelectRestaurant() {
@@ -331,5 +368,20 @@ public class DetailFragment extends Fragment {
         Query query = workmatesRef.whereEqualTo("idSelectedRestaurant", placeIdSelected);
         return new FirestoreRecyclerOptions.Builder<Workmate>()
                 .setQuery(query, Workmate.class).setLifecycleOwner(this).build();
+    }
+
+    public void getRestaurantLike() {
+        WorkmateHelper.getUser(getCurrentUser().getUid()).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                idLikeList = (List<String>) task.getResult().get("idLikeRestaurant");
+                if (idLikeList.contains(mPlace.getId())) {
+                    mFragmentDetailBinding.icLike.setVisibility(View.VISIBLE);
+                    mFragmentDetailBinding.imageButtonLike.setText("Restaurant déjà liké");
+                } else {
+                    mFragmentDetailBinding.icLike.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
     }
 }

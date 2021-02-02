@@ -6,20 +6,22 @@ import androidx.annotation.Nullable;
 
 import com.google.android.libraries.maps.model.PointOfInterest;
 
+import java.util.ArrayList;
+
 public class Workmate {
 
 
     private String uid;
     private String idSelectedRestaurant;
 
-    private String idLikeRestaurant;
+    private ArrayList<String> idLikeRestaurant;
 
     private String username;
 
     private String urlPicture;
 
 
-    public Workmate(String uid, String username, @Nullable String idSelectedRestaurant, @Nullable String idLikeRestaurant, String urlPicture) {
+    public Workmate(String uid, String username, @Nullable String idSelectedRestaurant, @Nullable ArrayList<String> idLikeRestaurant, String urlPicture) {
         this.uid = uid;
         this.username = username;
         this.idSelectedRestaurant = idSelectedRestaurant;
@@ -34,7 +36,7 @@ public class Workmate {
         return idSelectedRestaurant;
     }
 
-    public String getIdLikeRestaurant() {
+    public ArrayList<String> getIdLikeRestaurant() {
         return idLikeRestaurant;
     }
 
@@ -51,7 +53,7 @@ public class Workmate {
         this.idSelectedRestaurant = idSelectedRestaurant;
     }
 
-    public void setIdLikeRestaurant(String idLikeRestaurant) {
+    public void setIdLikeRestaurant(ArrayList<String> idLikeRestaurant) {
         this.idLikeRestaurant = idLikeRestaurant;
     }
 
