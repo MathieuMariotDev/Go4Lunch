@@ -23,7 +23,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.SettingsFragmentActivity"></activity>
+        <activity android:name=".ui.DetailActivity"></activity>
+        <activity android:name=".ui.SettingsFragmentActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,7 +37,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw" />
 
-        <activity android:name=".DetailActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".LoginActivity"

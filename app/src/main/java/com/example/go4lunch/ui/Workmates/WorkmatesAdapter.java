@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.go4lunch.DetailActivity;
 import com.example.go4lunch.databinding.ItemWorkmateBinding;
 
 import com.example.go4lunch.model.Workmate;
+import com.example.go4lunch.ui.DetailActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.libraries.places.api.model.Place;
@@ -103,9 +103,9 @@ public class WorkmatesAdapter extends FirestoreRecyclerAdapter<Workmate, Workmat
                     mItemWorkmateBinding.lblName.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent detailItent = new Intent(mContext, DetailActivity.class);
-                            detailItent.putExtra("PlaceId", mPlace.getId());
-                            mContext.startActivity(detailItent);
+                            Intent intentDetailFragmentActivity = new Intent(mContext, DetailActivity.class);
+                            intentDetailFragmentActivity.putExtra("PlaceId", mPlace.getId());
+                            mContext.startActivity(intentDetailFragmentActivity);
                         }
                     });
                 }

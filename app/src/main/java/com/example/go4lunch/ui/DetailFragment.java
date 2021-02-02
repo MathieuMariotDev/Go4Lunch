@@ -1,11 +1,4 @@
-package com.example.go4lunch;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.go4lunch.ui;
 
 import android.Manifest;
 import android.content.Intent;
@@ -15,14 +8,29 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.go4lunch.BuildConfig;
+import com.example.go4lunch.MainActivityViewModel;
+import com.example.go4lunch.R;
 import com.example.go4lunch.Utils.CallPhonePermissionUtils;
 import com.example.go4lunch.api.WorkmateHelper;
-import com.example.go4lunch.databinding.ActivityDetailBinding;
+import com.example.go4lunch.databinding.FragmentDetailBinding;
 import com.example.go4lunch.model.Workmate;
 import com.example.go4lunch.ui.Workmates.WorkmatesAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -43,11 +51,18 @@ import com.google.firebase.firestore.Query;
 import java.util.Arrays;
 import java.util.List;
 
-public class DetailActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link DetailFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class DetailFragment extends Fragment {
 
-    private ActivityDetailBinding mActivityDetailBinding;
+
+    private MainActivityViewModel mMainActivityViewModel;
+    private FragmentDetailBinding mFragmentDetailBinding;
     private String placeIdSelected;
-    private String apiKey = "AIzaSyDOW_zzeyuIpdsg6iXmLb0lueXOGNVcWRw";
+    private String apiKey = BuildConfig.API_KEY;
     private Place mPlace;
     private Bitmap mPicture;
     private String mPhone;
@@ -62,14 +77,32 @@ public class DetailActivity extends AppCompatActivity {
     private Workmate modelCurrentWorkmate;
     private final int idViewDetail = 0;
 
+    //////////////////////////////////////////////////
+
+
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+
+    public DetailFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityDetailBinding = ActivityDetailBinding.inflate(getLayoutInflater());  // Creates an instance of the binding class
-        View view = mActivityDetailBinding.getRoot(); // Get a reference to the root view
-        setContentView(view);
-        placeIdSelected = getIntent().getStringExtra("PlaceId");
-        Log.i("INFO", "PlaceId :" + placeIdSelected);
+        if (getArguments() != null) {
+            placeIdSelected = getArguments().getString("PlaceId");
+            Log.i("INFO", "PlaceId :" + placeIdSelected);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        mFragmentDetailBinding = FragmentDetailBinding.inflate(inflater, container, false);
+        View view = mFragmentDetailBinding.getRoot();
+        // mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
         setupPlace();
         placeRequest();
         getCurrentWorkmateFromFirestore();
@@ -77,28 +110,33 @@ public class DetailActivity extends AppCompatActivity {
         onCickWeb();
         onClickSelectRestaurant();
         configureRecyclerView();
+        // Inflate the layout for this fragment
+        return view;
     }
 
+    private void setupPlace() {
+        // Initialize the SDK
+        Places.initialize(getActivity(), apiKey);
+
+        // Create a new PlacesClient instance
+        placesClient = Places.createClient(getActivity());
+    }
 
     private void setupTextView() {
         String mNameRestaurant = mPlace.getName() + " " + mPlace.getRating();
-        mActivityDetailBinding.textViewNameRestaurant.setText(mNameRestaurant);
+        mFragmentDetailBinding.textViewNameRestaurant.setText(mNameRestaurant);
         String mAboutRestaurant = " " + mPlace.getAddress();
-        mActivityDetailBinding.textViewInfoRestaurant.setText(mAboutRestaurant);
+        mFragmentDetailBinding.textViewInfoRestaurant.setText(mAboutRestaurant);
         mPhone = "tel:" + mPlace.getPhoneNumber();
         mUriUrl = mPlace.getWebsiteUri();
     }
 
     private void setupImageView() {
-        mActivityDetailBinding.imageViewPictureRestaurant.setImageBitmap(mPicture);
+        mFragmentDetailBinding.imageViewPictureRestaurant.setImageBitmap(mPicture);
     }
 
-    private void setupPlace() {
-        // Initialize the SDK
-        Places.initialize(getApplicationContext(), apiKey);
-
-        // Create a new PlacesClient instance
-        placesClient = Places.createClient(this);
+    private void getPlace() {
+        placesClient = mMainActivityViewModel.getPlacesClient();
     }
 
     private void placeRequest() {
@@ -148,11 +186,11 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void onCickPhone() {
-        mActivityDetailBinding.imageButtonPhone.setOnClickListener(new View.OnClickListener() {
+        mFragmentDetailBinding.imageButtonPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mPhone.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "No associated phone number", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "No associated phone number", Toast.LENGTH_LONG).show();
                 } else {
                    /* Intent phoneIntent = new Intent(Intent.ACTION_CALL);
                     phoneIntent.setData(Uri.parse(mPhone));
@@ -164,11 +202,11 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void onCickWeb() {
-        mActivityDetailBinding.imageButtonWeb.setOnClickListener(new View.OnClickListener() {
+        mFragmentDetailBinding.imageButtonWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mPhone.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "No associated web site", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "No associated web site", Toast.LENGTH_LONG).show();
                 } else {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, mUriUrl);
                     startActivity(browserIntent);
@@ -178,18 +216,18 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void onClickSelectRestaurant() {
-        mActivityDetailBinding.imageButtonChoose.setOnClickListener(new View.OnClickListener() {
+        mFragmentDetailBinding.imageButtonChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (modelCurrentWorkmate != null) {
                     if (modelCurrentWorkmate.getIdSelectedRestaurant().equals(placeIdSelected)) {
-                        mActivityDetailBinding.imageButtonChoose.setBackgroundColor(Color.WHITE);
+                        mFragmentDetailBinding.imageButtonChoose.setBackgroundColor(Color.WHITE);
                         updateDbWithSelectRestaurant("No place selected");
-                        Toast.makeText(DetailActivity.this, "You have just indicated that you no longer wish to eat in this restaurant this noon", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "You have just indicated that you no longer wish to eat in this restaurant this noon", Toast.LENGTH_LONG).show();
                     } else if (!placeIdSelected.equals(modelCurrentWorkmate.getIdSelectedRestaurant())) {
                         updateDbWithSelectRestaurant(placeIdSelected);
-                        mActivityDetailBinding.imageButtonChoose.setBackgroundColor(Color.BLUE);
-                        Toast.makeText(DetailActivity.this, "You have just indicated that you wish to eat in this restaurant this lunchtime", Toast.LENGTH_LONG).show();
+                        mFragmentDetailBinding.imageButtonChoose.setBackgroundColor(Color.BLUE);
+                        Toast.makeText(getContext(), "You have just indicated that you wish to eat in this restaurant this lunchtime", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -221,14 +259,14 @@ public class DetailActivity extends AppCompatActivity {
     /// Permission CALL PHONE
 
     public void enableCallPhone() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
                 == PackageManager.PERMISSION_GRANTED) {
             Intent phoneIntent = new Intent(Intent.ACTION_CALL);
             phoneIntent.setData(Uri.parse(mPhone));
             startActivity(phoneIntent);
         } else {
             // Permission to access the location is missing. Show rationale and request permission
-            CallPhonePermissionUtils.requestPermission(this, CALLPHONE_PERMISSION_REQUEST_CODE,
+            CallPhonePermissionUtils.requestPermission((AppCompatActivity) getActivity(), CALLPHONE_PERMISSION_REQUEST_CODE,
                     Manifest.permission.CALL_PHONE, true);
         }
     }
@@ -236,10 +274,10 @@ public class DetailActivity extends AppCompatActivity {
     public void updateColorButton() {
         if (modelCurrentWorkmate != null) {
             if (modelCurrentWorkmate.getIdSelectedRestaurant().equals(placeIdSelected)) {
-                mActivityDetailBinding.imageButtonChoose.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F14337")));
-                mActivityDetailBinding.imageButtonChoose.setRippleColor(Color.parseColor("#F14337"));
+                mFragmentDetailBinding.imageButtonChoose.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F14337")));
+                mFragmentDetailBinding.imageButtonChoose.setRippleColor(Color.parseColor("#F14337"));
             } else if (!placeIdSelected.equals(modelCurrentWorkmate.getIdSelectedRestaurant())) {
-                mActivityDetailBinding.imageButtonChoose.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                mFragmentDetailBinding.imageButtonChoose.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
             }
         }
     }
@@ -255,7 +293,7 @@ public class DetailActivity extends AppCompatActivity {
             enableCallPhone();
         } else {
             // Permission was denied. Display an error message
-            Toast.makeText(this, R.string.permission_required_callphone_toast, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), R.string.permission_required_callphone_toast, Toast.LENGTH_LONG).show();
             // Display the missing permission error dialog when the fragments resume.
             permissionDenied = true;
         }
@@ -278,14 +316,14 @@ public class DetailActivity extends AppCompatActivity {
      */
     private void showMissingPermissionError() {
         CallPhonePermissionUtils.PermissionDeniedDialog
-                .newInstance(false).show(getSupportFragmentManager(), "dialog");
+                .newInstance(false).show(getParentFragmentManager(), "dialog");
 
     }
 
     private void configureRecyclerView() {
-        recyclerView = (RecyclerView) mActivityDetailBinding.listWorkmatesDetail;
+        recyclerView = (RecyclerView) mFragmentDetailBinding.listWorkmatesDetail;
         mAdapter = new WorkmatesAdapter(getWorkmates(), Glide.with(this), placesClient, idViewDetail);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
     }
 

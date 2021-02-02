@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,7 +18,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,7 +29,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.go4lunch.BuildConfig;
-import com.example.go4lunch.MainActivity;
 import com.example.go4lunch.MainActivityViewModel;
 import com.example.go4lunch.POJO.Prediction;
 import com.example.go4lunch.R;
@@ -39,6 +36,7 @@ import com.example.go4lunch.R;
 import com.example.go4lunch.Utils.UtilPredictionMock;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentMapsBinding;
+import com.example.go4lunch.ui.DetailActivity;
 import com.google.android.libraries.maps.CameraUpdateFactory;
 import com.google.android.libraries.maps.GoogleMap;
 import com.google.android.libraries.maps.OnMapReadyCallback;
@@ -59,9 +57,6 @@ import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.maps.GeoApiContext;
@@ -75,7 +70,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -348,7 +342,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
 
     public void callStartDetailActivity(String mPlaceId) {
-        ((MainActivity) getActivity()).startDetailActivity(mPlaceId);
+        Intent intentDetailFragmentActivity = new Intent(getActivity(), DetailActivity.class);
+        intentDetailFragmentActivity.putExtra("PlaceId", mPlaceId);
+        startActivity(intentDetailFragmentActivity);
     }
 
 
@@ -361,7 +357,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     @Override
     public boolean onMarkerClick(Marker marker) {
         mPlaceId = marker.getTag().toString();
-        callStartDetailActivity(mPlaceId);
+        //callStartDetailActivity(mPlaceId); ///
+        Intent intentDetailFragmentActivity = new Intent(getActivity(), DetailActivity.class);
+        intentDetailFragmentActivity.putExtra("PlaceId", mPlaceId);
+        startActivity(intentDetailFragmentActivity);
         return false;
     }
 

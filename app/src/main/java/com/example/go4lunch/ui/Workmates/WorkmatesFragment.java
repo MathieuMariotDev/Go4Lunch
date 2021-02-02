@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.go4lunch.DetailActivity;
 import com.example.go4lunch.MainActivityViewModel;
 import com.example.go4lunch.R;
 import com.example.go4lunch.api.WorkmateHelper;
@@ -106,10 +105,5 @@ public class WorkmatesFragment extends Fragment /*implements WorkmatesAdapter.Li
     }
 
 
-    public void startDetailFromFragment(String placeId) {
-        Intent detailItent = new Intent(getContext(), DetailActivity.class);
-        detailItent.putExtra("PlaceId", placeId);
-        startActivity(detailItent);
-    }
 
 }

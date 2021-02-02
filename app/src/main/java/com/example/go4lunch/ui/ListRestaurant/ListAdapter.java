@@ -9,17 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
-import com.example.go4lunch.DetailActivity;
-import com.example.go4lunch.POJO.Prediction;
-import com.example.go4lunch.POJO.QueryAutocomplete;
 import com.example.go4lunch.databinding.ItemListBinding;
+import com.example.go4lunch.ui.DetailActivity;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.model.Place;
@@ -197,9 +194,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                 mItemListBinding.restaurantName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent detailItent = new Intent(mContext, DetailActivity.class);
-                        detailItent.putExtra("PlaceId", mPlace.getId());
-                        mContext.startActivity(detailItent);
+                        Intent intentDetailFragmentActivity = new Intent(mContext, DetailActivity.class);
+                        intentDetailFragmentActivity.putExtra("PlaceId", mPlace.getId());
+                        mContext.startActivity(intentDetailFragmentActivity);
                     }
                 });
             });
