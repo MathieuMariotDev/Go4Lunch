@@ -1,10 +1,13 @@
 package com.example.go4lunch.ui.Workmates;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.Placeholder;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +15,11 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.go4lunch.R;
 import com.example.go4lunch.databinding.ItemWorkmateBinding;
 
 import com.example.go4lunch.model.Workmate;
-import com.example.go4lunch.ui.DetailActivity;
+import com.example.go4lunch.ui.Detail.DetailActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.libraries.places.api.model.Place;
@@ -84,6 +88,7 @@ public class WorkmatesAdapter extends FirestoreRecyclerAdapter<Workmate, Workmat
         }
 
 
+
         void bind(Workmate workmate, RequestManager glide, PlacesClient mPlacesClients, int idView) {
             // Specify the fields to return.
             //lblName = workmate.getUsername();
@@ -110,12 +115,14 @@ public class WorkmatesAdapter extends FirestoreRecyclerAdapter<Workmate, Workmat
                     });
                 }
                 if (workmate.getIdSelectedRestaurant().equals("No place selected")) {
+                    //getAfterName = mContext.getString(R.string.not_decided);
                     lblName = workmate.getUsername();
-                    mItemWorkmateBinding.lblName.setText(lblName + " hasn't decided yet");
+                    mItemWorkmateBinding.lblName.setText(lblName + " " + mContext.getString(R.string.not_decided));
+
                 }
             } else {
                 lblName = workmate.getUsername();
-                mItemWorkmateBinding.lblName.setText(lblName + " is joining!");
+                mItemWorkmateBinding.lblName.setText(lblName + " " + mContext.getString(R.string.joining));
             }
             if (workmate.getUrlPicture() != null) {
                 glide.load(workmate.getUrlPicture())

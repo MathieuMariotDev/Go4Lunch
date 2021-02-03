@@ -10,14 +10,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.go4lunch.Utils.LocationPermissionUtils;
+import com.example.go4lunch.Utils.Permission.LocationPermissionUtils;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.ActivityMainBinding;
 import com.example.go4lunch.databinding.ActivityMainNavHeaderBinding;
 
 
-import com.example.go4lunch.ui.DetailActivity;
-import com.example.go4lunch.ui.SettingsFragmentActivity;
+import com.example.go4lunch.ui.Detail.DetailActivity;
+import com.example.go4lunch.ui.Settings.SettingsFragmentActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

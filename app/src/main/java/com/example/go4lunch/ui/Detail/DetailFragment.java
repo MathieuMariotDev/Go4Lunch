@@ -1,4 +1,4 @@
-package com.example.go4lunch.ui;
+package com.example.go4lunch.ui.Detail;
 
 import android.Manifest;
 import android.content.Intent;
@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +27,7 @@ import com.bumptech.glide.Glide;
 import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.MainActivityViewModel;
 import com.example.go4lunch.R;
-import com.example.go4lunch.Utils.CallPhonePermissionUtils;
+import com.example.go4lunch.Utils.Permission.CallPhonePermissionUtils;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentDetailBinding;
 import com.example.go4lunch.model.Workmate;
@@ -44,14 +43,12 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPhotoRequest;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.api.client.util.Value;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -126,12 +123,40 @@ public class DetailFragment extends Fragment {
 
     private void setupTextView() {
         mFragmentDetailBinding.icLike.setVisibility(View.INVISIBLE);
-        String mNameRestaurant = mPlace.getName() + " " + mPlace.getRating();
+        String mNameRestaurant = mPlace.getName();
         mFragmentDetailBinding.textViewNameRestaurant.setText(mNameRestaurant);
         String mAboutRestaurant = " " + mPlace.getAddress();
         mFragmentDetailBinding.textViewInfoRestaurant.setText(mAboutRestaurant);
         mPhone = "tel:" + mPlace.getPhoneNumber();
         mUriUrl = mPlace.getWebsiteUri();
+    }
+
+    private void setupStarWithRating() {
+        double ratingdouble = (mPlace.getRating() / 5) * 3;
+        int rating = (int) Math.round(ratingdouble);
+        switch (rating) {
+            case 0:
+                mFragmentDetailBinding.icLike.setVisibility(View.INVISIBLE);
+                mFragmentDetailBinding.icLike1.setVisibility(View.INVISIBLE);
+                mFragmentDetailBinding.icLike2.setVisibility(View.INVISIBLE);
+                break;
+            case 1:
+                mFragmentDetailBinding.icLike.setVisibility(View.VISIBLE);
+                mFragmentDetailBinding.icLike1.setVisibility(View.INVISIBLE);
+                mFragmentDetailBinding.icLike2.setVisibility(View.INVISIBLE);
+                break;
+            case 2:
+                mFragmentDetailBinding.icLike.setVisibility(View.VISIBLE);
+                mFragmentDetailBinding.icLike1.setVisibility(View.VISIBLE);
+                mFragmentDetailBinding.icLike2.setVisibility(View.INVISIBLE);
+                break;
+            case 3:
+                mFragmentDetailBinding.icLike.setVisibility(View.VISIBLE);
+                mFragmentDetailBinding.icLike1.setVisibility(View.VISIBLE);
+                mFragmentDetailBinding.icLike2.setVisibility(View.VISIBLE);
+                break;
+
+        }
     }
 
     private void setupImageView() {
@@ -154,6 +179,7 @@ public class DetailFragment extends Fragment {
         placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
             mPlace = response.getPlace();
             setupTextView();
+            setupStarWithRating();
 
             Log.i("INFO", "Place found: " + mPlace.getName());
             placeIdSelected = mPlace.getId(); // placeIdSelect with the good id
@@ -232,7 +258,6 @@ public class DetailFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             idLikeList.remove(mPlace.getId());
-                            mFragmentDetailBinding.icLike.setVisibility(View.INVISIBLE);
                             mFragmentDetailBinding.imageButtonLike.setText("J'aime");
                         }
                     });
@@ -242,7 +267,6 @@ public class DetailFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             idLikeList.add(mPlace.getId());
-                            mFragmentDetailBinding.icLike.setVisibility(View.VISIBLE);
                             mFragmentDetailBinding.imageButtonLike.setText("Restaurant déjà liké");
                         }
                     });
@@ -376,11 +400,12 @@ public class DetailFragment extends Fragment {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 idLikeList = (List<String>) task.getResult().get("idLikeRestaurant");
                 if (idLikeList.contains(mPlace.getId())) {
-                    mFragmentDetailBinding.icLike.setVisibility(View.VISIBLE);
+                    //mFragmentDetailBinding.icLike.setVisibility(View.VISIBLE);*/
                     mFragmentDetailBinding.imageButtonLike.setText("Restaurant déjà liké");
-                } else {
-                    mFragmentDetailBinding.icLike.setVisibility(View.INVISIBLE);
                 }
+                /*else {
+                    mFragmentDetailBinding.icLike.setVisibility(View.INVISIBLE);
+                }*/
             }
         });
     }

@@ -22,11 +22,11 @@
     <!--   GPS   -->
     <string name="gps_disabel">Your GPS seems to be disabled, do you want to enable it?</string>
     <!--    Permissions    -->
-    <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
-    <string name="location_permission_denied">This sample requires location permission to enable the \'my location\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Go4Lunch\'.</string>
-    <string name="permission_required_toast">Location permission is required for this demo.</string>
+    <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'List View\' and \'Map View\' feature, which shows your current location on the map.</string>
+    <string name="location_permission_denied">This sample requires location permission to enable the \'List View\' and \'Map View\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Go4Lunch\'.</string>
+    <string name="permission_required_toast">Location permission is required for this app.</string>
     <string name="permission_rationale_callphone">Access to the call phone service is required to demonstrate the \'call phone\' feature, which allows you to call the restaurant from the app.</string>
-    <string name="permission_required_callphone_toast">Call phone permission is required for this demo.</string>
+    <string name="permission_required_callphone_toast">Call phone permission is required for this feature.</string>
     <string name="permission_callphone_denied">This sample requires call phone permission to enable the \'call phone\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Go4Lunch\'.</string>
     <!--    Authentification    -->
     <string name="connection_succeed">Authentication successful !</string>
@@ -34,6 +34,15 @@
     <string name="error_no_internet">No internet connection !</string>
     <string name="error_unknown_error">An unknown error happened&#8230;</string>
     <!-- Other -->
+    <string name="select_language">You can select the language of the application. To do this, press the language you want to see in the application </string>
+    <string name="french">French</string>
+    <string name="english">English</string>
+    <string name="delete_button">DELETE ACCOUNT</string>
+    <string name="not_decided">hasn\'t decided yet.</string>
+    <string name="joining">is joining!</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_account">The deletion of the account is final and will result in the loss of your data related to it. are you sure you want to delete your account.</string>
     <string name="txt_phone">CALL</string>
     <string name="txt_like">LIKE</string>
     <string name="txt_web">WEBSITE</string>

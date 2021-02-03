@@ -58,7 +58,7 @@
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="8dp"
         android:text="@string/nb_workmate_error"
-        app:layout_constraintBottom_toTopOf="@+id/restaurant_rating"
+        app:layout_constraintBottom_toTopOf="@+id/ic_rating"
         app:layout_constraintEnd_toStartOf="@+id/restaurant_picture" />
 
     <ImageView
@@ -66,17 +66,33 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_baseline_group_24"
-        app:layout_constraintBottom_toTopOf="@+id/restaurant_rating"
+        app:layout_constraintBottom_toTopOf="@+id/ic_rating"
         app:layout_constraintEnd_toStartOf="@+id/restaurant_workmate" />
 
-    <TextView
-        android:id="@+id/restaurant_rating"
+    <ImageView
+        android:id="@+id/ic_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
-        android:text="@string/rating_value_error"
+        android:src="@drawable/ic_baseline_star_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/restaurant_picture" />
+
+    <ImageView
+        android:id="@+id/ic_rating1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_star_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ic_rating" />
+
+    <ImageView
+        android:id="@+id/ic_rating2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_star_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ic_rating1" />
 
     <ImageView
         android:id="@+id/restaurant_picture"

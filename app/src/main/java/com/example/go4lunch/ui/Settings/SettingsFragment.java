@@ -1,4 +1,4 @@
-package com.example.go4lunch.ui;
+package com.example.go4lunch.ui.Settings;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,13 +38,6 @@ public class SettingsFragment extends Fragment {
 
     FragmentSettingsBinding mFragmentSettingsBinding;
 
-
-    public static SettingsFragment newInstance() {
-        SettingsFragment fragment = new SettingsFragment();
-        //Bundle args = new Bundle();
-        //fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,14 +85,14 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder builderDelete = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme);
-                builderDelete.setMessage("La suppression du compte est définitive et entraînera la perte de vos données en lien avec celle-ci. êtes-vous certain de vouloir supprimer votre compte.")
+                builderDelete.setMessage(R.string.delete_account)
                         .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(final DialogInterface dialog, final int id) {
                                 deleteAllDataOnFirebase();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(final DialogInterface dialog, final int id) {
                                 dialog.dismiss();
                             }

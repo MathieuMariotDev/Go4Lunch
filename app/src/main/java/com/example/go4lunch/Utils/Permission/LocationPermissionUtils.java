@@ -13,7 +13,7 @@
 // limitations under the License.
 
 
-package com.example.go4lunch.Utils;
+package com.example.go4lunch.Utils.Permission;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -175,13 +175,13 @@ public abstract class LocationPermissionUtils {
         @Override
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
-            if (mFinishActivity) {
-                Toast.makeText(getActivity(),
-                        R.string.permission_required_toast,
-                        Toast.LENGTH_SHORT)
-                        .show();
-                getActivity().finish();
-            }
+            //if (mFinishActivity) {
+            Toast.makeText(getActivity(),
+                    R.string.permission_required_toast,
+                    Toast.LENGTH_SHORT)
+                    .show();
+            //getActivity().finish();
+            //}
         }
     }
 }

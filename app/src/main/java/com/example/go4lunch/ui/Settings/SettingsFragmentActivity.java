@@ -1,6 +1,5 @@
-package com.example.go4lunch.ui;
+package com.example.go4lunch.ui.Settings;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;

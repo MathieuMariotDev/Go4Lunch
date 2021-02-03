@@ -19,18 +19,28 @@
     <!--   GPS   -->
     <string name="gps_disabel">Votre GPS est désactiver , vous devez l\'activer pour utiliser l\'application. En cas de refus l\'application ce fermera automatiquement</string>
     <!--    Permissions    -->
-    <string name="permission_rationale_location">L\' accès au service de localisation est nécessaire pour afficher \'my location\' fonctionnalité, qui montre votre position actuelle sur la carte.</string>
-    <string name="location_permission_denied">Cet application nécessite l\'autorisation de locatisation pour activer \'my location\' . Veuillez réessayer et accorder l\'accès pour utiliser la localisation.\nSi l\'autorisation a été définitivement refusée, elle peut être activée à partir des paramètres système Settings &gt; Apps &gt; \'Go4Lunch\'.</string>
+    <string name="permission_rationale_location">L\' accès au service de localisation est nécessaire pour afficher les fonctionnalités de \'Vue List\' et \'Vue de la carte\',qui montre votre position actuelle sur la carte.</string>
+    <string name="location_permission_denied">Cet application nécessite l\'autorisation de locatisation pour activer \'Vue List\' et \'Vue de la carte\' . Veuillez réessayer et accorder l\'authorisation pour utiliser la localisation.\nSi l\'autorisation a été définitivement refusée, elle peut être activée à partir des paramètres système Paramètres &gt; Applications &gt; \'Go4Lunch\'.</string>
     <string name="permission_required_toast">La localisation est nécessaire pour l\'utilisation de cette application</string>
-    <string name="permission_rationale_callphone">Access to the call phone service is required to demonstrate the \'call phone\' feature, which allows you to call the restaurant from the app.</string>
-    <string name="permission_required_callphone_toast">Call phone permission is required for this demo.</string>
-    <string name="permission_callphone_denied">This sample requires call phone permission to enable the \'call phone\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Go4Lunch\'.</string>
+    <string name="permission_rationale_callphone">L\' accès au appel téléphonique  est nécessaire pour afficher \'Appel\' fonctionnalité, qui vous permet de réaliser des appels via l\'application</string>
+    <string name="permission_required_callphone_toast">L\'accès au appel est nécessaire pour l\'utilisation de cette fonctionnalité</string>
+    <string name="permission_callphone_denied">Cet application nécessite l\'autorisation de passer des appels pour activer \'Appel\'.Veuillez réessayer et accorder l\'authorisation pour utiliser les appels téléphonique.\nSi l\'autorisation a été définitivement refusée, elle peut être activée à partir des paramètres système Paramètres &gt; Applications &gt; \'Go4Lunch\'.</string>
     <!--    Authentification    -->
     <string name="connection_succeed">Authentification réussie !</string>
     <string name="error_authentication_canceled">Authentification annulée&#8230;</string>
     <string name="error_no_internet">Aucune connexion internet !</string>
     <string name="error_unknown_error">Une erreur inconnue s\'est produite&#8230;</string>
-    <!-- Other -->
+    <!-- Other -->Vous pouvez sélectionner la langue de l'application. Pour cela appuyer sur la
+    langue que vous souhaitez voir dans l'application
+    <string name="select_language">Vous pouvez sélectionner la langue de l\'application. Pour cela appuyer sur la langue que vous souhaitez voir dans l\'application</string>
+    <string name="french">Français</string>
+    <string name="english">Anglais</string>
+    <string name="delete_button">SUPPRIMER LE COMPTE</string>
+    <string name="not_decided">n\'a pas encore décidé.</string>
+    <string name="joining">rejoint!</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="delete_account">La suppression du compte est définitive et entraînera la perte de vos données en lien avec celle-ci. êtes-vous certain de vouloir supprimer votre compte.</string>
     <string name="txt_phone">APPEL</string>
     <string name="txt_like">J\'aime</string>
     <string name="txt_web">Site internet</string>

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.example.go4lunch.databinding.ItemListBinding;
-import com.example.go4lunch.ui.DetailActivity;
+import com.example.go4lunch.ui.Detail.DetailActivity;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.model.Place;
@@ -76,7 +76,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public int getItemCount() {
-        if (idView == 1) {
+        if (idView == 1 && mPlacesSearchResults != null) { //mPlacesSearchResults !=null for avoid no permission granted by user
             return mPlacesSearchResults.length;
         } else if (idView == 3) {
             return mListPredictionMock.size();
@@ -95,8 +95,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         private Location locationRestaurant = new Location("NerbySearch");
         private float mDistance;
         private int nbWorkamte = 0;
-        int rating;
+        int nbstars;
+        double rating;
         private final Context mContext;
+
         public ListViewHolder(@NonNull @NotNull ItemListBinding itemListBinding) {
             super(itemListBinding.getRoot());
             mItemListBinding = itemListBinding;
@@ -158,9 +160,31 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                     }
                 }
                 if (mPlace.getRating() != null) {
-                    //rating = mPlace.getRating().intValue();
-                    //rating = (rating/5)*3;
-                    mItemListBinding.restaurantRating.setText(mPlace.getRating().toString());
+                    rating = (mPlace.getRating() / 5) * 3;
+                    nbstars = (int) Math.round(rating);
+                    switch (nbstars) {
+                        case 0:
+                            mItemListBinding.icRating.setVisibility(View.INVISIBLE);
+                            mItemListBinding.icRating1.setVisibility(View.INVISIBLE);
+                            mItemListBinding.icRating2.setVisibility(View.INVISIBLE);
+                            break;
+                        case 1:
+                            mItemListBinding.icRating.setVisibility(View.VISIBLE);
+                            mItemListBinding.icRating.setVisibility(View.INVISIBLE);
+                            mItemListBinding.icRating.setVisibility(View.INVISIBLE);
+                            break;
+                        case 2:
+                            mItemListBinding.icRating.setVisibility(View.VISIBLE);
+                            mItemListBinding.icRating1.setVisibility(View.VISIBLE);
+                            mItemListBinding.icRating2.setVisibility(View.INVISIBLE);
+                            break;
+                        case 3:
+                            mItemListBinding.icRating.setVisibility(View.VISIBLE);
+                            mItemListBinding.icRating1.setVisibility(View.VISIBLE);
+                            mItemListBinding.icRating2.setVisibility(View.VISIBLE);
+                            break;
+
+                    }
                 }
 
                 Log.i("INFO", "Place found: " + mPlace.getName());

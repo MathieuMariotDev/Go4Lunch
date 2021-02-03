@@ -34,6 +34,15 @@
     <string name="error_no_internet">No internet connection !</string>
     <string name="error_unknown_error">An unknown error happened&#8230;</string>
     <!-- Other -->
+    <string name="select_language">You can select the language of the application. To do this, press the language you want to see in the application </string>
+    <string name="french">French</string>
+    <string name="english">English</string>
+    <string name="delete_button">DELETE ACCOUNT</string>
+    <string name="not_decided">hasn\'t decided yet.</string>
+    <string name="joining">is joining!</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_account">The deletion of the account is final and will result in the loss of your data related to it. are you sure you want to delete your account.</string>
     <string name="txt_phone">CALL</string>
     <string name="txt_like">LIKE</string>
     <string name="txt_web">WEBSITE</string>

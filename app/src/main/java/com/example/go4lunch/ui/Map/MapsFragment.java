@@ -36,7 +36,7 @@ import com.example.go4lunch.R;
 import com.example.go4lunch.Utils.UtilPredictionMock;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentMapsBinding;
-import com.example.go4lunch.ui.DetailActivity;
+import com.example.go4lunch.ui.Detail.DetailActivity;
 import com.google.android.libraries.maps.CameraUpdateFactory;
 import com.google.android.libraries.maps.GoogleMap;
 import com.google.android.libraries.maps.OnMapReadyCallback;
@@ -594,12 +594,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme);
         builder.setMessage(R.string.gps_disabel)
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
                         startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
                         dialog.cancel();
                         getActivity().finishAffinity();  // Close completly app
