@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
     private void startMainActivity() {
         Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(myIntent);
+        finish();
     }
 
     // 1 - Http request that create user in firestore

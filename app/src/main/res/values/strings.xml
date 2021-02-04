@@ -34,6 +34,8 @@
     <string name="error_no_internet">No internet connection !</string>
     <string name="error_unknown_error">An unknown error happened&#8230;</string>
     <!-- Other -->
+    <string name="adress_restaurant_textview">restaurant address</string>
+    <string name="name_restaurant_textview">Name restaurant</string>
     <string name="select_language">You can select the language of the application. To do this, press the language you want to see in the application </string>
     <string name="french">French</string>
     <string name="english">English</string>

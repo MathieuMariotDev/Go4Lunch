@@ -29,11 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettingsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class SettingsFragment extends Fragment {
 
     FragmentSettingsBinding mFragmentSettingsBinding;
@@ -51,8 +47,6 @@ public class SettingsFragment extends Fragment {
         mFragmentSettingsBinding = FragmentSettingsBinding.inflate(inflater, container, false);// Creates an instance of the binding class
         View view = mFragmentSettingsBinding.getRoot();
         // Inflate the layout for this fragment
-        onClickFrench();
-        onClickEnglish();
         onClickDeleteAccount();
         return view;
     }
@@ -62,23 +56,6 @@ public class SettingsFragment extends Fragment {
         return FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    public void onClickFrench() {
-        mFragmentSettingsBinding.buttonFr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LanguageUtils.setLocale(getActivity(), "fr");
-            }
-        });
-    }
-
-    public void onClickEnglish() {
-        mFragmentSettingsBinding.buttonEn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LanguageUtils.setLocale(getActivity(), "en");
-            }
-        });
-    }
 
     public void onClickDeleteAccount() {
         mFragmentSettingsBinding.deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +91,7 @@ public class SettingsFragment extends Fragment {
                         //GoToLoginScreen
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         startActivity(intent);
+                        getActivity().finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -121,6 +99,11 @@ public class SettingsFragment extends Fragment {
                         e.printStackTrace();
                     }
                 });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.printStackTrace();
             }
         });
     }

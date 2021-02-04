@@ -25,23 +25,21 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.go4lunch.BuildConfig;
+import com.example.go4lunch.Interface.CallBackFetchRequest;
 import com.example.go4lunch.MainActivityViewModel;
 import com.example.go4lunch.R;
+import com.example.go4lunch.Utils.FetchPlaceRequestUtil;
 import com.example.go4lunch.Utils.Permission.CallPhonePermissionUtils;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentDetailBinding;
 import com.example.go4lunch.model.Workmate;
 import com.example.go4lunch.ui.Workmates.WorkmatesAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.net.FetchPhotoRequest;
-import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,7 +48,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -62,7 +59,6 @@ public class DetailFragment extends Fragment {
     private String placeIdSelected;
     private String apiKey = BuildConfig.API_KEY;
     private Place mPlace;
-    private Bitmap mPicture;
     private String mPhone;
     private Uri mUriUrl;
     private static final int CALLPHONE_PERMISSION_REQUEST_CODE = 2;
@@ -75,7 +71,7 @@ public class DetailFragment extends Fragment {
     private Workmate modelCurrentWorkmate;
     private final int idViewDetail = 0;
     private List<String> idLikeList = new ArrayList<>();
-
+    private CallBackFetchRequest mCallBackFetchRequest; // Interface
     //////////////////////////////////////////////////
 
 
@@ -103,6 +99,7 @@ public class DetailFragment extends Fragment {
         View view = mFragmentDetailBinding.getRoot();
         // mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
         setupPlace();
+        //placeRequest();
         placeRequest();
         getCurrentWorkmateFromFirestore();
         onCickPhone();
@@ -159,7 +156,7 @@ public class DetailFragment extends Fragment {
         }
     }
 
-    private void setupImageView() {
+    private void setupImageView(Bitmap mPicture) {
         mFragmentDetailBinding.imageViewPictureRestaurant.setImageBitmap(mPicture);
     }
 
@@ -167,56 +164,29 @@ public class DetailFragment extends Fragment {
         placesClient = mMainActivityViewModel.getPlacesClient();
     }
 
+
     private void placeRequest() {
-
-
-        // Specify the fields to return.
-        List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.TYPES, Place.Field.ADDRESS, Place.Field.PHOTO_METADATAS, Place.Field.PHONE_NUMBER, Place.Field.WEBSITE_URI, Place.Field.RATING);
-
-        // Construct a request object, passing the place ID and fields array.
-        FetchPlaceRequest request = FetchPlaceRequest.builder(placeIdSelected, placeFields)
-                .build();
-        placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
-            mPlace = response.getPlace();
-            setupTextView();
-            setupStarWithRating();
-
-            Log.i("INFO", "Place found: " + mPlace.getName());
-            placeIdSelected = mPlace.getId(); // placeIdSelect with the good id
-            getRestaurantLike();
-            onClickLikeRestaurant();
-            // Get the photo metadata.
-            final List<PhotoMetadata> metadata = mPlace.getPhotoMetadatas();
-            if (metadata == null || metadata.isEmpty()) {
-                Log.w("NoPicture", "No photo metadata.");
-                return;
+        FetchPlaceRequestUtil fetchPlaceRequestUtil = new FetchPlaceRequestUtil();
+        fetchPlaceRequestUtil.placeRequest(placeIdSelected, placesClient, 500, 300, new CallBackFetchRequest() {
+            @Override
+            public void onFetchPlaceCallBack(Place place) {
+                mPlace = place;
+                setupTextView();
+                setupStarWithRating();
+                getRestaurantLike();
+                onClickLikeRestaurant();
+                Log.i("INFO", "Place found: " + mPlace.getName());
             }
-            final PhotoMetadata photoMetadata = metadata.get(0);
 
-            /*// Get the attribution text.
-            final String attributions = photoMetadata.getAttributions();*/
-
-            // Create a FetchPhotoRequest.
-            final FetchPhotoRequest photoRequest = FetchPhotoRequest.builder(photoMetadata)
-                    .setMaxWidth(500) // Optional.
-                    .setMaxHeight(300) // Optional.
-                    .build();
-            placesClient.fetchPhoto(photoRequest).addOnSuccessListener((fetchPhotoResponse) -> {
-                mPicture = fetchPhotoResponse.getBitmap();
-                setupImageView();
-
-            }).addOnFailureListener((exception) -> {
-                if (exception instanceof ApiException) {
-                    ApiException apiException = (ApiException) exception;
-                    int statusCode = apiException.getStatusCode();
-                    // Handle error with given status code.
-                    Log.e("ERROR", "Place not found: " + exception.getMessage() + "///statusCode" + statusCode);
-                }
-            });
+            @Override
+            public void onFetchPhotoCallBack(Bitmap mPicture) {
+                setupImageView(mPicture);
+            }
         });
 
-    }
+        //fetchPlaceRequestUtil.fetchPhotoRequest(mPlace.getPhotoMetadatas(),placesClient,500,300,mCallBackFetchRequest);
 
+    }
     public void onCickPhone() {
         mFragmentDetailBinding.imageButtonPhone.setOnClickListener(new View.OnClickListener() {
             @Override

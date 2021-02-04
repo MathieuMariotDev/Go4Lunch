@@ -30,8 +30,9 @@
     <string name="error_authentication_canceled">Authentification annulée&#8230;</string>
     <string name="error_no_internet">Aucune connexion internet !</string>
     <string name="error_unknown_error">Une erreur inconnue s\'est produite&#8230;</string>
-    <!-- Other -->Vous pouvez sélectionner la langue de l'application. Pour cela appuyer sur la
-    langue que vous souhaitez voir dans l'application
+    <!-- Other -->
+    <string name="adress_restaurant_textview">adresse du restaurant</string>
+    <string name="name_restaurant_textview">Nom du restaurant</string>
     <string name="select_language">Vous pouvez sélectionner la langue de l\'application. Pour cela appuyer sur la langue que vous souhaitez voir dans l\'application</string>
     <string name="french">Français</string>
     <string name="english">Anglais</string>

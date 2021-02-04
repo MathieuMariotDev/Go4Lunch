@@ -20,7 +20,7 @@
             android:id="@+id/textView_name_restaurant"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="Nom restaurant \n"
+            android:text="@string/name_restaurant_textview"
             android:textColor="@color/colorAccent"
             android:textSize="22dp"
             app:layout_constraintStart_toStartOf="parent"
