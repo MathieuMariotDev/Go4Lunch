@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.R;
+import com.example.go4lunch.Utils.LocationToBoundsUtils;
 import com.example.go4lunch.Utils.UtilPredictionMock;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentListBinding;
@@ -245,6 +246,10 @@ public class ListFragment extends Fragment {
     public void FindAutocompletePredictions(String constraint, PlacesClient mPlacesClient) {
         // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
         // and once again when the user makes a selection (for example when calling fetchPlace()).
+        // Create a RectangularBounds object.
+        mRectangularBounds = RectangularBounds.newInstance(
+                LocationToBoundsUtils.toBounds(new com.google.android.gms.maps.model.LatLng(location.lat, location.lng), 5000).southwest,
+                LocationToBoundsUtils.toBounds(new com.google.android.gms.maps.model.LatLng(location.lat, location.lng), 5000).northeast);
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
         mListIdAutocompletePredictions.clear();
         FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()

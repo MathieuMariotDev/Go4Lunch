@@ -13,9 +13,14 @@
 
 
     <!-- Used in NavigationDrawer -->
+    <string name="your_lunch">YOUR LUNCH</string>
+    <string name="settings">SETTINGS</string>
+    <string name="logout">LOGOUT</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <!--   NOTIF   -->
+    <string name="workmate_lbl_notif">Workmates who will eat there :</string>
+    <string name="notif_txt">Your lunch this afternoon :</string>
     <!-- Used in NavigationDrawer -->
     <string name="title_activity_maps">Map</string>
     <string name="map_id">72030e3beb4aa770</string>

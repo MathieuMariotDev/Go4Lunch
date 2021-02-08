@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import com.example.go4lunch.LoginActivity;
 import com.example.go4lunch.R;
-import com.example.go4lunch.Utils.LanguageUtils;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentSettingsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;

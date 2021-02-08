@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.go4lunch.Interface.CallBackFetchRequest;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPhotoRequest;
@@ -68,4 +69,24 @@ public class FetchPlaceRequestUtil {
         });
     }
 
+
+    public void placeRequestForNotification(String placeIdSelected, PlacesClient placesClient, CallBackFetchRequest CallBackPlace) {
+        // Specify the fields to return.
+        List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
+
+        // Construct a request object, passing the place ID and fields array.
+        FetchPlaceRequest request = FetchPlaceRequest.builder(placeIdSelected, placeFields)
+                .build();
+        placesClient.fetchPlace(request).addOnSuccessListener(fetchPlaceResponse -> {
+            mPlace = fetchPlaceResponse.getPlace();
+            CallBackPlace.onFetchPlaceCallBack(mPlace);
+        }).addOnFailureListener((exception) -> {
+            if (exception instanceof ApiException) {
+                ApiException apiException = (ApiException) exception;
+                int statusCode = apiException.getStatusCode();
+                // Handle error with given status code.
+                Log.e("Notification Request", "Place not found: " + exception.getMessage() + "///statusCode" + statusCode);
+            }
+        });
+    }
 }

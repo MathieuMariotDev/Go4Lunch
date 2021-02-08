@@ -44,18 +44,12 @@ public class UtilPredictionMock {
         Log.i("dataJsonNearby", jsonString);
         Gson gson = new Gson();
 
-        Type listPrediction = new TypeToken<List<QueryAutocomplete>>() {
-        }.getType();
-
         QueryAutocomplete resultList = gson.fromJson(jsonString, QueryAutocomplete.class);
 
         for (int i = 1; i < resultList.getPredictions().size(); i++) {
             Log.i("DATA", " > Item" + i + "\n" + resultList.getPredictions().get(i).getPlaceId());
             predictionList.add(resultList.getPredictions().get(i));
         }
-
-
         return predictionList;
-        //mMainActivityViewModel.setRestaurant(resultList);
     }
 }

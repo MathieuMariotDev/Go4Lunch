@@ -53,8 +53,6 @@ import java.util.List;
 
 public class DetailFragment extends Fragment {
 
-
-    private MainActivityViewModel mMainActivityViewModel;
     private FragmentDetailBinding mFragmentDetailBinding;
     private String placeIdSelected;
     private String apiKey = BuildConfig.API_KEY;
@@ -63,7 +61,6 @@ public class DetailFragment extends Fragment {
     private Uri mUriUrl;
     private static final int CALLPHONE_PERMISSION_REQUEST_CODE = 2;
     private boolean permissionDenied = false;
-    private CollectionReference workmatesRef = WorkmateHelper.getUsersCollection();
     private RecyclerView recyclerView;
     private WorkmatesAdapter mAdapter;
     private PlacesClient placesClient;
@@ -74,8 +71,6 @@ public class DetailFragment extends Fragment {
     private CallBackFetchRequest mCallBackFetchRequest; // Interface
     //////////////////////////////////////////////////
 
-
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
     public DetailFragment() {
@@ -158,10 +153,6 @@ public class DetailFragment extends Fragment {
 
     private void setupImageView(Bitmap mPicture) {
         mFragmentDetailBinding.imageViewPictureRestaurant.setImageBitmap(mPicture);
-    }
-
-    private void getPlace() {
-        placesClient = mMainActivityViewModel.getPlacesClient();
     }
 
 
@@ -359,7 +350,7 @@ public class DetailFragment extends Fragment {
     }
 
     private FirestoreRecyclerOptions<Workmate> getWorkmates() {
-        Query query = workmatesRef.whereEqualTo("idSelectedRestaurant", placeIdSelected);
+        Query query = WorkmateHelper.getUsersCollection().whereEqualTo("idSelectedRestaurant", placeIdSelected);
         return new FirestoreRecyclerOptions.Builder<Workmate>()
                 .setQuery(query, Workmate.class).setLifecycleOwner(this).build();
     }

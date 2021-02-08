@@ -11,11 +11,16 @@
     <string name="twitter_consumer_key" translatable="false">LQZdkuAcKggmUDVHjRs3mxbgC</string>
     <string name="twitter_consumer_secret" translatable="false">vYLCbcB4nES4cwNE2NrbObcQgv3z16X1gJFA5qs3B2qyaLlcm0</string>
     <!-- Used in NavigationDrawer -->
+    <string name="your_lunch">VOTRE REPAS</string>
+    <string name="settings">OPTION</string>
+    <string name="logout">DECONNEXION</string>
     <string name="navigation_drawer_open">Ouverture du menu latéral</string>
     <string name="navigation_drawer_close">Fermeture du menu latéral</string>
     <string name="title_activity_maps">Carte</string>
     <string name="map_id">72030e3beb4aa770</string>
-
+    <!--   NOTIF   -->
+    <string name="workmate_lbl_notif">Les collègues qui vont y manger :</string>
+    <string name="notif_txt">Votre repas de ce midi :</string>
     <!--   GPS   -->
     <string name="gps_disabel">Votre GPS est désactiver , vous devez l\'activer pour utiliser l\'application. En cas de refus l\'application ce fermera automatiquement</string>
     <!--    Permissions    -->

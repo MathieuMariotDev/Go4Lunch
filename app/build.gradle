@@ -32,6 +32,10 @@ android {
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
     }
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+
 }
 
 dependencies {
@@ -49,6 +53,11 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:2.27.0'
+    // Optional -- Robolectric environment
+    testImplementation 'androidx.test:core:1.0.0'
+
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:26.3.0')
     // Declare the dependency for the Firebase Authentication library
@@ -89,7 +98,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
     // For avoid bug "Expected Android API level 21+ but was 30"
 
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.3'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.3' //  For json
 
     // Required only if Twitter login support is required
     // Find the latest Twitter SDK releases here: https://goo.gl/E5wZvQ
@@ -98,5 +107,8 @@ dependencies {
 
     implementation "androidx.cardview:cardview:1.0.0"
 
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+
+    implementation 'com.google.maps.android:android-maps-utils:2.2.0' // For Bound (SphericalUtil)
 
 }

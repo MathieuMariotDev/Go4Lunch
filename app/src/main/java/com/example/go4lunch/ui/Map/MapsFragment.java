@@ -33,6 +33,7 @@ import com.example.go4lunch.MainActivityViewModel;
 import com.example.go4lunch.POJO.Prediction;
 import com.example.go4lunch.R;
 
+import com.example.go4lunch.Utils.LocationToBoundsUtils;
 import com.example.go4lunch.Utils.UtilPredictionMock;
 import com.example.go4lunch.api.WorkmateHelper;
 import com.example.go4lunch.databinding.FragmentMapsBinding;
@@ -111,11 +112,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     private FragmentMapsBinding mFragmentMapsBinding;
     private MapAutoCompleteAdapter mMapAutoCompleteAdapter;
     private List<Prediction> mPredictionListMock = new ArrayList<>();
-    private boolean mock = true;
+    private boolean mock = false;
     private boolean inSearch = false;
     private UtilPredictionMock utilPredictionMock = new UtilPredictionMock();
     private RectangularBounds mRectangularBounds = RectangularBounds.newInstance(new com.google.android.gms.maps.model.LatLng(47.415923, -0.544855),
-            new com.google.android.gms.maps.model.LatLng(47.436823, -0.511863));
+            new com.google.android.gms.maps.model.LatLng(47.436823, -0.511863)); //Init With default recantugalar bounds
     private List<AutocompletePrediction> mAutocompletePredictionList = new ArrayList<>();
 
     /**
@@ -545,6 +546,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
 
     public void FindAutocompletePredictions(String constraint) {
+        // Create a RectangularBounds object.
+        mRectangularBounds = RectangularBounds.newInstance(
+                LocationToBoundsUtils.toBounds(new com.google.android.gms.maps.model.LatLng(location.lat, location.lng), 5000).southwest,
+                LocationToBoundsUtils.toBounds(new com.google.android.gms.maps.model.LatLng(location.lat, location.lng), 5000).northeast);
         // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
         // and once again when the user makes a selection (for example when calling fetchPlace()).
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
