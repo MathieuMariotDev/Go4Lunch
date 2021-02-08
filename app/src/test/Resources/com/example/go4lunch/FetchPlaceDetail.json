@@ -1,0 +1,11 @@
+{
+   "html_attributions": [],
+   "result": {
+      "adr_address": "\u003cspan class=\"street-address\"\u003e6 Passage Saint-Aubin\u003c/span\u003e, \u003cspan class=\"postal-code\"\u003e49130\u003c/span\u003e \u003cspan class=\"locality\"\u003eLes Ponts-de-Cé\u003c/span\u003e, \u003cspan class=\"country-name\"\u003eFrance\u003c/span\u003e",
+      "formatted_phone_number": "02 41 44 98 08",
+      "name": "Pizzeria Bistro Le San Marco",
+      "rating": 4.3,
+      "website": "http://www.lesanmarco-pizzeria.fr/"
+   },
+   "status": "OK"
+}

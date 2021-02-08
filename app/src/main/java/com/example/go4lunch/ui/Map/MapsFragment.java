@@ -30,7 +30,7 @@ import android.widget.Toast;
 
 import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.MainActivityViewModel;
-import com.example.go4lunch.POJO.Prediction;
+import com.example.go4lunch.POJO.Prediction.Prediction;
 import com.example.go4lunch.R;
 
 import com.example.go4lunch.Utils.LocationToBoundsUtils;

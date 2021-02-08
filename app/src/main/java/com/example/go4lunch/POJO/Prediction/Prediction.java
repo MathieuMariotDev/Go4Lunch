@@ -1,7 +1,5 @@
 
-package com.example.go4lunch.POJO;
-
-import android.os.Parcel;
+package com.example.go4lunch.POJO.Prediction;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

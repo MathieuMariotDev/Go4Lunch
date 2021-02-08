@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.go4lunch.POJO.Prediction;
-import com.example.go4lunch.databinding.ItemListBinding;
+import com.example.go4lunch.POJO.Prediction.Prediction;
 import com.example.go4lunch.databinding.ItemRestaurantMapBinding;
-import com.example.go4lunch.ui.ListRestaurant.ListAdapter;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 
 import org.jetbrains.annotations.NotNull;

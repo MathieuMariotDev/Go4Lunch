@@ -1,5 +1,5 @@
 
-package com.example.go4lunch.POJO;
+package com.example.go4lunch.POJO.Prediction;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

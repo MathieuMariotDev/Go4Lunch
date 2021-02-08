@@ -3,8 +3,8 @@ package com.example.go4lunch.Utils;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.go4lunch.POJO.Prediction;
-import com.example.go4lunch.POJO.QueryAutocomplete;
+import com.example.go4lunch.POJO.Prediction.Prediction;
+import com.example.go4lunch.POJO.Prediction.QueryAutocomplete;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 

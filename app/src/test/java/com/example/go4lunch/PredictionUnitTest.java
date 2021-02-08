@@ -2,8 +2,8 @@ package com.example.go4lunch;
 
 import android.app.Application;
 
-import com.example.go4lunch.POJO.Prediction;
-import com.example.go4lunch.POJO.StructuredFormatting;
+import com.example.go4lunch.POJO.Prediction.Prediction;
+import com.example.go4lunch.POJO.Prediction.StructuredFormatting;
 
 
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class PredictionUnitTest {
     List<Prediction> predictionList;
 
     @Test
-    public void addition_isCorrect() {
+    public void PredictionEqualsJson() {
         StructuredFormatting structuredFormatting = new StructuredFormatting();
         Prediction prediction = new Prediction();
         prediction.setDescription("Pizza Hut, Avenue Marie Talet, Angers, France");
@@ -34,7 +34,7 @@ public class PredictionUnitTest {
         prediction.setStructuredFormatting(structuredFormatting);
         prediction.setTypes(Collections.singletonList("establishment"));
         TestJsonDocumentLoader testJsonDocumentLoader = new TestJsonDocumentLoader();
-        predictionList = testJsonDocumentLoader.listentPrediction("QueryAutocomplete.json");
+        predictionList = testJsonDocumentLoader.getListPredictionFromJson("QueryAutocomplete.json");
         assertEquals(prediction.getDescription(), predictionList.get(0).getDescription());
         assertEquals(prediction.getPlaceId(), predictionList.get(0).getPlaceId());
         assertEquals(prediction.getStructuredFormatting().getMainText(), predictionList.get(0).getStructuredFormatting().getMainText());

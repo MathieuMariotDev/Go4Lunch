@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.go4lunch.POJO.Prediction;
+import com.example.go4lunch.POJO.Prediction.Prediction;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.maps.model.LatLng;
 
