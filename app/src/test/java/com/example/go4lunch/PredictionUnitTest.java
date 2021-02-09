@@ -3,9 +3,11 @@ package com.example.go4lunch;
 import android.app.Application;
 
 import com.example.go4lunch.POJO.Prediction.Prediction;
+import com.example.go4lunch.POJO.Prediction.QueryAutocomplete;
 import com.example.go4lunch.POJO.Prediction.StructuredFormatting;
 
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -21,11 +23,13 @@ import static org.junit.Assert.*;
 public class PredictionUnitTest {
     Application application;
     List<Prediction> predictionList;
+    TestJsonDocumentLoader testJsonDocumentLoader = new TestJsonDocumentLoader();
+    Prediction prediction = new Prediction();
+    QueryAutocomplete mQueryAutocomplete;
 
-    @Test
-    public void PredictionEqualsJson() {
+    @Before
+    public void setup() {
         StructuredFormatting structuredFormatting = new StructuredFormatting();
-        Prediction prediction = new Prediction();
         prediction.setDescription("Pizza Hut, Avenue Marie Talet, Angers, France");
         prediction.setPlaceId("ChIJVQNQwuh4CEgRWXjEftLVvz4");
         structuredFormatting.setMainText("Pizza Hut");
@@ -33,8 +37,21 @@ public class PredictionUnitTest {
         structuredFormatting.setMainTextMatchedSubstrings(null);
         prediction.setStructuredFormatting(structuredFormatting);
         prediction.setTypes(Collections.singletonList("establishment"));
-        TestJsonDocumentLoader testJsonDocumentLoader = new TestJsonDocumentLoader();
-        predictionList = testJsonDocumentLoader.getListPredictionFromJson("QueryAutocomplete.json");
+        mQueryAutocomplete = testJsonDocumentLoader.getListPredictionFromJson("QueryAutocomplete.json");
+    }
+
+    @Test
+    public void QueryAutoComplete() {
+        QueryAutocomplete queryAutocomplete = new QueryAutocomplete();
+        queryAutocomplete.setPredictions(Collections.singletonList(prediction));
+        assertEquals(queryAutocomplete.getPredictions().get(0), prediction);
+        queryAutocomplete.setStatus("OK");
+        assertEquals(queryAutocomplete.getStatus(), mQueryAutocomplete.getStatus());
+    }
+
+    @Test
+    public void PredictionEqualsJson() {
+        predictionList = mQueryAutocomplete.getPredictions();
         assertEquals(prediction.getDescription(), predictionList.get(0).getDescription());
         assertEquals(prediction.getPlaceId(), predictionList.get(0).getPlaceId());
         assertEquals(prediction.getStructuredFormatting().getMainText(), predictionList.get(0).getStructuredFormatting().getMainText());

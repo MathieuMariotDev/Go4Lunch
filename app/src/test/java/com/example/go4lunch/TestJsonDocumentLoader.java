@@ -17,10 +17,9 @@ import java.util.List;
 
 class TestJsonDocumentLoader {
 
-    private List<Prediction> predictionList = new ArrayList<>();
     private PlaceDetail mPlaceDetails;
 
-    public List<Prediction> getListPredictionFromJson(String fileName) {
+    public QueryAutocomplete getListPredictionFromJson(String fileName) {
         String jsonString;
         try {
             InputStream is = getClass().getResourceAsStream(fileName);
@@ -41,12 +40,9 @@ class TestJsonDocumentLoader {
         }
         Gson gson = new Gson();
 
-        QueryAutocomplete resultList = gson.fromJson(jsonString, QueryAutocomplete.class);
+        QueryAutocomplete autocompleteResponse = gson.fromJson(jsonString, QueryAutocomplete.class);
 
-        for (int i = 0; i < resultList.getPredictions().size(); i++) {
-            predictionList.add(resultList.getPredictions().get(i));
-        }
-        return predictionList;
+        return autocompleteResponse;
     }
 
     public PlaceDetail getPlaceDetailFromJson(String fileName) {
