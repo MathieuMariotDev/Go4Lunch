@@ -3,4 +3,17 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_height">220dp</dimen>
+
+    <!-- Dimen detail -->
+    <dimen name="cardview_detail_height">90dp</dimen>
+    <dimen name="name_stars_width">350dp</dimen>
+    <dimen name="name_height">35dp</dimen>
+    <dimen name="textview_name_height">350dp</dimen>
+    <dimen name="text_name_size">22sp</dimen>
+    <dimen name="size_image_restaurant">265dp</dimen>
+    <dimen name="size_button_width">130dp</dimen>
+    <dimen name="size_button_height">90dp</dimen>
+    <dimen name="recyclerview_height">250dp</dimen>
+    <dimen name="margin_botton_adress">30dp</dimen>
+    <dimen name="margin_botton_floating">68dp</dimen>
 </resources>

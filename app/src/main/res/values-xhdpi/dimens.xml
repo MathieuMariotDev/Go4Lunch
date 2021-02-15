@@ -11,13 +11,13 @@
     <dimen name="textview_name_height">350dp</dimen>
     <dimen name="text_name_size">22sp</dimen>
     <dimen name="size_image_restaurant">265dp</dimen>
-    <dimen name="size_button_width">130dp</dimen>
+    <dimen name="size_button_width">95dp</dimen>
     <dimen name="size_button_height">90dp</dimen>
-    <dimen name="recyclerview_height">250dp</dimen>
+    <dimen name="recyclerview_height">160dp</dimen>
     <dimen name="margin_botton_adress">30dp</dimen>
     <dimen name="margin_botton_floating">68dp</dimen>
 
-    <!-- Dimen list item -->
-    <dimen name="textview_width">250dp</dimen>
 
+    <!-- Dimen list item -->
+    <dimen name="textview_width">225dp</dimen>
 </resources>

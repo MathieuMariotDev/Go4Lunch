@@ -176,20 +176,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                 double lat = placesSearchResult.geometry.location.lat;
                 double lng = placesSearchResult.geometry.location.lng;
 
-/*
-                    if (!mPlacesSelected.isEmpty() && Objects.equals(mPlacesSelected.get(i).getLatLng(), new .model.LatLng(lat, lng))) {
-                        mMap.addMarker(new MarkerOptions().position(new .model.LatLng(lat, lng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(placesSearchResult.placeId);
-                    } else {
-                        mMap.addMarker(new MarkerOptions().position(new .model.LatLng(lat, lng))
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))).setTag(placesSearchResult.placeId);
-                    }*/
+
                 Marker m = mMap.addMarker(new MarkerOptions().position(new com.google.android.libraries.maps.model.LatLng(lat, lng))
                         .icon(BitmapDescriptorFactory.fromBitmap(bitmapPinRed)));
                 m.setTag(placesSearchResult.placeId);
-                //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))).setTag(placesSearchResult.placeId);
                 for (int i = 0; i < mPlacesSelected.size() && !mPlacesSelected.isEmpty(); i++) {
                     if (!mPlacesSelected.isEmpty() && mPlacesSelected.get(i).getLatLng().latitude == lat && mPlacesSelected.get(i).getLatLng().longitude == lng) {
-                        //mMap.addMarker(new MarkerOptions().position(new .model.LatLng(lat, lng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(placesSearchResult.placeId);
                         m.setIcon(BitmapDescriptorFactory.fromBitmap(bitmapPinGreen));
                     }
 
@@ -228,13 +220,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
     }
 
-    /*public void setupPlaceApi() {
-        // Initialize the SDK
-        Places.initialize(getActivity(), apiKey);
-        // Create a new PlacesClient instance
-        mPlacesClient = Places.createClient(getActivity());
-    }*/
-
     public void getPlaces() {
         mPlacesClient = mMainActivityViewModel.getPlacesClient();
     }
@@ -253,7 +238,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         getActivity().findViewById(R.id.restaurantSearch).setVisibility(View.INVISIBLE);
         getActivity().findViewById(R.id.open_search).setVisibility(View.VISIBLE);
         return view;
-        //return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
 
@@ -262,14 +246,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        //SupportMapFragment.newInstance(new GoogleMapOptions().mapType(R.string.map_id));
         mapFragment.getMapAsync(this);
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         getAuthorization();
         onTextChange();
         getPlaces();
         onSearchClick();
-        /// ADD FOR TEST TO GET GOOD CONTEXT ///
 
     }
 
@@ -279,11 +261,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
             enableMyLocation();
         });
     }
-
-    /*public void updateAuthorization(Boolean authorization) {
-        permission = authorization;
-        enableMyLocation();
-    }*/
 
 
     @Override
@@ -321,7 +298,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     public boolean onMyLocationButtonClick() {
 
         runAsyncNearbySearchRequest();
-        //mMapViewModel.setLocation(location);
         return false;
     }
 
@@ -348,12 +324,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         startActivity(intentDetailFragmentActivity);
     }
 
-
-    /*@Override
-    public void onCameraMove() {
-        Log.d("CameraMove////", "Latitude :" + location.lat + "Longitude" + location.lng);
-       //updateMapWhitCustomMarker();
-    }*/
 
     @Override
     public boolean onMarkerClick(Marker marker) {
@@ -459,55 +429,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         for (int i = 0; i < mPredictionListMock.size(); i++) {
             getPlaceFromPrediction(mPredictionListMock.get(i).getPlaceId());
         }
-        //updateWithPoiPrediction();
-
     }
 
 
     public void getPlaceFromPrediction(String id) {
         updateMapWhitSelectedMarker();
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.LAT_LNG);
-        /*if(mock){
-            for (int i = 0; i < mPredictionListMock.size(); i++) {
-                FetchPlaceRequest request = FetchPlaceRequest.builder(mPredictionListMock.get(i).getPlaceId(), placeFields).build();
-                mPlacesClient.fetchPlace(request).addOnSuccessListener((response) -> {
-                    mListPlacePOI.add(response.getPlace());
-                    updateWithPoiPrediction(response.getPlace());
-                    focusCameraOnFirstItemPrediction(); // Probably need better way
-                }).addOnFailureListener((exception) -> {
-                    if (exception instanceof com.google.android.gms.common.api.ApiException) {
-                        com.google.android.gms.common.api.ApiException apiException = (com.google.android.gms.common.api.ApiException) exception;
-                        int statusCode = apiException.getStatusCode();
-                        // Handle error with given status code.
-                        Log.e("ERROR", "Place not found on map: " + exception.getMessage() + "///statusCode" + statusCode);
-                    }
-                });
-            }
-        }
-        if(!mock){
-            for (int i = 0; i < mAutocompletePredictionList.size(); i++) {
-                FetchPlaceRequest request = FetchPlaceRequest.builder(mAutocompletePredictionList.get(i).getPlaceId(), placeFields).build();
-                mPlacesClient.fetchPlace(request).addOnSuccessListener((response) -> {
-                    mListPlacePOI.add(response.getPlace());
-                    updateWithPoiPrediction(response.getPlace());
-                    focusCameraOnFirstItemPrediction(); // Probably need better way
-                }).addOnFailureListener((exception) -> {
-                    if (exception instanceof com.google.android.gms.common.api.ApiException) {
-                        com.google.android.gms.common.api.ApiException apiException = (com.google.android.gms.common.api.ApiException) exception;
-                        int statusCode = apiException.getStatusCode();
-                        // Handle error with given status code.
-                        Log.e("ERROR", "Place not found on map: " + exception.getMessage() + "///statusCode" + statusCode);
-                    }
-                });
-            }
-        }*/
 
         FetchPlaceRequest request = FetchPlaceRequest.builder(id, placeFields).build();
         mPlacesClient.fetchPlace(request).addOnSuccessListener((response) -> {
-            //mListPlacePOI.add(response.getPlace());
             placeToFocus = response.getPlace();
             updateWithPoiPrediction(response.getPlace());
-            //focusCameraOnFirstItemPrediction(); // Probably need better way
         }).addOnFailureListener((exception) -> {
             if (exception instanceof com.google.android.gms.common.api.ApiException) {
                 com.google.android.gms.common.api.ApiException apiException = (com.google.android.gms.common.api.ApiException) exception;
@@ -527,10 +459,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         Marker m = mMap.addMarker(new MarkerOptions().position(new com.google.android.libraries.maps.model.LatLng(lat, lng))
                 .icon(BitmapDescriptorFactory.fromBitmap(bitmapPinRed)));
         m.setTag(mPlace.getId());
-        //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))).setTag(placesSearchResult.placeId);
+
         for (int i = 0; i < mPlacesSelected.size() && !mPlacesSelected.isEmpty(); i++) {
             if (!mPlacesSelected.isEmpty() && mPlacesSelected.get(i).getId().equals(mPlace.getId())) {
-                //mMap.addMarker(new MarkerOptions().position(new .model.LatLng(lat, lng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).setTag(placesSearchResult.placeId);
                 m.setIcon(BitmapDescriptorFactory.fromBitmap(bitmapPinGreen));
             }
 
@@ -568,15 +499,15 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
         mPlacesClient.findAutocompletePredictions(request).addOnSuccessListener((response) -> {
             for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
-                Log.i(TAG, prediction.getPlaceId());
-                Log.i(TAG, prediction.getPrimaryText(null).toString());
+                Log.i("AutocompletePrediction", prediction.getPlaceId());
+                Log.i("AutocompletePrediction", prediction.getPrimaryText(null).toString());
                 mAutocompletePredictionList.add(prediction);
             }
             updateAdapterForPrediction(mAutocompletePredictionList);
         }).addOnFailureListener((exception) -> {
             if (exception instanceof com.google.android.gms.common.api.ApiException) {
                 com.google.android.gms.common.api.ApiException apiException = (com.google.android.gms.common.api.ApiException) exception;
-                Log.e(TAG, "Place not found: " + apiException.getStatusCode());
+                Log.e("AutocompletePrediction", "Place not found: " + apiException.getStatusCode());
             }
         });
     }

@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_login);
         mLoginBinding = ActivityLoginBinding.inflate(getLayoutInflater());  // Creates an instance of the binding class
         View view = mLoginBinding.getRoot(); // Get a reference to the root view
         setContentView(view);
@@ -78,11 +77,6 @@ public class LoginActivity extends AppCompatActivity {
         return (this.getCurrentUser() != null);
     }
 
-   /* @Override
-    protected void onResume() {
-        super.onResume();
-        startMainActivity();
-    }*/
 
     private void startMainActivity() {
         Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);

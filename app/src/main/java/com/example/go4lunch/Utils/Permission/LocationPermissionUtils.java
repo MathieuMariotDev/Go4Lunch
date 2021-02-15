@@ -16,7 +16,9 @@
 package com.example.go4lunch.Utils.Permission;
 
 import android.Manifest;
-import android.app.AlertDialog;
+
+import androidx.appcompat.app.AlertDialog;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -94,7 +96,7 @@ public abstract class LocationPermissionUtils {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             mFinishActivity = getArguments().getBoolean(ARGUMENT_FINISH_ACTIVITY);
 
-            return new AlertDialog.Builder(getActivity())
+            return new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
                     .setMessage(R.string.location_permission_denied)
                     .setPositiveButton(android.R.string.ok, null)
                     .create();
@@ -153,7 +155,7 @@ public abstract class LocationPermissionUtils {
             Bundle arguments = getArguments();
             final int requestCode = arguments.getInt(ARGUMENT_PERMISSION_REQUEST_CODE);
             mFinishActivity = arguments.getBoolean(ARGUMENT_FINISH_ACTIVITY);
-            return new AlertDialog.Builder(getActivity())
+            return new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
                     .setMessage(R.string.permission_rationale_location)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override

@@ -59,4 +59,13 @@
     <string name="restaurant_distance_error">999m</string>
     <string name="nb_workmate_error">0</string>
     <string name="rating_value_error">9</string>
+    <string name="search_restaurant">Search Restaurant</string>
+    <string name="name_error">Name Error</string>
+    <string name="type_adresse_error">An error on the type and address</string>
+    <string name="not_selected">"You have just indicated that you no longer wish to eat in this restaurant this noon"</string>
+    <string name="selected">"You have just indicated that you wish to eat in this restaurant this lunchtime"</string>
+    <string name="drawer_item1">YOUR LUNCH</string>
+    <string name="drawer_item2">SETTINGS</string>
+    <string name="drawer_item3">LOGOUT</string>
+    <string name="Liked">You liked this restaurant</string>
 </resources>

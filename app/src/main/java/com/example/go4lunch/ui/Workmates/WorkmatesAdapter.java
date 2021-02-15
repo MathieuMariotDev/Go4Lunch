@@ -31,27 +31,13 @@ import java.util.List;
 
 public class WorkmatesAdapter extends FirestoreRecyclerAdapter<Workmate, WorkmatesAdapter.WorkmatesViewHolder> {
 
-
-    /*@NonNull
-    private List<Workmate> mWorkmates;
-    public interface Listener {
-        void onDataChanged();
-    }*/
-
-    //private Listener callback;
     private final RequestManager glide;
 
 
     private PlacesClient mPlacesClient;
     private int idView;
 
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     * @param placesClient
-     */
+
     public WorkmatesAdapter(@NonNull FirestoreRecyclerOptions<Workmate> options, RequestManager glide, PlacesClient placesClient, int idView) {
         super(options);
         this.glide = glide;
@@ -59,11 +45,6 @@ public class WorkmatesAdapter extends FirestoreRecyclerAdapter<Workmate, Workmat
         this.idView = idView;
     }
 
-
-    /*public WorkmatesAdapter(@NonNull FirestoreRecyclerOptions options) {
-        super(options);
-
-    }*/
 
     @NonNull
     public WorkmatesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

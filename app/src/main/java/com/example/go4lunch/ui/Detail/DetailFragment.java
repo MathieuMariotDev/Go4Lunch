@@ -68,7 +68,6 @@ public class DetailFragment extends Fragment {
     private Workmate modelCurrentWorkmate;
     private final int idViewDetail = 0;
     private List<String> idLikeList = new ArrayList<>();
-    private CallBackFetchRequest mCallBackFetchRequest; // Interface
     //////////////////////////////////////////////////
 
 
@@ -92,9 +91,7 @@ public class DetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         mFragmentDetailBinding = FragmentDetailBinding.inflate(inflater, container, false);
         View view = mFragmentDetailBinding.getRoot();
-        // mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
         setupPlace();
-        //placeRequest();
         placeRequest();
         getCurrentWorkmateFromFirestore();
         onCickPhone();
@@ -219,7 +216,7 @@ public class DetailFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             idLikeList.remove(mPlace.getId());
-                            mFragmentDetailBinding.imageButtonLike.setText("J'aime");
+                            mFragmentDetailBinding.imageButtonLike.setText(getString(R.string.txt_like));
                         }
                     });
                 } else if (!idLikeList.contains(mPlace.getId())) {
@@ -228,7 +225,7 @@ public class DetailFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             idLikeList.add(mPlace.getId());
-                            mFragmentDetailBinding.imageButtonLike.setText("Restaurant déjà liké");
+                            mFragmentDetailBinding.imageButtonLike.setText(getString(R.string.Liked));
                         }
                     });
                 }
@@ -245,11 +242,11 @@ public class DetailFragment extends Fragment {
                     if (modelCurrentWorkmate.getIdSelectedRestaurant().equals(placeIdSelected)) {
                         mFragmentDetailBinding.imageButtonChoose.setBackgroundColor(Color.WHITE);
                         updateDbWithSelectRestaurant("No place selected");
-                        Toast.makeText(getContext(), "You have just indicated that you no longer wish to eat in this restaurant this noon", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), R.string.not_selected, Toast.LENGTH_LONG).show();
                     } else if (!placeIdSelected.equals(modelCurrentWorkmate.getIdSelectedRestaurant())) {
                         updateDbWithSelectRestaurant(placeIdSelected);
                         mFragmentDetailBinding.imageButtonChoose.setBackgroundColor(Color.BLUE);
-                        Toast.makeText(getContext(), "You have just indicated that you wish to eat in this restaurant this lunchtime", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), R.string.selected, Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -361,12 +358,8 @@ public class DetailFragment extends Fragment {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 idLikeList = (List<String>) task.getResult().get("idLikeRestaurant");
                 if (idLikeList.contains(mPlace.getId())) {
-                    //mFragmentDetailBinding.icLike.setVisibility(View.VISIBLE);*/
-                    mFragmentDetailBinding.imageButtonLike.setText("Restaurant déjà liké");
+                    mFragmentDetailBinding.imageButtonLike.setText(getString(R.string.Liked));
                 }
-                /*else {
-                    mFragmentDetailBinding.icLike.setVisibility(View.INVISIBLE);
-                }*/
             }
         });
     }

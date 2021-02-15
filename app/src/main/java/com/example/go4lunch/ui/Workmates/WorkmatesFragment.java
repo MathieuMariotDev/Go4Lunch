@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,19 +53,13 @@ public class WorkmatesFragment extends Fragment /*implements WorkmatesAdapter.Li
         FirestoreRecyclerOptions<Workmate> options = new FirestoreRecyclerOptions.Builder<Workmate>()
                 .setQuery(query, Workmate.class).setLifecycleOwner(this).build();
         recyclerView = (RecyclerView) mFragmentWorkmatesBinding.listWorkmates;
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         mAdapter = new WorkmatesAdapter(generateOptionsForAdapter(WorkmateHelper.getAllWorkmates()), Glide.with(this), mPlacesClient, idViewWorkmate);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
 
 
     }
-
-   /* private FirestoreRecyclerOptions<Workmate> generateOptionsForAdapter(Query query){
-        return new FirestoreRecyclerOptions.Builder<Workmate>()
-                .setQuery(query, Workmate.class)
-                .setLifecycleOwner(this)
-                .build();
-    }*/
 
 
     private FirestoreRecyclerOptions<Workmate> generateOptionsForAdapter(Query query) {
@@ -102,7 +97,5 @@ public class WorkmatesFragment extends Fragment /*implements WorkmatesAdapter.Li
     private void getPlaces() {
         mPlacesClient = mMainActivityViewModel.getPlacesClient();
     }
-
-
 
 }

@@ -6,16 +6,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/activity_main_drawer_your_lunch"
-            android:title="YOUR LUNCH" />
+            android:title="@string/drawer_item1" />
 
         <item
             android:id="@+id/activity_main_drawer_settings"
 
-            android:title="SETTINGS" />
+            android:title="@string/drawer_item2" />
         <item
             android:id="@+id/activity_main_drawer_logout"
 
-            android:title="LOGOUT" />
+            android:title="@string/drawer_item3" />
     </group>
 
 

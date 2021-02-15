@@ -135,12 +135,6 @@ public class ListFragment extends Fragment {
         mMainActivityViewModel.getLocation().observe(getViewLifecycleOwner(), this::updateLocation);
     }
 
-    /*public void updateLocation(LatLng location){
-        mMapViewModel.getLocation().observe(getViewLifecycleOwner(),  mLocationMutableLiveData -> {
-            location = mMapViewModel.getLocation().getValue();
-            updateRecyclerView();
-        });
-    }*/
     @Nullable
     public void updateLocation(LatLng location) {
         if (this.location == null || !(this.location.equals(location))) {
@@ -160,18 +154,6 @@ public class ListFragment extends Fragment {
     public void onClickAutoCompleteTextView() {
         EditText editText;
         editText = getActivity().findViewById(R.id.restaurantSearch);
-        /*getActivity().findViewById(R.id.autoCompleteTextView).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(autoCompleteTextView.getTextSize()>3){
-                    updateAdapterForPrediction();
-                }
-                else if (autoCompleteTextView.getTextSize()==0){
-                    updateRecyclerView();
-                }
-
-            }
-        });*/
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -225,23 +207,6 @@ public class ListFragment extends Fragment {
     public void updateAdapterForPrediction(List<String> predictionListId) {
         mListAdapter.updatePredictionMock(predictionListId, 3);
     }
-     /*
-    public void requestPlace(){
-        for(PlacesSearchResult placesSearchResult : placesSearchResults){
-        List<Place.Field> placeFields = Arrays.asList(Place.Field.ID);
-        FetchPlaceRequest request = FetchPlaceRequest.builder(placesSearchResult.placeId, placeFields)
-                    .build();
-        mPlacesClients.fetchPlace(request).addOnSuccessListener((response) -> {
-            mPlace = response.getPlace();
-            Log.i("INFO", "Place found: " + mPlace.getName());
-            final List<PhotoMetadata> metadata = mPlace.getPhotoMetadatas();// Get the photo metadata.
-            if (metadata == null || metadata.isEmpty()) {
-                Log.w("NoPicture", "No photo metadata.");
-                return;
-            }
-        });
-        }
-    }*/
 
     public void FindAutocompletePredictions(String constraint, PlacesClient mPlacesClient) {
         // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,

@@ -43,14 +43,5 @@ public class MainActivityViewModel extends ViewModel {
         return mPlacesClient;
     }
 
-    /// FOR TEST
-    List<Prediction> mPredictionList = new ArrayList<>();
 
-    public void setPredictionList(List<Prediction> predictionList) {
-        this.mPredictionList = predictionList;
-    }
-
-    public List<Prediction> getRestaurantList() {
-        return mPredictionList;
-    }
 }

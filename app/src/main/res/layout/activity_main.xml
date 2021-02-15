@@ -39,7 +39,7 @@
                 android:layout_marginStart="56dp"
                 android:layout_marginEnd="6dp"
                 android:background="#FFFFFF"
-                android:hint="Search Restaurant"
+                android:hint="@string/search_restaurant"
                 android:inputType="text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +99,7 @@
         app:headerLayout="@layout/activity_main_nav_header"
         app:menu="@menu/activity_main_menu_drawer"
         android:layout_gravity="start"
-        android:background="@color/colorPrimary">
+        android:background="@color/colordrawer">
 
         <ImageView
             android:layout_width="200dp"

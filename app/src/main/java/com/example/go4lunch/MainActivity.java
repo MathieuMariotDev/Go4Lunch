@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());  // Creates an instance of the binding class
         View view = mBinding.getRoot(); // Get a reference to the root view
         setContentView(view);
-
-        //BottomNavigationView navView = findViewById(R.id.nav_view);
         BottomNavigationView navView = mBinding.navView;
         configureToolbar();
         configureDrawerLayout();
@@ -80,9 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        //parsejSON();
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         locationPermission();
         setupPlaceApi();
     }
@@ -236,9 +231,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (LocationPermissionUtils.isPermissionGranted(permissions, grantResults, Manifest.permission.ACCESS_FINE_LOCATION)) {
             // Enable the my location layer if the permission has been granted.
             locationPermission();
-            //FragmentManager fm = getSupportFragmentManager();
-            //MapsFragment fragment = (MapsFragment) fm.findFragmentById(R.id.navigation_home); ////*****/////
-            //fragment.enableMyLocation();
             mMainActivityViewModel.setAuthorization(true);
 
         } else {
