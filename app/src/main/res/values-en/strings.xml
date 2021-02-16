@@ -68,4 +68,5 @@
     <string name="drawer_item2">SETTINGS</string>
     <string name="drawer_item3">LOGOUT</string>
     <string name="Liked">You liked this restaurant</string>
+    <string name="no_restaurant_selected">You have not selected a restaurant</string>
 </resources>

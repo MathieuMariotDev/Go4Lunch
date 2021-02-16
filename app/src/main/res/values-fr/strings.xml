@@ -65,4 +65,5 @@
     <string name="drawer_item2">PARAMÈTRES</string>
     <string name="drawer_item3">SE DÉCONNECTER</string>
     <string name="Liked">Vous avez aimé ce restaurant</string>
+    <string name="no_restaurant_selected">Vous n\'avez pas sélectionnez de restaurant</string>
 </resources>

@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         configureDrawerLayout();
         configureNavigationView();
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.map_view, R.id.lists_view, R.id.wormate_view)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if (!task.getResult().getString("idSelectedRestaurant").equals("No place selected")) {
                             startDetailActivity(task.getResult().getString("idSelectedRestaurant"));
                         } else if (task.getResult().getString("idSelectedRestaurant").equals("No place selected")) {
-                            Toast.makeText(MainActivity.this, "Vous n'avez pas sélectionnez de restaurant", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, R.string.no_restaurant_selected, Toast.LENGTH_LONG).show();
                         }
                     }
                 });

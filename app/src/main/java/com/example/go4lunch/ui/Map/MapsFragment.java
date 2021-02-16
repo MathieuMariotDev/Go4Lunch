@@ -489,7 +489,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                 // Call either setLocationBias() OR setLocationRestriction().
                 //.setLocationBias(bounds)
                 .setLocationRestriction(mRectangularBounds)
-                .setOrigin(new com.google.android.gms.maps.model.LatLng(47.42879333333334, -0.5276966666666667))
+                .setOrigin(new com.google.android.gms.maps.model.LatLng(location.lat, location.lng))
                 .setCountries("FR")
                 .setTypeFilter(TypeFilter.ESTABLISHMENT)
                 .setSessionToken(token)
